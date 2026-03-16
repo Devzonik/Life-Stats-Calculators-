@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   Calendar, 
   Heart, 
@@ -24,10 +24,13 @@ import {
   HelpCircle,
   ExternalLink,
   Wind,
-  Skull
+  Skull,
+  Search
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Routes, Route, Link, useLocation, useParams, useNavigate } from 'react-router-dom';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import Markdown from 'react-markdown';
 
 // --- Types ---
 
@@ -58,6 +61,178 @@ const AVG_HEART_RATE_MALE = 70;
 const AVG_HEART_RATE_FEMALE = 75;
 const AVG_BREATHS_PER_MIN = 12;
 const GLOBAL_AVG_LIFESPAN_YEARS = 80;
+
+// --- Blog Data ---
+
+const BLOG_POSTS = [
+  {
+    title: "How Many Seconds Have You Been Alive?",
+    excerpt: "Time is our most precious resource. Discover the exact breakdown of your life in seconds and why tracking time milestones can change your perspective on life.",
+    date: "March 15, 2026",
+    slug: "seconds-alive",
+    content: `
+# How Many Seconds Have You Been Alive?
+
+Have you ever stopped to think about the sheer magnitude of your existence? While we usually measure our lives in years, the true granularity of our journey is found in seconds.
+
+## The Power of Small Units
+Every second is a heartbeat, a thought, or a breath. When you use an **age in seconds calculator**, you realize that a 30-year-old has lived for nearly 1 billion seconds. This perspective shifts our focus from the "big picture" to the present moment.
+
+## Why Track Seconds?
+1. **Mindfulness**: Realizing that a second has passed reminds us to stay present.
+2. **Milestones**: Celebrating your 1 billionth second (at age 31.7) is a unique way to honor your journey.
+3. **Accuracy**: Our **seconds alive calculator** provides a real-time look at your life's progression.
+
+[Calculate your stats now](/)
+    `
+  },
+  {
+    title: "How Many Heartbeats in a Lifetime?",
+    excerpt: "Your heart is a tireless engine. Learn how many times it beats in a day, a year, and a full lifetime based on your fitness level and biological age.",
+    date: "March 10, 2026",
+    slug: "heartbeats-lifetime",
+    content: `
+# How Many Heartbeats in a Lifetime?
+
+Your heart is the most hardworking muscle in your body. From the moment you are born until your final breath, it never takes a break.
+
+## The Math of the Heart
+On average, a human heart beats about 100,000 times a day. Over a year, that's 36.5 million beats. If you live to be 80, your heart will have beaten nearly 3 billion times.
+
+## Factors That Influence Heart Rate
+- **Fitness**: Athletes often have lower resting heart rates, meaning their hearts are more efficient.
+- **Stress**: High stress can increase your heart rate, putting more "wear and tear" on the muscle.
+- **Gender**: On average, women have slightly higher resting heart rates than men.
+
+Our **life stats calculator** helps you estimate your total heartbeats based on these biological averages.
+    `
+  },
+  {
+    title: "How Many Days Does an Average Person Live?",
+    excerpt: "If you live to 80, you have roughly 29,220 days. We explore the statistics of human longevity and how to make every single day count.",
+    date: "March 5, 2026",
+    slug: "average-days-lived",
+    content: `
+# How Many Days Does an Average Person Live?
+
+The number 29,220 might seem large, but when it represents the total number of days in an 80-year life, it feels surprisingly finite.
+
+## Breaking Down the Days
+- **Childhood**: Roughly 6,570 days are spent growing up.
+- **Work Life**: Many people spend over 15,000 days in their careers.
+- **Sleep**: You'll spend about 9,700 days asleep!
+
+## Making Days Count
+Using a **days alive calculator** isn't about counting down; it's about making the days count. When you see exactly how many days you've been on this planet, it encourages you to pursue your passions and cherish your relationships.
+    `
+  },
+  {
+    title: "The Science of Sleep: How Much of Your Life is Spent Dreaming?",
+    excerpt: "We spend a third of our lives asleep. Dive into the statistics of sleep cycles, REM stages, and how many years you'll spend in the dream world.",
+    date: "March 18, 2026",
+    slug: "sleep-science",
+    content: `
+# The Science of Sleep: Your Life in Dreams
+
+Sleep is not just "down time." It is a vital biological process where your brain processes memories and your body repairs itself.
+
+## The 33% Rule
+If you sleep the recommended 8 hours a night, you will spend exactly 33.3% of your life asleep. For an 80-year-old, that's over 26 years of slumber.
+
+## The World of Dreams
+We spend about 2 hours every night dreaming during REM sleep. Over a lifetime, that adds up to roughly 6 years of pure dreaming. 
+
+## Sleep and Longevity
+Consistent, high-quality sleep is one of the strongest predictors of a long, healthy life. Our calculator shows you exactly how many hours you've likely spent resting since birth.
+    `
+  },
+  {
+    title: "Phone Addiction Statistics: Your Life Behind the Screen",
+    excerpt: "The average person spends over 4 hours a day on their phone. See the staggering cumulative impact of screen time on your life journey.",
+    date: "March 20, 2026",
+    slug: "phone-usage-stats",
+    content: `
+# Phone Addiction: The Cumulative Cost of Screen Time
+
+In the modern age, our smartphones are extensions of ourselves. But have you ever calculated the total time you've spent staring at that glowing rectangle?
+
+## The 4-Hour Average
+Spending 4 hours a day on your phone might not feel like much in the moment. However, over a year, that's 1,460 hours—or 60 full days.
+
+## A Lifetime of Scrolling
+If you maintain this habit for 50 years, you will have spent over 8 years of your waking life on your phone. 
+
+## Reclaiming Your Time
+Our **life stats calculator** includes a phone usage slider so you can see your personal impact. Awareness is the first step toward reclaiming those years for more meaningful activities.
+    `
+  },
+  {
+    title: "Life Milestones: Celebrating 10,000 Days and 1 Billion Seconds",
+    excerpt: "Forget traditional birthdays. Learn about the 'math milestones' that celebrate your unique journey through time.",
+    date: "March 22, 2026",
+    slug: "life-milestones",
+    content: `
+# Life Milestones: Beyond the Annual Birthday
+
+While we celebrate our birth date every year, there are other, more unique milestones that happen only a few times in a lifetime.
+
+## 10,000 Days Alive
+Reaching 10,000 days is a significant event that occurs when you are approximately 27.4 years old. It's a perfect time to reflect on your first decade of adulthood.
+
+## 1 Billion Seconds
+This milestone happens at age 31.7. It's a staggering number that reminds us of the incredible volume of moments we've experienced.
+
+## Why Celebrate Math Birthdays?
+These milestones break the routine of annual celebrations and give us a reason to pause and appreciate the mathematical beauty of our lives.
+    `
+  },
+  {
+    title: "The Rhythm of Life: Fascinating Facts About Human Breathing",
+    excerpt: "You breathe roughly 17,000 times a day. Discover the statistics of your respiratory system and how many breaths you've taken since your first cry.",
+    date: "March 24, 2026",
+    slug: "breathing-facts",
+    content: `
+# The Rhythm of Life: Your Breathing Statistics
+
+Breathing is so automatic that we rarely think about it. Yet, it is the most consistent rhythm in our lives.
+
+## 12 Breaths Per Minute
+The average adult takes about 12 to 16 breaths per minute while resting. That's over 17,000 breaths a day and 6.3 million breaths a year.
+
+## The Volume of Air
+In a single day, you breathe in enough air to fill a small swimming pool. Over a lifetime, your lungs process millions of cubic feet of oxygen.
+
+## Breathing and Health
+Deep breathing techniques can lower your heart rate and reduce stress. Our calculator now includes a **breathing rate stat** to help you visualize this vital life force.
+    `
+  },
+  {
+    title: "Mastering Your Time: 5 Tips to Make Every Second Count",
+    excerpt: "Time is the only currency you can't earn back. Learn 5 practical strategies to manage your time and live a more intentional life.",
+    date: "March 26, 2026",
+    slug: "time-management-tips",
+    content: `
+# Mastering Your Time: 5 Tips for Intentional Living
+
+If our **life stats calculator** has shown you anything, it's that time is finite. Here is how to make the most of it.
+
+## 1. The 80/20 Rule
+Focus on the 20% of activities that produce 80% of your results and happiness.
+
+## 2. Time Blocking
+Dedicate specific blocks of time to your most important tasks to avoid the "multitasking trap."
+
+## 3. Audit Your Screen Time
+Use our calculator to see how much time you're spending on your phone and decide if that's where you want your years to go.
+
+## 4. Practice Gratitude
+Taking a moment each day to be grateful slows down your perception of time and increases well-being.
+
+## 5. Set "Math Milestones"
+Celebrate your 10,000th day or 1 billionth second to keep your perspective fresh.
+    `
+  }
+];
 
 // --- Components ---
 
@@ -216,40 +391,99 @@ const PredictionCard = ({ label, date, subtext, icon: Icon, color, bg }: { label
 // --- Pages ---
 
 const BlogPage = () => {
-  const posts = [
-    {
-      title: "How Many Seconds Have You Been Alive?",
-      excerpt: "Time is our most precious resource. Discover the exact breakdown of your life in seconds and why tracking time milestones can change your perspective on life.",
-      date: "March 15, 2026",
-      slug: "seconds-alive"
-    },
-    {
-      title: "How Many Heartbeats in a Lifetime?",
-      excerpt: "Your heart is a tireless engine. Learn how many times it beats in a day, a year, and a full lifetime based on your fitness level and biological age.",
-      date: "March 10, 2026",
-      slug: "heartbeats-lifetime"
-    },
-    {
-      title: "How Many Days Does an Average Person Live?",
-      excerpt: "If you live to 80, you have roughly 29,220 days. We explore the statistics of human longevity and how to make every single day count.",
-      date: "March 5, 2026",
-      slug: "average-days-lived"
-    }
-  ];
+  useEffect(() => {
+    document.title = "Life Statistics & Longevity Blog | Life Stats Calculator";
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-50 py-20 px-4">
+      <Helmet>
+        <title>Life Statistics & Longevity Blog | Life Stats Calculator</title>
+        <meta name="description" content="Explore our blog for fascinating insights into human longevity, time statistics, and biological milestones. Learn how many seconds, heartbeats, and days make up a lifetime." />
+      </Helmet>
       <div className="max-w-4xl mx-auto">
         <Link to="/" className="inline-flex items-center text-indigo-600 font-bold mb-8 hover:text-indigo-700 transition-colors group">
           <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" /> Back to Calculator
         </Link>
-        <h1 className="text-4xl font-black text-slate-900 mb-12">Life Statistics & Longevity Blog</h1>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+          <h1 className="text-4xl font-black text-slate-900">Life Statistics & Longevity Blog</h1>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input 
+              type="text" 
+              placeholder="Search posts..." 
+              className="pl-10 pr-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 w-full md:w-64"
+            />
+          </div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {posts.map((post, i) => (
-            <BlogCard key={i} title={post.title} excerpt={post.excerpt} date={post.date} slug={post.slug} />
+          {BLOG_POSTS.map((post, i) => (
+            <Link key={i} to={`/blog/${post.slug}`}>
+              <BlogCard title={post.title} excerpt={post.excerpt} date={post.date} slug={post.slug} />
+            </Link>
           ))}
         </div>
       </div>
+    </div>
+  );
+};
+
+const BlogPostPage = () => {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const post = BLOG_POSTS.find(p => p.slug === slug);
+
+  useEffect(() => {
+    if (!post) {
+      navigate('/blog');
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [post, navigate]);
+
+  if (!post) return null;
+
+  return (
+    <div className="min-h-screen bg-white py-20 px-4">
+      <Helmet>
+        <title>{post.title} | Life Stats Calculator Blog</title>
+        <meta name="description" content={post.excerpt} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+      </Helmet>
+      <article className="max-w-3xl mx-auto">
+        <Link to="/blog" className="inline-flex items-center text-indigo-600 font-bold mb-8 hover:text-indigo-700 transition-colors group">
+          <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" /> Back to Blog
+        </Link>
+        
+        <header className="mb-12">
+          <div className="text-indigo-600 font-black text-sm uppercase tracking-widest mb-4">{post.date}</div>
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6">{post.title}</h1>
+          <div className="flex items-center gap-4 border-y border-slate-100 py-6">
+            <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center font-black text-slate-400">LS</div>
+            <div>
+              <div className="font-bold text-slate-900">Life Stats Editorial Team</div>
+              <div className="text-xs text-slate-500">Expert in Longevity & Time Statistics</div>
+            </div>
+          </div>
+        </header>
+
+        <div className="prose prose-slate lg:prose-lg max-w-none">
+          <div className="markdown-body">
+            <Markdown>{post.content}</Markdown>
+          </div>
+        </div>
+
+        <footer className="mt-16 pt-12 border-t border-slate-100">
+          <div className="bg-slate-50 rounded-3xl p-8 text-center">
+            <h3 className="text-xl font-black text-slate-900 mb-4">How long have you been alive?</h3>
+            <p className="text-slate-600 mb-8">Use our advanced calculator to discover your own unique life statistics.</p>
+            <Link to="/" className="inline-block bg-indigo-600 text-white px-8 py-4 rounded-2xl font-black shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all">
+              Calculate My Stats
+            </Link>
+          </div>
+        </footer>
+      </article>
     </div>
   );
 };
@@ -311,6 +545,12 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <Helmet>
+        <title>Life Stats Calculator: How Long Have I Been Alive?</title>
+        <meta name="description" content="Calculate your life statistics with our Life Stats Calculator. Discover exactly how many days, seconds, and hours you've been alive, plus heartbeats, blinks, and more." />
+        <meta property="og:title" content="Life Stats Calculator: How Long Have I Been Alive?" />
+        <meta property="og:description" content="Discover your life in numbers: days, seconds, heartbeats, and more with our advanced Life Stats Calculator." />
+      </Helmet>
       {/* Hero / Intro Section */}
       <header className="bg-white border-b border-slate-200 pt-16 pb-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
@@ -704,29 +944,20 @@ const HomePage = () => {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link to="/blog">
-              <BlogCard 
-                title="How Many Seconds Have You Been Alive?" 
-                excerpt="Discover the fascinating math behind your life in seconds..." 
-                date="Mar 15, 2026" 
-                slug="seconds"
-              />
-            </Link>
-            <Link to="/blog">
-              <BlogCard 
-                title="How Many Heartbeats in a Lifetime?" 
-                excerpt="Your heart is an incredible machine. Here is the data..." 
-                date="Mar 10, 2026" 
-                slug="heartbeats"
-              />
-            </Link>
-            <Link to="/blog">
-              <BlogCard 
-                title="How Many Days Does an Average Person Live?" 
-                excerpt="The statistics of human longevity explained in detail..." 
-                date="Mar 5, 2026" 
-                slug="days"
-              />
+            {BLOG_POSTS.slice(0, 3).map((post, i) => (
+              <Link key={i} to={`/blog/${post.slug}`}>
+                <BlogCard 
+                  title={post.title} 
+                  excerpt={post.excerpt} 
+                  date={post.date} 
+                  slug={post.slug}
+                />
+              </Link>
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Link to="/blog" className="inline-flex items-center gap-2 bg-white border-2 border-slate-100 px-8 py-4 rounded-2xl font-black text-slate-900 hover:border-indigo-500 hover:text-indigo-600 transition-all shadow-sm">
+              View All Blog Posts <ArrowLeft className="w-4 h-4 rotate-180" />
             </Link>
           </div>
         </section>
@@ -770,9 +1001,12 @@ const HomePage = () => {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/blog" element={<BlogPage />} />
-    </Routes>
+    <HelmetProvider>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
+      </Routes>
+    </HelmetProvider>
   );
 }
