@@ -1,0 +1,5 @@
+{
+  "name": "Life Stats Calculator",
+  "description": "Calculate your days alive, seconds alive, heartbeats, and more with our comprehensive life statistics tool.",
+  "requestFramePermissions": []
+}
