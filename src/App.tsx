@@ -336,7 +336,7 @@ Check yours at: ${window.location.href}`;
         initial={{ opacity: 0, y: 30 }}
         whileHover={{ y: -8, scale: 1.02 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white p-5 md:p-6 rounded-3xl border border-slate-100 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.08)] hover:shadow-indigo-200/40 transition-all group relative overflow-hidden flex flex-col justify-between min-h-[280px]"
+        className="bg-white p-5 md:p-6 rounded-3xl border border-slate-100 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.08)] hover:shadow-indigo-200/40 transition-all group relative overflow-hidden flex flex-col justify-between min-h-[260px] sm:min-h-[280px]"
       >
         {/* Decorative Background Glow */}
         <div className={`absolute -right-16 -top-16 w-48 h-48 rounded-full ${iconBg} opacity-[0.06] blur-[60px] group-hover:opacity-[0.12] transition-opacity duration-700`} />
@@ -347,7 +347,7 @@ Check yours at: ${window.location.href}`;
               <Icon className="w-6 h-6" />
             </div>
             <div className="text-right">
-              <div className="text-3xl font-black text-slate-900 tracking-tighter leading-none mb-1">{percentage.toFixed(1)}%</div>
+              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tighter leading-none mb-1">{percentage.toFixed(1)}%</div>
               <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Journey</div>
             </div>
           </div>
@@ -355,10 +355,10 @@ Check yours at: ${window.location.href}`;
           <div className="space-y-1 mb-6">
             <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">{label}</h4>
             <div className="flex items-baseline gap-2">
-              <div className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+              <div className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
                 {formatNum(Math.floor(current))}
               </div>
-              <div className="text-base font-bold text-slate-400">{unit}</div>
+              <div className="text-sm sm:text-base font-bold text-slate-400">{unit}</div>
             </div>
           </div>
         </div>
@@ -531,7 +531,7 @@ Check yours at: ${window.location.href}`;
                   <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-indigo-500/10 to-transparent" />
                   <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-500/20 rounded-full blur-[100px]" />
                   
-                  <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                  <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
                     <div className="space-y-6">
                       <div className="inline-flex items-center gap-2 bg-indigo-500/20 px-3 py-1.5 rounded-full text-indigo-300 text-[10px] font-black uppercase tracking-widest">
                         <Award className="w-3.5 h-3.5" /> Global Comparison
@@ -611,7 +611,7 @@ Check yours at: ${window.location.href}`;
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                   <ComparisonCard 
                     icon={Calendar}
                     label="Days Alive" 
