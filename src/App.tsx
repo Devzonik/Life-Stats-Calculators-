@@ -22,7 +22,9 @@ import {
   ArrowLeft,
   BookOpen,
   HelpCircle,
-  ExternalLink
+  ExternalLink,
+  Wind,
+  Skull
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
@@ -38,6 +40,7 @@ interface LifeStats {
   minutes: number;
   seconds: number;
   heartbeats: number;
+  breaths: number;
   blinks: number;
   steps: number;
   meals: number;
@@ -53,6 +56,8 @@ const AVG_STEPS_PER_DAY = 5000;
 const AVG_BLINKS_PER_MIN = 15;
 const AVG_HEART_RATE_MALE = 70;
 const AVG_HEART_RATE_FEMALE = 75;
+const AVG_BREATHS_PER_MIN = 12;
+const GLOBAL_AVG_LIFESPAN_YEARS = 80;
 
 // --- Components ---
 
@@ -275,6 +280,7 @@ const HomePage = () => {
     return {
       days, weeks, months, years, hours, minutes, seconds,
       heartbeats: minutes * bpm,
+      breaths: minutes * AVG_BREATHS_PER_MIN,
       blinks: minutes * AVG_BLINKS_PER_MIN,
       steps: days * AVG_STEPS_PER_DAY,
       meals: days * AVG_MEALS_PER_DAY,
@@ -526,6 +532,7 @@ const HomePage = () => {
                   </h3>
                   <div className="grid grid-cols-2 gap-4">
                     <StatCard icon={Heart} label="Heartbeats" value={formatNum(stats.heartbeats)} color="bg-rose-500" />
+                    <StatCard icon={Wind} label="Breathing Rate" value={formatNum(stats.breaths)} color="bg-blue-400" />
                     <StatCard icon={Eye} label="Blinks" value={formatNum(stats.blinks)} color="bg-orange-500" />
                     <StatCard icon={Footprints} label="Steps Walked" value={formatNum(stats.steps)} color="bg-emerald-500" />
                     <StatCard icon={Utensils} label="Meals Eaten" value={formatNum(stats.meals)} color="bg-amber-600" />
@@ -590,6 +597,20 @@ const HomePage = () => {
                         icon={Award} label="10,000 Days Age"
                         date={d10k.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}
                         subtext={diff > 0 ? `In ${formatNum(diff)} days` : 'Already passed!'} color="bg-rose-500" bg="bg-rose-50/30"
+                      />
+                    );
+                  })()}
+
+                  {(() => {
+                    const birth = new Date(birthDate);
+                    const deathDate = new Date(birth.getFullYear() + GLOBAL_AVG_LIFESPAN_YEARS, birth.getMonth(), birth.getDate());
+                    const now = new Date();
+                    const diffDays = Math.ceil((deathDate.getTime() - now.getTime()) / (24 * 60 * 60 * 1000));
+                    return (
+                      <PredictionCard 
+                        icon={Skull} label="Estimated Death Clock"
+                        date={deathDate.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}
+                        subtext={diffDays > 0 ? `${formatNum(diffDays)} days remaining*` : 'Living on borrowed time!'} color="bg-slate-900" bg="bg-slate-100"
                       />
                     );
                   })()}
