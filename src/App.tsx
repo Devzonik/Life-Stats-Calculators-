@@ -218,6 +218,7 @@ Deep breathing techniques can lower your heart rate and reduce stress. Our calcu
     excerpt: "Time is the only currency you can't earn back. Learn 5 practical strategies to manage your time and live a more intentional life.",
     date: "March 26, 2026",
     slug: "time-management-tips",
+    tags: ["Time", "Habits", "Productivity"],
     content: `
 # Mastering Your Time: 5 Tips for Intentional Living
 
@@ -244,6 +245,7 @@ Celebrate your 10,000th day or 1 billionth second to keep your perspective fresh
     excerpt: "If you live to 80, you have roughly 4,000 weeks. Discover why this perspective is the ultimate productivity hack for a meaningful life.",
     date: "March 28, 2026",
     slug: "weeks-in-lifetime",
+    tags: ["Time", "Longevity", "Philosophy"],
     content: `
 # How Many Weeks in a Lifetime?
 
@@ -265,6 +267,7 @@ Our **life stats calculator** breaks down your age into weeks so you can see exa
     excerpt: "From your first bite to your 80,000th meal, discover the staggering statistics of human consumption and nutrition over a lifetime.",
     date: "March 30, 2026",
     slug: "lifetime-meals-stats",
+    tags: ["Health", "Biology", "Statistics"],
     content: `
 # A Lifetime of Eating: How Many Meals?
 
@@ -287,6 +290,7 @@ Use our **meals eaten calculator** to see your personal progress and reflect on 
     excerpt: "The average person walks the equivalent of five times around the Earth. See the incredible distance you'll cover on your own two feet.",
     date: "April 2, 2026",
     slug: "steps-in-lifetime",
+    tags: ["Health", "Biology", "Statistics"],
     content: `
 # Walking Around the World: Your Lifetime Steps
 
@@ -311,6 +315,7 @@ Our **steps walked calculator** estimates your total distance based on your age 
     excerpt: "You blink 15 times a minute, but it adds up to millions. Discover the fascinating statistics behind this essential biological reflex.",
     date: "April 5, 2026",
     slug: "lifetime-blinks-stats",
+    tags: ["Biology", "Health", "Statistics"],
     content: `
 # The Blink of an Eye: Lifetime Statistics
 
@@ -333,6 +338,7 @@ Did you know we blink significantly less when looking at screens? This is why "d
     excerpt: "Where you live matters. Explore the statistics of life expectancy across the globe and what we can learn from the world's 'Blue Zones'.",
     date: "April 8, 2026",
     slug: "global-life-expectancy",
+    tags: ["Longevity", "Statistics", "Health"],
     content: `
 # Global Longevity: A World of Statistics
 
@@ -599,6 +605,7 @@ const BlogPostPage = () => {
         {(() => {
           const relatedPosts = BLOG_POSTS.filter(p => 
             p.slug !== slug && 
+            p.tags && post.tags &&
             p.tags.some(tag => post.tags.includes(tag))
           ).slice(0, 3);
 
