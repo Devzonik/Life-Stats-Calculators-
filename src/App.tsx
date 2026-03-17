@@ -70,6 +70,7 @@ const BLOG_POSTS = [
     excerpt: "Time is our most precious resource. Discover the exact breakdown of your life in seconds and why tracking time milestones can change your perspective on life.",
     date: "March 15, 2026",
     slug: "seconds-alive",
+    tags: ["Time", "Milestones", "Calculations"],
     content: `
 # How Many Seconds Have You Been Alive?
 
@@ -91,6 +92,7 @@ Every second is a heartbeat, a thought, or a breath. When you use an **age in se
     excerpt: "Your heart is a tireless engine. Learn how many times it beats in a day, a year, and a full lifetime based on your fitness level and biological age.",
     date: "March 10, 2026",
     slug: "heartbeats-lifetime",
+    tags: ["Health", "Biology", "Calculations"],
     content: `
 # How Many Heartbeats in a Lifetime?
 
@@ -112,6 +114,7 @@ Our **life stats calculator** helps you estimate your total heartbeats based on 
     excerpt: "If you live to 80, you have roughly 29,220 days. We explore the statistics of human longevity and how to make every single day count.",
     date: "March 5, 2026",
     slug: "average-days-lived",
+    tags: ["Longevity", "Time", "Statistics"],
     content: `
 # How Many Days Does an Average Person Live?
 
@@ -131,6 +134,7 @@ Using a **days alive calculator** isn't about counting down; it's about making t
     excerpt: "We spend a third of our lives asleep. Dive into the statistics of sleep cycles, REM stages, and how many years you'll spend in the dream world.",
     date: "March 18, 2026",
     slug: "sleep-science",
+    tags: ["Sleep", "Health", "Biology"],
     content: `
 # The Science of Sleep: Your Life in Dreams
 
@@ -151,6 +155,7 @@ Consistent, high-quality sleep is one of the strongest predictors of a long, hea
     excerpt: "The average person spends over 4 hours a day on their phone. See the staggering cumulative impact of screen time on your life journey.",
     date: "March 20, 2026",
     slug: "phone-usage-stats",
+    tags: ["Technology", "Time", "Habits"],
     content: `
 # Phone Addiction: The Cumulative Cost of Screen Time
 
@@ -171,6 +176,7 @@ Our **life stats calculator** includes a phone usage slider so you can see your 
     excerpt: "Forget traditional birthdays. Learn about the 'math milestones' that celebrate your unique journey through time.",
     date: "March 22, 2026",
     slug: "life-milestones",
+    tags: ["Milestones", "Time", "Calculations"],
     content: `
 # Life Milestones: Beyond the Annual Birthday
 
@@ -191,6 +197,7 @@ These milestones break the routine of annual celebrations and give us a reason t
     excerpt: "You breathe roughly 17,000 times a day. Discover the statistics of your respiratory system and how many breaths you've taken since your first cry.",
     date: "March 24, 2026",
     slug: "breathing-facts",
+    tags: ["Health", "Biology", "Statistics"],
     content: `
 # The Rhythm of Life: Your Breathing Statistics
 
@@ -587,6 +594,34 @@ const BlogPostPage = () => {
             <Markdown>{post.content}</Markdown>
           </div>
         </div>
+
+        {/* Related Posts Section */}
+        {(() => {
+          const relatedPosts = BLOG_POSTS.filter(p => 
+            p.slug !== slug && 
+            p.tags.some(tag => post.tags.includes(tag))
+          ).slice(0, 3);
+
+          if (relatedPosts.length === 0) return null;
+
+          return (
+            <section className="mt-20">
+              <h2 className="text-2xl font-black text-slate-900 mb-8">Related Posts</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {relatedPosts.map((relatedPost, i) => (
+                  <Link key={i} to={`/blog/${relatedPost.slug}`}>
+                    <BlogCard 
+                      title={relatedPost.title} 
+                      excerpt={relatedPost.excerpt} 
+                      date={relatedPost.date} 
+                      slug={relatedPost.slug} 
+                    />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
 
         <footer className="mt-16 pt-12 border-t border-slate-100">
           <div className="bg-slate-50 rounded-3xl p-8 text-center">
