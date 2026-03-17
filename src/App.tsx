@@ -602,6 +602,86 @@ const BlogPostPage = () => {
   );
 };
 
+const PrivacyPolicyPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-white py-20 px-4">
+      <Helmet>
+        <title>Privacy Policy | Life Stats Calculator</title>
+        <meta name="description" content="Read our privacy policy to understand how we handle your data. We prioritize your privacy and do not store personal birthdate information." />
+      </Helmet>
+      <article className="max-w-3xl mx-auto prose prose-slate">
+        <Link to="/" className="inline-flex items-center text-indigo-600 font-bold mb-8 hover:text-indigo-700 transition-colors group no-underline">
+          <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" /> Back to Home
+        </Link>
+        <h1 className="text-4xl font-black text-slate-900 mb-8">Privacy Policy</h1>
+        <p className="text-slate-600">Last Updated: March 17, 2026</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">1. Introduction</h2>
+        <p>Welcome to Life Stats Calculator. We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us.</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">2. Information We Do Not Collect</h2>
+        <p>Our application is designed to be a client-side tool. This means that when you enter your birthdate into our calculator, that information is processed locally in your browser. We do not store, save, or transmit your birthdate to any external servers.</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">3. Cookies and Tracking</h2>
+        <p>We may use basic analytics tools to understand how users interact with our site. These tools may use cookies to collect non-personal information such as browser type, operating system, and pages visited. This data is used solely to improve the user experience of our website.</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">4. Third-Party Links</h2>
+        <p>Our website may contain links to other websites. Please be aware that we are not responsible for the privacy practices of such other sites. We encourage our users to be aware when they leave our site and to read the privacy statements of each and every website that collects personally identifiable information.</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">5. Changes to This Policy</h2>
+        <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">6. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please contact us via our website.</p>
+      </article>
+    </div>
+  );
+};
+
+const TermsOfServicePage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-white py-20 px-4">
+      <Helmet>
+        <title>Terms of Service | Life Stats Calculator</title>
+        <meta name="description" content="Review the terms of service for using Life Stats Calculator. Understand the conditions and guidelines for our website usage." />
+      </Helmet>
+      <article className="max-w-3xl mx-auto prose prose-slate">
+        <Link to="/" className="inline-flex items-center text-indigo-600 font-bold mb-8 hover:text-indigo-700 transition-colors group no-underline">
+          <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" /> Back to Home
+        </Link>
+        <h1 className="text-4xl font-black text-slate-900 mb-8">Terms of Service</h1>
+        <p className="text-slate-600">Last Updated: March 17, 2026</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">1. Acceptance of Terms</h2>
+        <p>By accessing and using Life Stats Calculator, you accept and agree to be bound by the terms and provision of this agreement. In addition, when using these particular services, you shall be subject to any posted guidelines or rules applicable to such services.</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">2. Description of Service</h2>
+        <p>Life Stats Calculator provides users with a tool to calculate various life statistics based on a provided birthdate. The service is provided "as is" and for informational and entertainment purposes only.</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">3. Disclaimer of Warranties</h2>
+        <p>The information provided by Life Stats Calculator is for general informational purposes only. All information on the site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability or completeness of any information on the site.</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">4. Limitation of Liability</h2>
+        <p>Under no circumstance shall we have any liability to you for any loss or damage of any kind incurred as a result of the use of the site or reliance on any information provided on the site. Your use of the site and your reliance on any information on the site is solely at your own risk.</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">5. Intellectual Property</h2>
+        <p>The content, layout, design, data, databases and graphics on this website are protected by intellectual property laws and are owned by Life Stats Calculator unless otherwise stated.</p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">6. Governing Law</h2>
+        <p>These terms and conditions are governed by and construed in accordance with the laws of the jurisdiction in which we operate and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
+      </article>
+    </div>
+  );
+};
+
 const HomePage = () => {
   const [birthDate, setBirthDate] = useState<string>('');
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -1092,8 +1172,8 @@ const HomePage = () => {
             <ul className="space-y-4 text-slate-300 font-medium">
               <li><a href="#calculator" className="hover:text-white transition-colors">Calculator</a></li>
               <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
-              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+              <li><Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
           <div className="space-y-6">
@@ -1106,7 +1186,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-slate-800 text-center text-slate-500 text-xs">
-          &copy; 2026 Life Stats Calculator. All rights reserved. Optimized for Google Search.
+          &copy; 2026 Life Stats Calculator. All rights reserved.
         </div>
       </footer>
     </div>
@@ -1120,6 +1200,8 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms" element={<TermsOfServicePage />} />
       </Routes>
     </HelmetProvider>
   );
