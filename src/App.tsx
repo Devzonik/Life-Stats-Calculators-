@@ -700,6 +700,193 @@ Difficulties with swallowing (dysphagia) can significantly impact quality of lif
 
 Explore more **human biology statistics** on our main calculator page.
     `
+  },
+  {
+    title: "How Long Have I Been Alive? Calculate Your Life Stats in Seconds",
+    excerpt: "Discover exactly how long you have been alive. We break down your age into days, hours, minutes, and even seconds. Calculate your life stats now!",
+    date: "May 15, 2026",
+    slug: "how-long-have-i-been-alive-guide",
+    tags: ["Time", "Life Stats", "Calculations", "Pillar"],
+    content: `
+# How Long Have I Been Alive? Calculate Your Life Stats in Seconds
+
+Have you ever stopped to think about the sheer magnitude of your existence? While we usually measure our lives in years, the true granularity of our journey is found in seconds. Every tick of the clock is a moment lived, a breath taken, and a heartbeat experienced.
+
+In this guide, we'll explore the fascinating math behind your life and show you how to calculate your exact age in every unit of time imaginable.
+
+## The Perspective of Time
+Time is our most precious resource, yet we often treat it as an infinite pool. When you shift your perspective from years to days or seconds, the "big picture" suddenly becomes a series of precious, individual moments.
+
+## Your Life in Days
+If you are 30 years old, you have lived for approximately **10,957 days**. That's over ten thousand sunrises and sunsets you've witnessed. Using a **days alive calculator** helps you appreciate the daily grind as part of a much larger, incredible journey.
+
+## Your Life in Hours and Minutes
+Scaling down further, that same 30-year-old has lived for about **262,968 hours** or **15,778,080 minutes**. Think about all the conversations, meals, and dreams that have fit into those millions of minutes.
+
+## Your Life in Seconds
+This is where the numbers truly become mind-blowing. At age 30, you have been alive for nearly **1 billion seconds** (946,684,800 to be precise). Every second is a heartbeat, a thought, or a blink.
+
+## Biological Milestones: Heartbeats and Breaths
+Your body is a tireless engine. In those 30 years:
+- **Heartbeats**: Your heart has likely beaten over **1.1 billion times**.
+- **Breaths**: You have taken approximately **189 million breaths**.
+- **Blinks**: You've blinked your eyes roughly **157 million times**.
+
+## FAQ: Common Questions About Life Stats
+
+### How many days have I been alive?
+To calculate this manually, multiply your age by 365.25 (to account for leap years). For a more precise answer, use our [Life Stats Calculator](/) which accounts for the exact day you were born.
+
+### What is a life stats calculator?
+It's a tool that takes your birthdate and calculates various temporal and biological milestones, giving you a unique statistical overview of your life.
+
+### How many seconds are in a year?
+There are 31,536,000 seconds in a standard year (365 days).
+
+### Why should I track my life stats?
+Tracking these numbers can foster mindfulness, gratitude, and a deeper appreciation for the time we have.
+
+## Make Every Second Count
+Understanding your life statistics isn't just about the numbers; it's about the life *within* those numbers. We invite you to use our [Life Stats Calculator](/) to discover your own unique journey and share your milestones with friends and family.
+    `
+  },
+  {
+    title: "Mind-Blowing Life Stats: What Really Happens in Your Body Every Second",
+    excerpt: "Your body is doing incredible things every single second. From millions of new cells to thousands of heartbeats, discover the viral stats of your life.",
+    date: "May 18, 2026",
+    slug: "mind-blowing-life-stats",
+    tags: ["Biology", "Facts", "Viral", "Body Stats"],
+    content: `
+# Mind-Blowing Life Stats: What Really Happens in Your Body Every Second
+
+While you are sitting here reading this, your body is performing millions of complex tasks simultaneously. We often take our health for granted, but the statistics of our internal biology are nothing short of miraculous.
+
+## The 1-Second Miracle
+In just one second, your body has:
+- Produced **2 to 3 million** new red blood cells.
+- Sent electrical impulses through your nervous system at speeds up to **250 mph**.
+- Had its heart pump about **70 milliliters** of blood.
+
+## Heartbeats in a Lifetime
+Your heart is the ultimate endurance athlete. It beats about **100,000 times a day**. By the time you reach 80, it will have beaten nearly **3 billion times**. That's more beats than there are people in China and India combined!
+
+## The Blink of an Eye
+We blink so often we don't even notice it. The average person blinks **15-20 times per minute**. Over a lifetime, you'll spend about **6 months** with your eyes closed just from blinking!
+
+## Breathing: The Constant Rhythm
+You take about **17,000 to 30,000 breaths a day**. Over a lifetime, you'll take enough breaths to fill several large hot air balloons.
+
+## Share These Stats!
+Did you know?
+- Your heart beats more than a **million times a month**.
+- You produce enough saliva in a lifetime to fill **two swimming pools**.
+- Your skin completely replaces itself every **month**.
+
+## Personalize Your Stats
+Want to see your own "Wow Factor" stats? Head over to [lifestats.online](/) and enter your birthday. You'll get a personalized breakdown of your heartbeats, breaths, and more in real-time.
+
+## FAQ
+**How many times do you blink per day?**
+Roughly 14,000 to 19,000 times.
+
+**How many heartbeats in a lifetime?**
+Approximately 2.5 to 3 billion for an average lifespan.
+    `
+  },
+  {
+    title: "How Many Days Have I Been Alive? (Quick Calculator + Formula)",
+    excerpt: "Want to know exactly how many days you've been alive? Learn the manual formula and use our quick calculator for instant results.",
+    date: "May 21, 2026",
+    slug: "how-many-days-have-i-been-alive-formula",
+    tags: ["Math", "Guide", "Calculations", "Days Alive"],
+    content: `
+# How Many Days Have I Been Alive? (Quick Calculator + Formula)
+
+If you're looking for a direct answer: **To find out exactly how many days you've been alive, multiply your age in years by 365.25 and add the days since your last birthday.**
+
+For an even faster and more accurate result, use our [Days Alive Calculator](/) which handles all the leap year math for you automatically.
+
+## The Manual Formula
+If you want to do the math yourself, here is the step-by-step formula:
+
+1. **Multiply your age by 365.**
+2. **Add the number of leap years** you've lived through (usually your age divided by 4).
+3. **Add the number of days** since your last birthday.
+
+**Example for a 30-year-old:**
+- 30 * 365 = 10,950
+- Leap years = 7 (approx)
+- Days since birthday = 0 (if today is your birthday)
+- **Total = 10,957 days**
+
+## Why 365.25?
+The Earth actually takes about 365.2422 days to orbit the Sun. We add a "leap day" every four years to keep our calendar in sync. Using 365.25 in your quick math gives you a very close approximation.
+
+## Example Calculations
+- **Age 20**: ~7,305 days
+- **Age 30**: ~10,957 days
+- **Age 40**: ~14,610 days
+- **Age 50**: ~18,262 days
+
+## Use the Quick Calculator
+Manual math is fun, but our [Life Stats Calculator](/) is better. It gives you:
+- Real-time updates (watch the seconds tick up!)
+- Exact leap year calculation based on your specific birth year.
+- Additional stats like heartbeats and breaths.
+
+## FAQ
+**How many days have I been alive if I'm 25?**
+Approximately 9,131 days.
+
+**Does this account for leap years?**
+Yes, our online tool accounts for every leap year since your birth.
+
+**What day of the week was I born?**
+Our calculator also tells you the exact day of the week you entered the world!
+    `
+  },
+  {
+    title: "What Happens to Your Body in 30 Years? Your Life Stats at 30",
+    excerpt: "Turning 30? Discover the incredible statistics of your first three decades, from 10,000 days alive to over a billion heartbeats.",
+    date: "May 24, 2026",
+    slug: "life-stats-at-30",
+    tags: ["Milestones", "Age 30", "Life Stats", "Health"],
+    content: `
+# What Happens to Your Body in 30 Years? Your Life Stats at 30
+
+Entering your thirties is a major milestone. It's often seen as the true beginning of adulthood, but from a biological and mathematical perspective, it's an even more impressive achievement.
+
+## 30 Years in Numbers
+If you've just turned 30, here is what your journey looks like so far:
+- **Days Alive**: Approximately **10,957 days**.
+- **Weeks Alive**: Roughly **1,565 weeks**.
+- **Hours Lived**: About **262,968 hours**.
+
+## The Billion Heartbeat Club
+One of the most amazing stats for a 30-year-old is that your heart has likely crossed the **1 billion beats** mark. To be precise, at an average resting rate, your heart has beaten about **1.1 billion times** since you were born.
+
+## Breathing and Blinking
+In three decades, your body has been incredibly busy:
+- **Breaths**: You've taken roughly **189 million breaths**.
+- **Blinks**: You've blinked about **157 million times**.
+- **Sleep**: You've spent approximately **10 years** of your life asleep, dreaming and recovering.
+
+## Philosophical Reflection: The 30-Year Mark
+Thirty years is enough time to have learned profound lessons, built meaningful relationships, and started to understand your place in the world. It's a perfect time to look back at the data of your life and look forward to the decades ahead.
+
+## Calculate Your Exact Stats
+Every 30-year-old is different depending on their exact birth date and lifestyle. Want to see your personalized numbers? Use our [Life Stats Calculator](/) to get your real-time data.
+
+## FAQ
+**How many days is 30 years?**
+It is exactly 10,957.5 days on average (accounting for 7 or 8 leap years).
+
+**How many seconds have I lived at 30?**
+Approximately 946,708,000 seconds.
+
+**What is the next big math milestone?**
+Your 1 billionth second occurs at age 31.7!
+    `
   }
 ];
 
@@ -867,8 +1054,10 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-slate-50 py-20 px-4">
       <Helmet>
-        <title>Life Statistics & Longevity Blog | Life Stats Calculator</title>
-        <meta name="description" content="Explore our blog for fascinating insights into human longevity, time statistics, and biological milestones. Learn how many seconds, heartbeats, and days make up a lifetime." />
+        <title>Life Statistics & Longevity Blog | lifestats.online</title>
+        <meta name="description" content="Explore fascinating insights into human longevity, time statistics, and biological milestones. Learn how many seconds, heartbeats, and days make up a lifetime." />
+        <meta property="og:title" content="Life Statistics & Longevity Blog | lifestats.online" />
+        <meta property="og:description" content="Dive into the numbers of your life. Articles on longevity, health stats, and the science of time." />
       </Helmet>
       <div className="max-w-4xl mx-auto">
         <Link to="/" className="inline-flex items-center text-indigo-600 font-bold mb-8 hover:text-indigo-700 transition-colors group">
@@ -915,10 +1104,11 @@ const BlogPostPage = () => {
   return (
     <div className="min-h-screen bg-white py-20 px-4">
       <Helmet>
-        <title>{post.title} | Life Stats Calculator Blog</title>
+        <title>{post.title} | lifestats.online</title>
         <meta name="description" content={post.excerpt} />
-        <meta property="og:title" content={post.title} />
+        <meta property="og:title" content={`${post.title} | lifestats.online`} />
         <meta property="og:description" content={post.excerpt} />
+        <meta property="og:type" content="article" />
       </Helmet>
       <article className="max-w-3xl mx-auto">
         <Link to="/blog" className="inline-flex items-center text-indigo-600 font-bold mb-8 hover:text-indigo-700 transition-colors group">
@@ -1026,6 +1216,47 @@ const PrivacyPolicyPage = () => {
   );
 };
 
+const AboutPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-white py-20 px-4">
+      <Helmet>
+        <title>About Us | lifestats.online</title>
+        <meta name="description" content="Learn more about lifestats.online and our mission to provide fascinating, real-time biological and temporal statistics for everyone." />
+        <meta property="og:title" content="About Us | lifestats.online" />
+        <meta property="og:description" content="Discover the story behind the world's most detailed life statistics calculator." />
+      </Helmet>
+      <article className="max-w-3xl mx-auto prose prose-slate">
+        <Link to="/" className="inline-flex items-center text-indigo-600 font-bold mb-8 hover:text-indigo-700 transition-colors group no-underline">
+          <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" /> Back to Home
+        </Link>
+        <h1 className="text-4xl font-black text-slate-900 mb-8">About lifestats.online</h1>
+        <p className="text-lg text-slate-600 leading-relaxed">
+          At lifestats.online, we believe that every second of life is a miracle worth celebrating. Our mission is to provide a unique, real-time perspective on your journey through time, from the number of breaths you've taken to the billions of heartbeats that have powered your existence.
+        </p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">Our Vision</h2>
+        <p>
+          We want to foster a deeper sense of mindfulness and gratitude by showing people the incredible biological and temporal milestones they achieve every single day. By visualizing your life in numbers, we hope to inspire you to make every moment count.
+        </p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">Accuracy & Science</h2>
+        <p>
+          Our calculator uses globally recognized biological averages and precise temporal formulas to estimate your statistics. While everyone is unique, these numbers provide a fascinating window into the human experience.
+        </p>
+        
+        <h2 className="text-2xl font-bold text-slate-900 mt-12">Privacy First</h2>
+        <p>
+          Your privacy is our top priority. All calculations are performed locally in your browser, and we never store or transmit your personal birthdate information.
+        </p>
+      </article>
+    </div>
+  );
+};
+
 const TermsOfServicePage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -1124,10 +1355,60 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <Helmet>
-        <title>Life Stats Calculator: How Long Have I Been Alive?</title>
-        <meta name="description" content="Calculate your life statistics with our Life Stats Calculator. Discover exactly how many days, seconds, and hours you've been alive, plus heartbeats, blinks, and more." />
-        <meta property="og:title" content="Life Stats Calculator: How Long Have I Been Alive?" />
+        <title>Life Stats Calculator: How Long Have I Been Alive? | lifestats.online</title>
+        <meta name="description" content="Discover exactly how long you have been alive. Calculate your age in days, seconds, heartbeats, and more with our free life stats calculator. Accurate and instant results." />
+        <meta property="og:title" content="Life Stats Calculator: How Long Have I Been Alive? | lifestats.online" />
         <meta property="og:description" content="Discover your life in numbers: days, seconds, heartbeats, and more with our advanced Life Stats Calculator." />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "How many days have I been alive?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The number of days you have been alive is calculated by multiplying your age in years by 365.25 (to account for leap years) and adding the days since your last birthday."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How many heartbeats does a person have in a lifetime?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "On average, a human heart beats about 2.5 to 3 billion times over a 70-80 year lifetime, depending on resting heart rate and fitness levels."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How many times does the average person blink in a day?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The average person blinks about 15-20 times per minute, which adds up to roughly 14,400 to 19,200 blinks in a 16-hour waking day."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What is a life stats calculator?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A life stats calculator is a tool that converts your birthdate into various biological and temporal milestones, such as total seconds lived, heartbeats, breaths, and more."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How do I calculate how many seconds I've been alive?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "To calculate seconds alive, multiply your age in days by 86,400 (the number of seconds in a day). Our calculator automates this for real-time accuracy."
+                  }
+                }
+              ]
+            }
+          `}
+        </script>
       </Helmet>
       {/* Hero / Intro Section */}
       <header className="bg-white border-b border-slate-200 pt-16 pb-12 px-4">
@@ -1556,6 +1837,7 @@ const HomePage = () => {
             <ul className="space-y-4 text-slate-300 font-medium">
               <li><a href="#calculator" className="hover:text-white transition-colors">Calculator</a></li>
               <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
+              <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
               <li><Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
               <li><Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
             </ul>
@@ -1584,6 +1866,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/terms" element={<TermsOfServicePage />} />
       </Routes>
