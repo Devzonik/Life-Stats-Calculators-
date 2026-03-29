@@ -533,6 +533,7 @@ const HomePage = () => {
     <div className="min-h-screen bg-slate-50">
       <Helmet>
         <title>Life Stats Calculator: How Long Have I Been Alive? | lifestats.online</title>
+        <meta name="msvalidate.01" content="A38B1EBA104381C8147707F47E6E116F" />
         <meta name="description" content="Discover exactly how long you have been alive. Calculate your age in days, seconds, heartbeats, and more with our free life stats calculator. Accurate and instant results." />
         <meta property="og:title" content="Life Stats Calculator: How Long Have I Been Alive? | lifestats.online" />
         <meta property="og:description" content="Discover your life in numbers: days, seconds, heartbeats, and more with our advanced Life Stats Calculator." />
