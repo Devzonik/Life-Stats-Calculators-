@@ -64,6 +64,7 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
+    console.log(`[${new Date().toISOString()}] Server started in ${process.env.NODE_ENV || 'development'} mode`);
     console.log(`Server running on http://localhost:${PORT}`);
   });
 }
