@@ -1,0 +1,33 @@
+/*
+Theme Name: Life Stats Calculator
+Theme URI: https://ais-dev-l5ep2nwbrjndkpx34itefq-458612427085.asia-southeast1.run.app
+Author: AIS WordPress Developer
+Author URI: https://ais-dev-l5ep2nwbrjndkpx34itefq-458612427085.asia-southeast1.run.app
+Description: A fully functional WordPress theme converted from the Life Stats Calculator React app. Fully compatible with Elementor.
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: life-stats-calculator
+*/
+
+@import "tailwindcss";
+
+/* Custom styles to match the React app's look and feel */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+}
+
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+}
+
+@media (max-width: 767px) {
+  .markdown-body {
+    padding: 15px;
+  }
+}

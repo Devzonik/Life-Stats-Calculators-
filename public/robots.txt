@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://lifestats.online/sitemap.xml
