@@ -56,6 +56,20 @@ If it's lower, you may need to use `nvm` to install a newer version or use `tsx`
 ### Environment Variables
 Ensure your `.env` file exists on the server or set the environment variables in Hostinger's panel.
 
+### CORS & API Endpoints
+The server is configured with `cors` to allow cross-origin requests. If you encounter CORS issues, ensure your frontend URL is allowed in the `server.ts` configuration.
+- Health Check: `/api/health`
+- Blog Posts API: `/api/posts`
+
+### Clearing Build Cache
+If your changes are not reflecting, try clearing the `dist` directory and the npm cache:
+```bash
+rm -rf dist
+npm cache clean --force
+npm install
+npm run build
+```
+
 ### PM2 (Process Manager)
 We recommend using PM2 to keep your app running:
 ```bash

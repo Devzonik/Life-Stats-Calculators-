@@ -32,6 +32,7 @@ import { Routes, Route, Link, useLocation, useParams, useNavigate } from 'react-
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Markdown from 'react-markdown';
 import { BLOG_POSTS } from './blogData';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // --- Types ---
 
@@ -224,8 +225,29 @@ const PredictionCard = ({ label, date, subtext, icon: Icon, color, bg }: { label
 // --- Pages ---
 
 const BlogPage = () => {
+  const [posts, setPosts] = useState(BLOG_POSTS);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     document.title = "Life Statistics & Longevity Blog | Life Stats Calculator";
+    
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('/api/posts');
+        if (!response.ok) throw new Error('Failed to fetch posts');
+        const data = await response.json();
+        setPosts(data);
+      } catch (err) {
+        console.error('Error fetching posts, using fallback data:', err);
+        setError('Could not fetch latest posts. Showing cached content.');
+        // Fallback is already set in initial state
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
   }, []);
 
   return (
@@ -251,8 +273,15 @@ const BlogPage = () => {
             />
           </div>
         </div>
+
+        {error && (
+          <div className="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-amber-700 text-sm flex items-center gap-3">
+            <Info className="w-5 h-5" /> {error}
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {BLOG_POSTS.map((post, i) => (
+          {posts.map((post, i) => (
             <Link key={i} to={`/blog/${post.slug}`}>
               <BlogCard title={post.title} excerpt={post.excerpt} date={post.date} slug={post.slug} />
             </Link>
@@ -1041,14 +1070,16 @@ const HomePage = () => {
 export default function App() {
   return (
     <HelmetProvider>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/blog/:slug" element={<BlogPostPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/privacy" element={<PrivacyPolicyPage />} />
-        <Route path="/terms" element={<TermsOfServicePage />} />
-      </Routes>
+      <ErrorBoundary>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms" element={<TermsOfServicePage />} />
+        </Routes>
+      </ErrorBoundary>
     </HelmetProvider>
   );
 }
