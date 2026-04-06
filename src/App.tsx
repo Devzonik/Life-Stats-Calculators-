@@ -9,6 +9,7 @@ import {
   Moon, 
   Calendar, 
   ChevronRight, 
+  ArrowRight,
   ArrowLeft, 
   Share2, 
   Info,
@@ -309,6 +310,126 @@ const LifeClock24h = ({ age }: { age: number }) => {
   );
 };
 
+// --- Components ---
+const ShareButton = ({ stats }: { stats: any }) => {
+  const [showToast, setShowToast] = useState(false);
+
+  const handleShare = async () => {
+    const text = `I've lived for ${stats.totalDays.toLocaleString()} days, ${stats.totalHours.toLocaleString()} hours, and ${stats.totalMinutes.toLocaleString()} minutes! Check your life stats at LifeStats.`;
+    const url = window.location.href;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'My Life Stats',
+          text: text,
+          url: url,
+        });
+      } catch (err) {
+        console.log('Error sharing', err);
+      }
+    } else {
+      navigator.clipboard.writeText(`${text} ${url}`);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+    }
+  };
+
+  return (
+    <div className="relative">
+      <button 
+        onClick={handleShare}
+        className="flex items-center space-x-2 bg-white text-gray-900 border border-gray-200 px-6 py-3 rounded-full font-bold hover:bg-gray-50 transition-all shadow-sm active:scale-95"
+      >
+        <Share2 className="w-5 h-5" />
+        <span>Share Stats</span>
+      </button>
+      <AnimatePresence>
+        {showToast && (
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="absolute top-full mt-4 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-4 py-2 rounded-lg whitespace-nowrap z-50 font-bold shadow-xl"
+          >
+            Stats copied to clipboard!
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const FAQSection = () => {
+  const faqs = [
+    {
+      question: "How accurate is the Life Stats Calculator?",
+      answer: "Our calculator uses standard biological and lifestyle averages (like heart rate, sleep patterns, and life expectancy) to provide estimates. While highly personalized based on your birth date, these are statistical projections meant for mindfulness and reflection."
+    },
+    {
+      question: "What is the '10,000 Days Milestone'?",
+      answer: "The 10,000-day milestone occurs when you are approximately 27.4 years old. It's a significant numerical milestone in your life journey that many people use as a moment for deep reflection."
+    },
+    {
+      question: "How do you calculate life expectancy?",
+      answer: "By default, we use a global average of 80 years. However, life expectancy varies by region, lifestyle, and genetics. You can use our tool to visualize how your time is allocated regardless of the total duration."
+    },
+    {
+      question: "Is my data private?",
+      answer: "Absolutely. All calculations are performed locally in your browser. We do not store your birth date or any personal statistics on our servers."
+    },
+    {
+      question: "Can I share my results?",
+      answer: "Yes! Use the 'Share Stats' button on your dashboard to share your unique life journey with friends and family on social media."
+    }
+  ];
+
+  return (
+    <section className="py-24 bg-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-4xl font-black text-gray-900 mb-12 text-center">Frequently Asked Questions</h2>
+        <div className="grid grid-cols-1 gap-6">
+          {faqs.map((faq, i) => (
+            <div key={i} className="p-8 bg-gray-50 rounded-[2rem] border border-gray-100 hover:border-indigo-100 transition-colors">
+              <h3 className="text-xl font-black text-gray-900 mb-4">{faq.question}</h3>
+              <p className="text-gray-600 font-medium leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const SEOContent = () => {
+  return (
+    <section className="py-24 bg-gray-50 border-t border-gray-100">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="prose prose-indigo prose-lg max-w-none text-gray-600 font-medium">
+          <h2 className="text-3xl font-black text-gray-900 mb-8">Why Track Your Life Statistics?</h2>
+          <p className="mb-6">
+            Understanding <strong>how many days you have lived</strong> is more than just a curiosity—it's a powerful tool for perspective. Our <strong>Life Stats Calculator</strong> provides a granular look at your existence, from total heartbeats to the number of times you've orbited the sun.
+          </p>
+          <p className="mb-6">
+            By using a <strong>life expectancy calculator</strong>, you can visualize your journey and make more intentional decisions about your future. Whether you're looking for your <strong>age in days</strong>, <strong>seconds alive</strong>, or a deep dive into your <strong>daily life progress</strong>, our tool offers the most comprehensive analytics available.
+          </p>
+          <h3 className="text-2xl font-black text-gray-900 mb-6">Key Features of our Life Calculator:</h3>
+          <ul className="list-disc pl-6 mb-8 space-y-3">
+            <li><strong>Total Days Lived:</strong> See exactly how many sunrises you've witnessed.</li>
+            <li><strong>Biological Stats:</strong> Estimated heartbeats, breaths, and blinks.</li>
+            <li><strong>Digital Footprint:</strong> Understand your screen time and scrolling habits.</li>
+            <li><strong>Milestone Countdown:</strong> Track your progress toward your next 10,000-day milestone.</li>
+            <li><strong>AI Life Insights:</strong> Get philosophical perspectives powered by advanced AI.</li>
+          </ul>
+          <p>
+            Start tracking your <strong>life statistics</strong> today and join thousands of users who are using data to live more mindful, purposeful lives.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const RealTimeClock = () => {
   const [time, setTime] = useState(new Date());
 
@@ -568,6 +689,7 @@ const HomePage = () => {
                 </div>
                 <div className="flex flex-wrap items-center gap-4">
                   <RealTimeClock />
+                  <ShareButton stats={stats} />
                   <button 
                     onClick={generateAIInsight}
                     disabled={isGeneratingInsight}
@@ -841,6 +963,9 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      <FAQSection />
+      <SEOContent />
     </div>
   );
 };
@@ -957,6 +1082,24 @@ const BlogPostPage = () => {
             if (para.trim() === '') return <div key={i} className="h-4" />;
             return <p key={i} className="mb-8">{para}</p>;
           })}
+        </div>
+
+        {/* Try your Life Stats CTA */}
+        <div className="mt-20 p-12 bg-indigo-600 rounded-[3rem] text-white text-center shadow-2xl shadow-indigo-200 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+          <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-indigo-400/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+          
+          <h2 className="text-3xl lg:text-4xl font-black mb-6 relative z-10">Ready to see your own numbers?</h2>
+          <p className="text-indigo-100 text-lg mb-10 max-w-xl mx-auto font-medium relative z-10">
+            Calculate your heartbeats, breaths, and time left in seconds. It only takes a moment to get your full life report.
+          </p>
+          <Link 
+            to="/" 
+            className="inline-flex items-center space-x-3 bg-white text-indigo-600 px-10 py-5 rounded-full font-black text-xl hover:bg-indigo-50 transition-all shadow-xl hover:scale-105 active:scale-95 relative z-10"
+          >
+            <span>Try your Life Stats</span>
+            <ArrowRight className="w-6 h-6" />
+          </Link>
         </div>
 
         <div className="mt-24 pt-12 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-8">
