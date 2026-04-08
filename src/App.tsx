@@ -1023,6 +1023,77 @@ const BlogPostPage = () => {
   const { slug } = useParams();
   const post = BLOG_POSTS.find(p => p.slug === slug);
 
+  useEffect(() => {
+    if (post) {
+      document.title = `${post.title} | Life Stats Calculator`;
+      
+      // Update meta description
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', post.excerpt);
+      }
+
+      // Update meta keywords
+      let metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (!metaKeywords) {
+        metaKeywords = document.createElement('meta');
+        metaKeywords.setAttribute('name', 'keywords');
+        document.head.appendChild(metaKeywords);
+      }
+      metaKeywords.setAttribute('content', post.keywords.join(', '));
+
+      // Add JSON-LD BlogPosting schema
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.id = 'blog-json-ld';
+      const schema = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "datePublished": new Date(post.date).toISOString(),
+        "author": {
+          "@type": "Organization",
+          "name": "LifeStats Editorial"
+        },
+        "image": `https://picsum.photos/seed/${post.slug}/1200/800`,
+        "publisher": {
+          "@type": "Organization",
+          "name": "Life Stats Calculator",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://picsum.photos/seed/life-stats/200/200"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": window.location.href
+        }
+      };
+      script.text = JSON.stringify(schema);
+      document.head.appendChild(script);
+    }
+
+    return () => {
+      document.title = "Life Stats Calculator: How Long Have I Been Alive? | Days Alive & Biological Age";
+      
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', "Calculate your life statistics with our Life Stats Calculator. Discover exactly how many days, seconds, and hours you've been alive. Learn about biological age, longevity, and life milestones.");
+      }
+
+      const metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (metaKeywords) {
+        metaKeywords.setAttribute('content', "life stats calculator, days alive calculator, seconds alive calculator, how long have I been alive, age in seconds calculator, days since birth, biological age calculator, longevity stats, how many days old am I");
+      }
+
+      const script = document.getElementById('blog-json-ld');
+      if (script) {
+        script.remove();
+      }
+    };
+  }, [post]);
+
   if (!post) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center px-4">

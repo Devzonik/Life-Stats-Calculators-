@@ -4,6 +4,7 @@ export interface BlogPost {
   date: string;
   slug: string;
   tags: string[];
+  keywords: string[];
   content: string;
 }
 
@@ -14,6 +15,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "March 15, 2026",
     slug: "seconds-alive",
     tags: ["Time", "Milestones", "Calculations"],
+    keywords: ["seconds alive", "age in seconds", "life stats", "time calculator", "seconds since birth"],
     content: `
 # How Many Seconds Have You Been Alive?
 
@@ -58,6 +60,7 @@ Time is the only currency you can't earn back. By understanding the granularity 
     date: "March 10, 2026",
     slug: "heartbeats-lifetime",
     tags: ["Health", "Biology", "Calculations"],
+    keywords: ["heartbeats in a lifetime", "total heartbeats", "heart rate stats", "human heart math", "biological engine"],
     content: `
 # How Many Heartbeats in a Lifetime?
 
@@ -98,6 +101,7 @@ Our **life stats calculator** helps you estimate your total heartbeats based on 
     date: "March 5, 2026",
     slug: "average-days-lived",
     tags: ["Longevity", "Time", "Statistics"],
+    keywords: ["average days lived", "how many days in 80 years", "life in days", "longevity statistics", "days alive"],
     content: `
 # How Many Days Does an Average Person Live?
 
@@ -132,6 +136,7 @@ Using a **days alive calculator** isn't about counting down; it's about making t
     date: "March 18, 2026",
     slug: "sleep-science",
     tags: ["Sleep", "Health", "Biology"],
+    keywords: ["sleep science", "years spent dreaming", "sleep cycle stats", "REM sleep", "sleep hygiene"],
     content: `
 # The Science of Sleep: Your Life in Dreams
 
@@ -170,6 +175,7 @@ Consistent, high-quality sleep is one of the strongest predictors of a long, hea
     date: "March 20, 2026",
     slug: "phone-usage-stats",
     tags: ["Technology", "Time", "Habits"],
+    keywords: ["phone addiction stats", "screen time impact", "lifetime phone usage", "digital wellbeing", "scrolling habits"],
     content: `
 # Phone Addiction: The Cumulative Cost of Screen Time
 
@@ -205,6 +211,7 @@ Our **life stats calculator** includes a phone usage slider so you can see your 
     date: "March 22, 2026",
     slug: "life-milestones",
     tags: ["Milestones", "Time", "Calculations"],
+    keywords: ["life milestones", "10000 days alive", "1 billion seconds", "math birthdays", "time milestones"],
     content: `
 # Life Milestones: Beyond the Annual Birthday
 
@@ -244,6 +251,7 @@ This milestone happens at age 31.7. It's a staggering number that reminds us of 
     date: "March 24, 2026",
     slug: "breathing-facts",
     tags: ["Health", "Biology", "Statistics"],
+    keywords: ["breathing facts", "breaths in a lifetime", "respiratory stats", "human breathing rate", "rhythm of life"],
     content: `
 # The Rhythm of Life: Your Breathing Statistics
 
@@ -279,6 +287,7 @@ Deep breathing techniques (like Box Breathing or 4-7-8) can lower your heart rat
     date: "March 26, 2026",
     slug: "time-management-tips",
     tags: ["Time", "Habits", "Productivity"],
+    keywords: ["time management tips", "intentional living", "80/20 rule", "time blocking", "make every second count"],
     content: `
 # Mastering Your Time: 5 Tips for Intentional Living
 
@@ -317,6 +326,7 @@ Intentional living isn't about doing more; it's about doing what matters. Use th
     date: "March 28, 2026",
     slug: "weeks-in-lifetime",
     tags: ["Time", "Longevity", "Philosophy"],
+    keywords: ["weeks in a lifetime", "4000 weeks philosophy", "life in weeks", "time perspective", "longevity math"],
     content: `
 # How Many Weeks in a Lifetime?
 
@@ -348,6 +358,7 @@ Our **life stats calculator** breaks down your age into weeks so you can see exa
     date: "March 30, 2026",
     slug: "lifetime-meals-stats",
     tags: ["Health", "Biology", "Statistics"],
+    keywords: ["lifetime meals stats", "how many meals in a lifetime", "nutrition statistics", "eating habits", "food consumption"],
     content: `
 # A Lifetime of Eating: How Many Meals?
 
@@ -382,6 +393,7 @@ Use our **meals eaten calculator** to see your personal progress and reflect on 
     date: "April 2, 2026",
     slug: "steps-in-lifetime",
     tags: ["Health", "Biology", "Statistics"],
+    keywords: ["steps in a lifetime", "walking around the world", "walking statistics", "lifetime distance walked", "human movement"],
     content: `
 # Walking Around the World: Your Lifetime Journey
 
@@ -426,6 +438,7 @@ Our **steps walked calculator** estimates your total distance based on your age 
     date: "April 5, 2026",
     slug: "lifetime-blinks-stats",
     tags: ["Biology", "Health", "Statistics"],
+    keywords: ["lifetime blinks stats", "how many times do you blink", "eye health statistics", "blinking reflex", "vision facts"],
     content: `
 # The Blink of an Eye: Lifetime Statistics
 
@@ -466,6 +479,7 @@ Our **blinks calculator** helps you visualize this invisible rhythm of your life
     date: "April 8, 2026",
     slug: "global-life-expectancy",
     tags: ["Longevity", "Statistics", "Health"],
+    keywords: ["global life expectancy", "longevity by country", "blue zones", "world health statistics", "life span variations"],
     content: `
 # Global Longevity: A World of Statistics
 
@@ -507,6 +521,7 @@ Our **death clock calculator** uses a global average of 80 years, but your perso
     date: "April 10, 2026",
     slug: "blood-pumped-stats",
     tags: ["Health", "Biology", "Heart"],
+    keywords: ["blood pumped in a lifetime", "heart pumping stats", "cardiovascular statistics", "human heart power", "blood circulation"],
     content: `
 # How Many Liters of Blood Does Your Heart Pump?
 
@@ -547,6 +562,7 @@ Our **heart stats calculator** helps you visualize this incredible volume of lif
     date: "April 12, 2026",
     slug: "words-spoken-stats",
     tags: ["Communication", "Social", "Statistics"],
+    keywords: ["words spoken in a lifetime", "human communication stats", "daily word count", "lifetime conversation", "speech facts"],
     content: `
 # How Many Words Will You Speak in Your Lifetime?
 
@@ -586,6 +602,7 @@ Use our **words spoken calculator** to estimate your personal total and reflect 
     date: "April 15, 2026",
     slug: "laughter-stats",
     tags: ["Happiness", "Health", "Social"],
+    keywords: ["laughter statistics", "how many times do you laugh", "health benefits of laughter", "joy statistics", "laughter gap"],
     content: `
 # The Statistics of Laughter: Your Lifetime Joy
 
@@ -626,6 +643,7 @@ Our **laughter calculator** encourages you to find more reasons to smile every d
     date: "April 18, 2026",
     slug: "people-met-stats",
     tags: ["Social", "Connection", "Statistics"],
+    keywords: ["people met in a lifetime", "dunbar number", "human connection stats", "social network size", "lifetime encounters"],
     content: `
 # How Many People Will You Meet in Your Lifetime?
 
@@ -666,6 +684,7 @@ Our **social stats calculator** helps you visualize the vast web of human connec
     date: "April 20, 2026",
     slug: "waiting-in-line-stats",
     tags: ["Time", "Habits", "Statistics"],
+    keywords: ["waiting in line stats", "time spent in queues", "patience statistics", "reclaiming lost time", "queue psychology"],
     content: `
 # Waiting in Line: The Statistics of Patience
 
@@ -706,6 +725,7 @@ Use our **time spent waiting calculator** to see your personal impact and find w
     date: "April 22, 2026",
     slug: "water-consumption-stats",
     tags: ["Health", "Biology", "Hydration"],
+    keywords: ["lifetime water consumption", "hydration statistics", "how much water in a lifetime", "importance of hydration", "water intake"],
     content: `
 # How Many Liters of Water Will You Drink in a Lifetime?
 
@@ -747,6 +767,7 @@ Our **hydration calculator** shows you exactly how much of this life-giving flui
     date: "April 25, 2026",
     slug: "hair-growth-stats",
     tags: ["Biology", "Health", "Statistics"],
+    keywords: ["hair growth stats", "miles of hair grown", "human biology facts", "hair strength", "lifetime hair length"],
     content: `
 # The Math of Hair Growth: Your Lifetime Length
 
@@ -787,6 +808,7 @@ Our **biology stats calculator** includes a fun look at your cumulative hair gro
     date: "April 28, 2026",
     slug: "sneeze-stats",
     tags: ["Biology", "Health", "Reflexes"],
+    keywords: ["sneeze statistics", "how many times do you sneeze", "sneezing reflex", "health facts", "bless you stats"],
     content: `
 # How Many Times Will You Sneeze in a Lifetime?
 
@@ -827,6 +849,7 @@ Use our **reflex calculator** to see your personal sneeze estimate and learn mor
     date: "May 1, 2026",
     slug: "crying-stats",
     tags: ["Emotional", "Health", "Biology"],
+    keywords: ["crying statistics", "liters of tears", "emotional health", "biology of tears", "human experience"],
     content: `
 # The Statistics of Crying: Your Lifetime Tears
 
@@ -865,6 +888,7 @@ Our **emotional stats calculator** provides a sensitive look at this vital human
     date: "May 4, 2026",
     slug: "commute-time-stats",
     tags: ["Time", "Work", "Habits"],
+    keywords: ["commute time stats", "hours spent commuting", "work habits", "productive commuting", "career statistics"],
     content: `
 # How Many Hours Will You Spend Commuting?
 
@@ -904,6 +928,7 @@ Our **commute calculator** helps you visualize your personal travel time and fin
     date: "May 7, 2026",
     slug: "yawning-statistics",
     tags: ["Biology", "Health", "Reflexes", "Yawning Statistics"],
+    keywords: ["yawning statistics", "science of yawning", "contagious yawning", "lifetime yawn count", "human reflexes"],
     content: `
 # How Many Times Do You Yawn in a Lifetime?
 
@@ -944,6 +969,7 @@ Our **life statistics calculator** helps you explore these small but significant
     date: "May 10, 2026",
     slug: "dreams-per-night-statistics",
     tags: ["Sleep", "Biology", "Psychology", "Dream Statistics"],
+    keywords: ["dreams per night", "sleep statistics", "REM sleep cycles", "dream recall", "psychology of dreams"],
     content: `
 # How Many Dreams Do You Have a Night?
 
@@ -985,6 +1011,7 @@ Check out our **sleep science blog** to see how much of your life is spent in th
     date: "May 13, 2026",
     slug: "swallowing-statistics-lifetime",
     tags: ["Biology", "Health", "Statistics", "Human Body"],
+    keywords: ["swallowing statistics", "lifetime swallow count", "human body facts", "biological mechanics", "health statistics"],
     content: `
 # How Many Times Do You Swallow in a Lifetime?
 
@@ -1023,6 +1050,7 @@ Explore more **human biology statistics** on our main calculator page and see ho
     date: "May 15, 2026",
     slug: "how-long-have-i-been-alive-guide",
     tags: ["Time", "Life Stats", "Calculations", "Pillar"],
+    keywords: ["how long have I been alive", "life stats guide", "age in seconds", "time calculations", "life journey"],
     content: `
 # How Long Have I Been Alive? Calculate Your Life Stats in Seconds
 
@@ -1072,6 +1100,7 @@ Understanding your life statistics isn't just about the numbers; it's about the 
     date: "May 18, 2026",
     slug: "mind-blowing-life-stats",
     tags: ["Biology", "Facts", "Viral", "Body Stats"],
+    keywords: ["mind-blowing life stats", "body statistics", "biological facts", "viral life stats", "human body miracles"],
     content: `
 # Mind-Blowing Life Stats: What Really Happens in Your Body Every Second
 
@@ -1115,6 +1144,7 @@ Approximately 2.5 to 3 billion for an average lifespan.
     date: "May 21, 2026",
     slug: "how-many-days-have-i-been-alive-formula",
     tags: ["Math", "Guide", "Calculations", "Days Alive"],
+    keywords: ["how many days have I been alive", "days alive formula", "math guide", "life calculations", "age in days"],
     content: `
 # How Many Days Have I Been Alive? (Quick Calculator + Formula)
 
@@ -1167,6 +1197,7 @@ Our calculator also tells you the exact day of the week you entered the world!
     date: "May 24, 2026",
     slug: "life-stats-at-30",
     tags: ["Milestones", "Age 30", "Life Stats", "Health"],
+    keywords: ["life stats at 30", "30th birthday stats", "milestone statistics", "age 30 facts", "life journey at 30"],
     content: `
 # What Happens to Your Body in 30 Years? Your Life Stats at 30
 
@@ -1210,6 +1241,7 @@ Your 1 billionth second occurs at age 31.7!
     date: "April 15, 2026",
     slug: "minutes-alive-calculator",
     tags: ["Time", "Life Stats", "Calculations", "Minutes Alive"],
+    keywords: ["minutes alive calculator", "age in minutes", "time stats", "life calculations", "minutes since birth"],
     content: `
 # How Many Minutes Have I Been Alive? (The Surprising Total)
 
@@ -1247,6 +1279,7 @@ Use our [online calculator](/) for the most accurate results including leap year
     date: "April 18, 2026",
     slug: "breaths-taken-calculator",
     tags: ["Health", "Biology", "Statistics", "Breathing"],
+    keywords: ["breaths taken calculator", "lifetime breathing stats", "respiratory health", "longevity facts", "breathing rate"],
     content: `
 # How Many Breaths Have You Taken? Your Lifetime Respiratory Stats
 
@@ -1286,6 +1319,7 @@ Yes, through regular exercise, avoiding smoking, and practicing deep breathing t
     date: "April 20, 2026",
     slug: "how-old-am-i-in-seconds",
     tags: ["Time", "Life Stats", "Calculations", "Seconds Alive"],
+    keywords: ["how old am I in seconds", "exact age in seconds", "life milestones", "time calculations", "seconds alive"],
     content: `
 # How Old Am I in Seconds? Calculate Your Exact Age
 
@@ -1323,6 +1357,7 @@ Yes! You can use our [Life Stats Calculator](/) for free to see your exact age i
     date: "April 22, 2026",
     slug: "weekends-in-a-lifetime",
     tags: ["Time", "Weekends", "Longevity", "Life Stats"],
+    keywords: ["weekends in a lifetime", "scarcity of time", "saturday statistics", "life stats", "weekend countdown"],
     content: `
 # How Many Weekends in a Lifetime? (The Scarcity of Saturdays)
 
@@ -1365,6 +1400,7 @@ Our [online tool](/) provides real-time updates on your days, weeks, and even se
     date: "April 25, 2026",
     slug: "miles-driven-in-a-lifetime",
     tags: ["Driving", "Travel", "Statistics", "Life Stats"],
+    keywords: ["miles driven in a lifetime", "driving statistics", "lifetime travel distance", "road statistics", "car usage stats"],
     content: `
 # How Many Miles Will You Drive in a Lifetime? (The Statistics of the Road)
 
@@ -1408,6 +1444,7 @@ Yes! Use our [Life Stats Calculator](/) to see how your daily habits add up over
     date: "April 28, 2026",
     slug: "books-read-in-a-lifetime",
     tags: ["Reading", "Education", "Habits", "Life Stats"],
+    keywords: ["books read in a lifetime", "math of reading", "literary journey", "reading habits", "education statistics"],
     content: `
 # How Many Books Can You Read in a Lifetime? (The Math of Reading)
 
@@ -1450,6 +1487,7 @@ You can use our [Life Stats Calculator](/) to see how much time you've spent on 
     date: "May 1, 2026",
     slug: "tv-hours-in-a-lifetime",
     tags: ["Entertainment", "Screen Time", "Lifestyle", "Life Stats"],
+    keywords: ["tv hours in a lifetime", "screen time reality", "entertainment statistics", "reclaiming time", "lifestyle habits"],
     content: `
 # How Many Hours of TV Do We Watch in a Lifetime? (The Screen Time Reality)
 
@@ -1498,6 +1536,7 @@ Our [free online calculator](/) provides a detailed breakdown of your life in da
     date: "May 5, 2026",
     slug: "working-hours-in-a-lifetime",
     tags: ["Work", "Career", "Productivity", "Life Stats"],
+    keywords: ["working hours in a lifetime", "career clock", "professional statistics", "work-life balance", "productivity stats"],
     content: `
 # How Many Hours Do You Spend Working in a Lifetime? (The Career Clock)
 
@@ -1544,6 +1583,7 @@ Visit our [Life Stats Calculator](/) to get a real-time breakdown of your journe
     date: "April 10, 2026",
     slug: "how-many-hours-alive",
     tags: ["Time", "Life Stats", "Calculations", "Hours Alive"],
+    keywords: ["how many hours alive", "age in hours", "life stats guide", "time calculations", "hours since birth"],
     content: `
 # How Many Hours Have I Been Alive? (The Ultimate Life Stats Guide)
 
@@ -1595,6 +1635,7 @@ Are you ready to see your life in numbers? Head over to our [homepage](/) and en
     date: "April 6, 2026",
     excerpt: "Ever wondered exactly how many days you've been on this planet? Discover the shocking math of your life, from heartbeats to screen time, and learn how to visualize your time using a life stats calculator.",
     tags: ["Time", "Life Stats", "Productivity", "Mindfulness"],
+    keywords: ["how many days have I lived", "life stats guide", "time visualization", "mindfulness stats", "days alive"],
     content: `\n# How Many Days Have I Lived? Calculate Your Exact Life Stats in Seconds
 
 Have you ever woken up and wondered, "Exactly how many days have I lived?" 
@@ -1710,6 +1751,106 @@ At the end of the day, knowing **how many days you have lived** isn't about the 
 Whether you are at 9:00 AM or 6:00 PM on your "life clock," there is still time to build something beautiful, help someone in need, or simply enjoy the breath in your lungs. Use our **life stats calculator** to get your baseline, and then go out and make the next 24 hours the best they can be.
 
 Your life is a massive, incredible statistical miracle. Don't let a single day go to waste.
+    `
+  },
+  {
+    title: "How Many Days Since I Was Born? Calculate Your Life in Days",
+    excerpt: "Ever wondered exactly how many days have passed since your birth? Discover the math behind your age in days and why this number is a powerful tool for perspective.",
+    date: "May 2, 2026",
+    slug: "days-since-birth",
+    tags: ["Time", "Calculations", "Mindfulness"],
+    keywords: ["days since birth", "how many days since I was born", "age in days", "days alive calculator", "life milestones"],
+    content: `
+# How Many Days Since I Was Born? The Math of Your Life
+
+Have you ever typed into a search engine, "**how many days since I was born**"? It's a common question, but the answer is more than just a number. It's a representation of every sunrise you've witnessed, every challenge you've overcome, and every joy you've experienced.
+
+## Why Calculate Your Age in Days?
+
+While we celebrate our birthdays annually, our **age in days** provides a much more granular look at our journey. For example, if you are 27 years old, you have lived for nearly **10,000 days**. Reaching your 10,000th day is a milestone that many people find more significant than a traditional birthday.
+
+![Sunrise over mountains](https://picsum.photos/seed/sunrise/800/400)
+
+### The Granularity of Time
+
+When you use a **days alive calculator**, you start to see time differently. A year feels like a long time, but a day is a manageable unit of 24 hours. By focusing on the number of days, you can:
+- **Practice Gratitude**: Every day is a gift. Seeing that you've had 8,000 or 12,000 of them encourages a sense of abundance.
+- **Set Better Goals**: It's easier to commit to a "100-day challenge" than a "one-year resolution."
+- **Celebrate Unique Milestones**: Forget 21 or 30—celebrate your 7,777th day or your 11,111th day!
+
+## How to Calculate Days Since Birth
+
+The math is relatively simple, but leap years make it tricky to do in your head.
+1. Multiply your age by 365.
+2. Add the number of leap days that have occurred since you were born.
+3. Add the number of days since your last birthday.
+
+Or, you can simply use our **how many days old am I** tool on the homepage to get an instant, accurate result down to the second.
+
+### Days Alive Milestones Table
+| Milestone | Approximate Age |
+|-----------|-----------------|
+| 1,000 Days | 2.7 Years |
+| 5,000 Days | 13.7 Years |
+| 10,000 Days | 27.4 Years |
+| 15,000 Days | 41.1 Years |
+| 20,000 Days | 54.8 Years |
+| 25,000 Days | 68.5 Years |
+
+## Conclusion: Make Every Day Count
+
+Whether you've lived for 5,000 days or 25,000, the most important day is always today. Use our **life milestones calculator** to find your current count and commit to making the next 1,000 days your best ones yet.
+
+[Calculate your exact days alive now](/)
+    `
+  },
+  {
+    title: "Biological Age vs. Chronological Age: How Old Are You Really?",
+    excerpt: "Your birth certificate tells one story, but your cells might tell another. Learn the difference between biological and chronological age and how to improve your health span.",
+    date: "May 5, 2026",
+    slug: "biological-vs-chronological-age",
+    tags: ["Longevity", "Health", "Biohacking"],
+    keywords: ["biological vs chronological age", "biological age calculator", "health span", "longevity science", "biohacking tips"],
+    content: `
+# Biological Age vs. Chronological Age: The Science of Longevity
+
+We all have two ages. Your **chronological age** is the number of years that have passed since you were born. Your **biological age**, however, is a measure of how well your body is functioning relative to your years.
+
+## What is Biological Age?
+
+Biological age (also known as physiological age) is determined by various factors, including genetics, lifestyle, diet, and environment. If you've ever met someone who looks and acts 10 years younger than they actually are, you're seeing a low **biological age** in action.
+
+![Healthy lifestyle](https://picsum.photos/seed/longevity/800/400)
+
+### Why Biological Age Matters More
+
+While you can't change your birth date, you *can* influence your biological age. Improving your **health span**—the period of life spent in good health—is the ultimate goal of modern longevity science and **biohacking**.
+
+## How is Biological Age Calculated?
+
+Scientists use "epigenetic clocks" and various biomarkers to estimate biological age. Key indicators include:
+- **Telomere Length**: The protective caps on the ends of your chromosomes.
+- **Inflammatory Markers**: Levels of C-reactive protein (CRP) in the blood.
+- **Heart Rate Variability (HRV)**: A measure of your autonomic nervous system's health.
+- **Metabolic Health**: Blood sugar levels and insulin sensitivity.
+
+## 5 Ways to Lower Your Biological Age
+
+1. **Prioritize Sleep**: As our **sleep science** post explains, rest is when your body repairs itself at a cellular level.
+2. **Intermittent Fasting**: Giving your body a break from digestion can trigger "autophagy," a process where cells clean out damaged components.
+3. **Strength Training**: Maintaining muscle mass is one of the strongest predictors of a long, healthy life.
+4. **Stress Management**: Chronic stress accelerates the **aging process** by increasing oxidative stress and inflammation.
+5. **Nutrient-Dense Diet**: Focus on antioxidants and anti-inflammatory foods to protect your DNA.
+
+## The Future of Aging
+
+With the rise of **longevity calculators** and personalized health data, we are entering an era where we can actively manage our aging process. By understanding your **life statistics**, you can make informed choices that add years to your life and life to your years.
+
+## Conclusion
+
+Your chronological age is just a number on a **days alive calculator**. Your biological age is a reflection of your choices. Start today by making one small change to support your long-term health and vitality.
+
+[Check your life stats and start your longevity journey](/)
     `
   }
 ];
