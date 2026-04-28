@@ -14,8 +14,6 @@ import {
   Share2, 
   Info,
   ExternalLink,
-  Github,
-  Twitter,
   Mail,
   Menu,
   X,
@@ -43,7 +41,8 @@ import {
   MessageSquare,
   Handshake,
   Trash2,
-  Dumbbell
+  Dumbbell,
+  Instagram
 } from 'lucide-react';
 import { 
   BarChart, 
@@ -225,16 +224,16 @@ const Footer = () => (
           </ul>
         </div>
         <div>
-          <h4 className="font-semibold text-gray-900 mb-6">Connect</h4>
-          <div className="flex space-x-4">
-            <a href="#" className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-indigo-50 hover:text-indigo-600 transition-all">
-              <Twitter className="w-5 h-5" />
-            </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-indigo-50 hover:text-indigo-600 transition-all">
-              <Github className="w-5 h-5" />
-            </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-indigo-50 hover:text-indigo-600 transition-all">
-              <Mail className="w-5 h-5" />
+          <h4 className="font-semibold text-gray-900 mb-6">Contact</h4>
+          <div className="flex flex-col space-y-4">
+            <a 
+              href="mailto:devzonik@gmail.com" 
+              className="flex items-center space-x-3 text-gray-600 hover:text-indigo-600 transition-colors group"
+            >
+              <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-all">
+                <Mail className="w-5 h-5" />
+              </div>
+              <span className="text-sm font-medium">devzonik@gmail.com</span>
             </a>
           </div>
         </div>
@@ -959,6 +958,39 @@ const HomePage = () => {
             <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
               <p className="text-4xl font-black text-pink-600 mb-2">4.9/5</p>
               <p className="text-sm font-bold text-gray-500 uppercase tracking-widest">User Rating</p>
+            </div>
+          </div>
+
+          <div className="mt-16 pt-16 border-t border-gray-200">
+            <h3 className="text-2xl font-black text-gray-900 mb-8">Get in Touch</h3>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+              <a 
+                href="https://www.instagram.com/devzonik/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-4 bg-white px-8 py-4 rounded-2xl shadow-sm border border-gray-100 hover:border-pink-200 hover:shadow-md transition-all group w-full md:w-auto"
+              >
+                <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center text-pink-600 group-hover:scale-110 transition-transform">
+                  <Instagram className="w-6 h-6" />
+                </div>
+                <div className="text-left">
+                  <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Follow Us</p>
+                  <p className="text-lg font-bold text-gray-900">@devzonik</p>
+                </div>
+              </a>
+
+              <a 
+                href="mailto:Devzonik@gmail.com" 
+                className="flex items-center space-x-4 bg-white px-8 py-4 rounded-2xl shadow-sm border border-gray-100 hover:border-indigo-200 hover:shadow-md transition-all group w-full md:w-auto"
+              >
+                <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 group-hover:scale-110 transition-transform">
+                  <Mail className="w-6 h-6" />
+                </div>
+                <div className="text-left">
+                  <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Email Us</p>
+                  <p className="text-lg font-bold text-gray-900">Devzonik@gmail.com</p>
+                </div>
+              </a>
             </div>
           </div>
         </div>
