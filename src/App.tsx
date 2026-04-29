@@ -224,7 +224,7 @@ const Footer = () => (
           </ul>
         </div>
         <div>
-          <h4 className="font-semibold text-gray-900 mb-6">Contact</h4>
+          <h4 className="font-semibold text-gray-900 mb-6">Contact & Social</h4>
           <div className="flex flex-col space-y-4">
             <a 
               href="mailto:devzonik@gmail.com" 
@@ -234,6 +234,17 @@ const Footer = () => (
                 <Mail className="w-5 h-5" />
               </div>
               <span className="text-sm font-medium">devzonik@gmail.com</span>
+            </a>
+            <a 
+              href="https://www.instagram.com/devzonik/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-3 text-gray-600 hover:text-indigo-600 transition-colors group"
+            >
+              <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-all">
+                <Instagram className="w-5 h-5" />
+              </div>
+              <span className="text-sm font-medium">@devzonik</span>
             </a>
           </div>
         </div>
