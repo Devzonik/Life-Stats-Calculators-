@@ -42,7 +42,10 @@ import {
   Handshake,
   Trash2,
   Dumbbell,
-  Instagram
+  Instagram,
+  Plus,
+  History,
+  Award
 } from 'lucide-react';
 import { 
   BarChart, 
@@ -63,6 +66,7 @@ import {
 import { GoogleGenAI } from "@google/genai";
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import Markdown from 'react-markdown';
 import { BLOG_POSTS } from './blogData';
 
 // --- Utils ---
@@ -467,6 +471,201 @@ const HomePage = () => {
   const [error, setError] = useState<string | null>(null);
   const [aiInsight, setAiInsight] = useState<string | null>(null);
   const [isGeneratingInsight, setIsGeneratingInsight] = useState(false);
+
+  // --- Personal Milestones & Saved Snapshots States ---
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [customMilestones, setCustomMilestones] = useState<any[]>(() => {
+    const saved = localStorage.getItem('life_stats_custom_milestones');
+    return saved ? JSON.parse(saved) : [
+      { id: '100th', name: '100th Birthday (Century)', isDefault: true, yearsOffset: 100 },
+      { id: 'retirement', name: 'Retirement (Age 65)', isDefault: true, yearsOffset: 65 },
+      { id: 'next_decade', name: 'Next Decade Birthday', isDefault: true, isNextDecade: true },
+    ];
+  });
+  const [newMilestoneName, setNewMilestoneName] = useState('');
+  const [newMilestoneDate, setNewMilestoneDate] = useState('');
+  const [milestoneError, setMilestoneError] = useState<string | null>(null);
+
+  const [snapshots, setSnapshots] = useState<any[]>(() => {
+    const saved = localStorage.getItem('life_stats_snapshots');
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [activeCompareId, setActiveCompareId] = useState<string | null>(null);
+  const [saveSuccessMessage, setSaveSuccessMessage] = useState<string | null>(null);
+  const [snapshotMetric, setSnapshotMetric] = useState<string>('Days Lived');
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const getMilestoneDate = (m: any) => {
+    if (!birthDate) return null;
+    const birth = new Date(birthDate);
+    if (m.isDefault) {
+      if (m.yearsOffset) {
+        const target = new Date(birth);
+        target.setFullYear(birth.getFullYear() + m.yearsOffset);
+        return target;
+      }
+      if (m.isNextDecade && stats) {
+        const currentAge = stats.years;
+        const nextDecadeAge = (Math.floor(currentAge / 10) + 1) * 10;
+        const target = new Date(birth);
+        target.setFullYear(birth.getFullYear() + nextDecadeAge);
+        return target;
+      }
+    }
+    return new Date(m.date);
+  };
+
+  const handleAddMilestone = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newMilestoneName.trim()) {
+      setMilestoneError("Milestone name is required.");
+      return;
+    }
+    if (!newMilestoneDate) {
+      setMilestoneError("Target date is required.");
+      return;
+    }
+    const target = new Date(newMilestoneDate);
+    if (target <= new Date()) {
+      setMilestoneError("Target date must be in the future.");
+      return;
+    }
+    
+    const newM = {
+      id: Date.now().toString(),
+      name: newMilestoneName.trim(),
+      date: newMilestoneDate,
+      isDefault: false
+    };
+    
+    const updated = [...customMilestones, newM];
+    setCustomMilestones(updated);
+    localStorage.setItem('life_stats_custom_milestones', JSON.stringify(updated));
+    setNewMilestoneName('');
+    setNewMilestoneDate('');
+    setMilestoneError(null);
+  };
+
+  const handleRemoveMilestone = (id: string) => {
+    const updated = customMilestones.filter(m => m.id !== id);
+    setCustomMilestones(updated);
+    localStorage.setItem('life_stats_custom_milestones', JSON.stringify(updated));
+  };
+
+  const handleSaveSnapshot = () => {
+    if (!stats) return;
+    const newSnapshot = {
+      id: Date.now().toString(),
+      savedAt: new Date().toISOString(),
+      birthDate: birthDate,
+      stats: {
+        totalDays: stats.totalDays,
+        totalHours: stats.totalHours,
+        totalMinutes: stats.totalMinutes,
+        totalSeconds: stats.totalSeconds,
+        heartbeats: stats.heartbeats,
+        breaths: stats.breaths,
+        sleepHours: stats.sleepHours,
+        stepsWalked: stats.stepsWalked,
+        phoneTimeHours: stats.phoneTimeHours,
+        waterConsumed: stats.waterConsumed,
+        mealsEaten: stats.mealsEaten,
+        scrolledKm: stats.scrolledKm,
+      }
+    };
+    const updated = [newSnapshot, ...snapshots];
+    setSnapshots(updated);
+    localStorage.setItem('life_stats_snapshots', JSON.stringify(updated));
+    setSaveSuccessMessage("Stats Snapshot saved successfully!");
+    setTimeout(() => setSaveSuccessMessage(null), 3000);
+  };
+
+  const handleRemoveSnapshot = (id: string) => {
+    const updated = snapshots.filter(s => s.id !== id);
+    setSnapshots(updated);
+    localStorage.setItem('life_stats_snapshots', JSON.stringify(updated));
+    if (activeCompareId === id) {
+      setActiveCompareId(null);
+    }
+  };
+
+  const snapshotChartData = useMemo(() => {
+    if (snapshots.length === 0) return [];
+    const sorted = [...snapshots].sort((a, b) => new Date(a.savedAt).getTime() - new Date(b.savedAt).getTime());
+    return sorted.map((s) => {
+      const date = new Date(s.savedAt).toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      return {
+        date,
+        'Days Lived': s.stats.totalDays,
+        'Heartbeats (M)': parseFloat((s.stats.heartbeats / 1000000).toFixed(2)),
+        'Screen Time (hrs)': parseFloat(s.stats.phoneTimeHours.toFixed(1)),
+        'Steps Walked': s.stats.stepsWalked
+      };
+    });
+  }, [snapshots]);
+
+  const getMilestoneCountdown = (targetDate: Date) => {
+    const diffMs = targetDate.getTime() - currentTime.getTime();
+    if (diffMs <= 0) return { passed: true, text: "Reached!" };
+
+    const totalSeconds = Math.floor(diffMs / 1000);
+    const days = Math.floor(totalSeconds / (3600 * 24));
+    const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    return {
+      passed: false,
+      days,
+      hours,
+      minutes,
+      seconds
+    };
+  };
+
+  const calculateMilestoneProgress = (targetDate: Date) => {
+    if (!birthDate) return 0;
+    const birth = new Date(birthDate);
+    const total = targetDate.getTime() - birth.getTime();
+    const elapsed = currentTime.getTime() - birth.getTime();
+    if (total <= 0) return 100;
+    return Math.min(100, Math.max(0, (elapsed / total) * 100));
+  };
+
+  const getComparisonDeltas = (snapshot: any) => {
+    if (!stats) return null;
+    const deltaDays = stats.totalDays - snapshot.stats.totalDays;
+    const deltaHours = stats.totalHours - snapshot.stats.totalHours;
+    const deltaMinutes = stats.totalMinutes - snapshot.stats.totalMinutes;
+    const deltaSeconds = stats.totalSeconds - snapshot.stats.totalSeconds;
+    const deltaHeartbeats = stats.heartbeats - snapshot.stats.heartbeats;
+    const deltaBreaths = stats.breaths - snapshot.stats.breaths;
+    const deltaSleep = stats.sleepHours - snapshot.stats.sleepHours;
+    const deltaSteps = stats.stepsWalked - snapshot.stats.stepsWalked;
+    const deltaPhone = stats.phoneTimeHours - snapshot.stats.phoneTimeHours;
+    const deltaWater = stats.waterConsumed - snapshot.stats.waterConsumed;
+    const deltaMeals = stats.mealsEaten - snapshot.stats.mealsEaten;
+    const deltaScroll = stats.scrolledKm - snapshot.stats.scrolledKm;
+
+    return {
+      deltaDays,
+      deltaHours,
+      deltaMinutes,
+      deltaSeconds,
+      deltaHeartbeats,
+      deltaBreaths,
+      deltaSleep,
+      deltaSteps,
+      deltaPhone,
+      deltaWater,
+      deltaMeals,
+      deltaScroll
+    };
+  };
 
   const validateDate = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -882,6 +1081,377 @@ const HomePage = () => {
                   </>
                 )}
               </motion.div>
+
+              {/* Personal Milestones */}
+              <div className="mt-20 border-t border-gray-100 pt-16">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                  <div>
+                    <h3 className="text-3xl font-black text-gray-900 mb-2 flex items-center gap-3">
+                      <Award className="text-indigo-600 w-8 h-8" />
+                      Personal Milestones
+                    </h3>
+                    <p className="text-gray-500 font-medium">Input custom target dates and view real-time countdown progress.</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {/* Left Form Column */}
+                  <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm self-start">
+                    <h4 className="text-lg font-black text-gray-900 mb-4">Add Custom Milestone</h4>
+                    <form onSubmit={handleAddMilestone} className="space-y-4">
+                      <div>
+                        <label className="text-xs font-black text-gray-400 uppercase tracking-wider mb-2 block">
+                          Milestone Name
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="e.g. Retirement, Trip to Space"
+                          value={newMilestoneName}
+                          onChange={(e) => setNewMilestoneName(e.target.value)}
+                          className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-bold text-gray-900"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs font-black text-gray-400 uppercase tracking-wider mb-2 block">
+                          Target Date
+                        </label>
+                        <input
+                          type="date"
+                          value={newMilestoneDate}
+                          onChange={(e) => setNewMilestoneDate(e.target.value)}
+                          className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-bold text-gray-900"
+                        />
+                      </div>
+                      {milestoneError && (
+                        <p className="text-xs font-bold text-red-500 flex items-center gap-1">
+                          <AlertCircle className="w-3.5 h-3.5" />
+                          {milestoneError}
+                        </p>
+                      )}
+                      <button
+                        type="submit"
+                        className="w-full flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white py-3.5 rounded-xl font-bold transition-all text-sm active:scale-95 shadow-lg shadow-indigo-100"
+                      >
+                        <Plus className="w-4 h-4" />
+                        <span>Create Milestone</span>
+                      </button>
+                    </form>
+                  </div>
+
+                  {/* Right Countdown Grid Column */}
+                  <div className="lg:col-span-2 space-y-6">
+                    {customMilestones.length === 0 ? (
+                      <div className="bg-gray-50/50 rounded-[2rem] border-2 border-dashed border-gray-200 p-12 text-center">
+                        <Award className="text-gray-300 w-12 h-12 mx-auto mb-4" />
+                        <p className="text-gray-500 font-bold">No milestones created yet. Add one using the form!</p>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {customMilestones.map((m) => {
+                          const targetDate = getMilestoneDate(m);
+                          if (!targetDate) return null;
+                          const countdown = getMilestoneCountdown(targetDate);
+                          const progress = calculateMilestoneProgress(targetDate);
+
+                          return (
+                            <motion.div
+                              layout
+                              key={m.id}
+                              className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm relative overflow-hidden flex flex-col justify-between group"
+                            >
+                              <div>
+                                <div className="flex justify-between items-start mb-4">
+                                  <div className="flex-grow">
+                                    <h5 className="font-black text-gray-900 text-lg leading-tight mb-1 group-hover:text-indigo-600 transition-colors">
+                                      {m.name}
+                                    </h5>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">
+                                      {targetDate.toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' })}
+                                    </p>
+                                  </div>
+                                  {!m.isDefault && (
+                                    <button
+                                      onClick={() => handleRemoveMilestone(m.id)}
+                                      className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors ml-2"
+                                      title="Delete Milestone"
+                                    >
+                                      <Trash2 className="w-4 h-4" />
+                                    </button>
+                                  )}
+                                </div>
+
+                                {countdown.passed ? (
+                                  <div className="bg-green-50 text-green-700 px-4 py-3 rounded-xl font-bold text-sm flex items-center space-x-2 mb-4">
+                                    <Sparkles className="w-4 h-4 animate-pulse" />
+                                    <span>Milestone Reached!</span>
+                                  </div>
+                                ) : (
+                                  <div className="grid grid-cols-4 gap-2 text-center mb-6">
+                                    <div className="bg-gray-50 p-2 rounded-xl">
+                                      <span className="block text-xl font-black text-gray-900 tabular-nums">{countdown.days}</span>
+                                      <span className="text-[10px] text-gray-400 font-bold uppercase">Days</span>
+                                    </div>
+                                    <div className="bg-gray-50 p-2 rounded-xl">
+                                      <span className="block text-xl font-black text-gray-900 tabular-nums">{countdown.hours}</span>
+                                      <span className="text-[10px] text-gray-400 font-bold uppercase">Hrs</span>
+                                    </div>
+                                    <div className="bg-gray-50 p-2 rounded-xl">
+                                      <span className="block text-xl font-black text-gray-900 tabular-nums">{countdown.minutes}</span>
+                                      <span className="text-[10px] text-gray-400 font-bold uppercase">Mins</span>
+                                    </div>
+                                    <div className="bg-gray-50 p-2 rounded-xl">
+                                      <span className="block text-xl font-black text-indigo-600 tabular-nums">{countdown.seconds}</span>
+                                      <span className="text-[10px] text-gray-400 font-bold uppercase">Secs</span>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+
+                              {/* Progress bar */}
+                              <div className="mt-auto">
+                                <div className="flex justify-between items-center mb-1 text-xs font-bold text-gray-400">
+                                  <span>Journey Progress</span>
+                                  <span className="text-indigo-600 tabular-nums">{progress.toFixed(4)}%</span>
+                                </div>
+                                <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                                  <div 
+                                    className="h-full bg-indigo-600 rounded-full" 
+                                    style={{ width: `${progress}%` }}
+                                  />
+                                </div>
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Life Stats Snapshot Engine */}
+              <div className="mt-20 border-t border-gray-100 pt-16">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                  <div>
+                    <h3 className="text-3xl font-black text-gray-900 mb-2 flex items-center gap-3">
+                      <History className="text-indigo-600 w-8 h-8" />
+                      My Life Stats History & Trends
+                    </h3>
+                    <p className="text-gray-500 font-medium">Save snapshots of your statistics and compare your timeline trends over time.</p>
+                  </div>
+                  <button
+                    onClick={handleSaveSnapshot}
+                    className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3.5 rounded-full font-bold transition-all shadow-lg shadow-indigo-200 text-sm active:scale-95"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Save Current Stats Snapshot</span>
+                  </button>
+                </div>
+
+                {saveSuccessMessage && (
+                  <div className="mb-6 bg-emerald-50 border border-emerald-100 p-4 rounded-2xl text-emerald-800 text-sm font-bold flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-emerald-600 animate-bounce" />
+                    {saveSuccessMessage}
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                  {/* Left column: saved snapshots list */}
+                  <div className="lg:col-span-4 bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col justify-between self-start">
+                    <div>
+                      <h4 className="text-lg font-black text-gray-900 mb-2">Saved Snapshots</h4>
+                      <p className="text-xs text-gray-400 font-bold mb-6">Capture stats periodically (e.g., weekly or monthly) to analyze personal growth.</p>
+                      
+                      {snapshots.length === 0 ? (
+                        <div className="bg-gray-50 rounded-2xl p-6 text-center border-2 border-dashed border-gray-100">
+                          <History className="text-gray-300 w-10 h-10 mx-auto mb-2" />
+                          <p className="text-xs text-gray-500 font-bold">No snapshots saved yet. Click "Save Current Stats Snapshot" to record your first timeline point!</p>
+                        </div>
+                      ) : (
+                        <div className="space-y-3 max-h-[350px] overflow-y-auto pr-2 no-scrollbar">
+                          {snapshots.map((snap) => {
+                            const isSelected = activeCompareId === snap.id;
+                            const savedDate = new Date(snap.savedAt);
+                            return (
+                              <div
+                                key={snap.id}
+                                className={cn(
+                                  "p-4 rounded-2xl border transition-all flex justify-between items-center",
+                                  isSelected 
+                                    ? "bg-indigo-50/50 border-indigo-200 ring-2 ring-indigo-100" 
+                                    : "bg-gray-50 border-gray-100 hover:border-gray-200"
+                                )}
+                              >
+                                <div className="cursor-pointer flex-grow" onClick={() => setActiveCompareId(snap.id)}>
+                                  <p className="font-black text-gray-900 text-sm">
+                                    {savedDate.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}
+                                  </p>
+                                  <p className="text-[10px] text-indigo-600 font-bold">
+                                    {savedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} • {snap.stats.totalDays.toLocaleString()} Days Alive
+                                  </p>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                  <button
+                                    onClick={() => setActiveCompareId(isSelected ? null : snap.id)}
+                                    className={cn(
+                                      "px-3 py-1.5 rounded-lg text-xs font-black transition-all",
+                                      isSelected
+                                        ? "bg-indigo-600 text-white"
+                                        : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"
+                                    )}
+                                  >
+                                    {isSelected ? 'Selected' : 'Compare'}
+                                  </button>
+                                  <button
+                                    onClick={() => handleRemoveSnapshot(snap.id)}
+                                    className="p-1.5 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50 transition-colors"
+                                    title="Delete Snapshot"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Right column: Comparison details & trend chart */}
+                  <div className="lg:col-span-8 space-y-6">
+                    {/* Live Comparison Delta Dashboard */}
+                    {activeCompareId ? (() => {
+                      const snap = snapshots.find(s => s.id === activeCompareId);
+                      if (!snap) return null;
+                      const deltas = getComparisonDeltas(snap);
+                      if (!deltas) return null;
+                      
+                      const savedTime = new Date(snap.savedAt).toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' }) + " at " + new Date(snap.savedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                      return (
+                        <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
+                          <div className="border-b border-gray-50 pb-6 mb-6">
+                            <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-2 inline-block">
+                              Live Comparison Active
+                            </span>
+                            <h4 className="text-xl font-black text-gray-900 leading-tight">
+                              Growth Trends Since Your Snapshot
+                            </h4>
+                            <p className="text-xs text-gray-400 font-bold mt-1">
+                              Comparing live stats against snapshot taken on <span className="text-indigo-600">{savedTime}</span>. Watch your life's rhythms increase in real-time.
+                            </p>
+                          </div>
+
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="bg-gray-50 p-4 rounded-2xl relative overflow-hidden">
+                              <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Time Elapsed</span>
+                              <p className="text-lg font-black text-gray-900 tabular-nums">+{deltas.deltaDays}d {deltas.deltaHours % 24}h {deltas.deltaMinutes % 60}m</p>
+                              <p className="text-[10px] font-mono text-indigo-600 mt-1">+{deltas.deltaSeconds.toLocaleString()} seconds</p>
+                            </div>
+
+                            <div className="bg-gray-50 p-4 rounded-2xl">
+                              <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Heartbeats</span>
+                              <p className="text-lg font-black text-red-500 tabular-nums">+{deltas.deltaHeartbeats.toLocaleString()}</p>
+                              <p className="text-[10px] font-bold text-gray-400">Biological engine pumps</p>
+                            </div>
+
+                            <div className="bg-gray-50 p-4 rounded-2xl">
+                              <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Breaths taken</span>
+                              <p className="text-lg font-black text-blue-500 tabular-nums">+{deltas.deltaBreaths.toLocaleString()}</p>
+                              <p className="text-[10px] font-bold text-gray-400">Oxygen molecules</p>
+                            </div>
+
+                            <div className="bg-gray-50 p-4 rounded-2xl">
+                              <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Screen Time</span>
+                              <p className="text-lg font-black text-pink-500 tabular-nums">+{deltas.deltaPhone.toFixed(1)} hrs</p>
+                              <p className="text-[10px] font-bold text-gray-400">~{(deltas.deltaScroll).toFixed(2)} km scrolled</p>
+                            </div>
+
+                            <div className="bg-gray-50 p-4 rounded-2xl">
+                              <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Sleep Obtained</span>
+                              <p className="text-lg font-black text-indigo-900 tabular-nums">+{deltas.deltaSleep.toFixed(1)} hrs</p>
+                              <p className="text-[10px] font-bold text-gray-400">Cellular restoration</p>
+                            </div>
+
+                            <div className="bg-gray-50 p-4 rounded-2xl">
+                              <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Hydration</span>
+                              <p className="text-lg font-black text-cyan-500 tabular-nums">+{deltas.deltaWater.toFixed(1)} L</p>
+                              <p className="text-[10px] font-bold text-gray-400">Liters consumed</p>
+                            </div>
+
+                            <div className="bg-gray-50 p-4 rounded-2xl">
+                              <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Meals Eaten</span>
+                              <p className="text-lg font-black text-orange-600 tabular-nums">+{deltas.deltaMeals.toLocaleString()}</p>
+                              <p className="text-[10px] font-bold text-gray-400">Portions of energy</p>
+                            </div>
+
+                            <div className="bg-gray-50 p-4 rounded-2xl">
+                              <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Steps Walked</span>
+                              <p className="text-lg font-black text-emerald-600 tabular-nums">+{deltas.deltaSteps.toLocaleString()}</p>
+                              <p className="text-[10px] font-bold text-gray-400">Steps taken</p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })() : (
+                      <div className="bg-gray-50/50 rounded-[2rem] border-2 border-dashed border-gray-200 p-12 text-center">
+                        <History className="text-gray-300 w-12 h-12 mx-auto mb-4" />
+                        <h4 className="font-bold text-gray-900 text-lg mb-2">Select Snapshot to Compare</h4>
+                        <p className="text-gray-500 font-medium max-w-md mx-auto text-sm">
+                          Click "Compare" on any of your saved snapshots to calculate real-time growth delta and analyze specific biological, digital, and activity trends.
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Historical Trend Charts */}
+                    {snapshots.length >= 2 && (
+                      <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                          <div>
+                            <h4 className="text-lg font-black text-gray-900">Historical Snapshot Timeline</h4>
+                            <p className="text-xs text-gray-400 font-bold mt-1">Visualize historical metrics across all snapshots</p>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {['Days Lived', 'Heartbeats (M)', 'Screen Time (hrs)', 'Steps Walked'].map((m) => (
+                              <button
+                                key={m}
+                                onClick={() => setSnapshotMetric(m)}
+                                className={cn(
+                                  "px-3 py-1 rounded-full text-xs font-black border transition-all",
+                                  snapshotMetric === m
+                                    ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
+                                    : "bg-white text-gray-500 border-gray-100 hover:border-indigo-100"
+                                )}
+                              >
+                                {m}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="h-56">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <AreaChart data={snapshotChartData}>
+                              <defs>
+                                <linearGradient id="colorMetric" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.2}/>
+                                  <stop offset="95%" stopColor="#4f46e5" stopOpacity={0}/>
+                                </linearGradient>
+                              </defs>
+                              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                              <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 10, fontWeight: 'bold', fill: '#9ca3af' }} />
+                              <YAxis hide domain={['auto', 'auto']} />
+                              <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
+                              <Area type="monotone" dataKey={snapshotMetric} stroke="#4f46e5" strokeWidth={3} fillOpacity={1} fill="url(#colorMetric)" />
+                            </AreaChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.section>
         )}
@@ -1187,15 +1757,34 @@ const BlogPostPage = () => {
         </div>
 
         <div className="prose prose-indigo prose-xl max-w-none text-gray-600 leading-relaxed font-medium">
-          {post.content.split('\n').map((para, i) => {
-            if (para.startsWith('# ')) return <h1 key={i} className="text-4xl font-black text-gray-900 mt-16 mb-8 leading-tight">{para.replace('# ', '')}</h1>;
-            if (para.startsWith('## ')) return <h2 key={i} className="text-3xl font-black text-gray-900 mt-14 mb-6 leading-tight">{para.replace('## ', '')}</h2>;
-            if (para.startsWith('### ')) return <h3 key={i} className="text-2xl font-black text-gray-900 mt-12 mb-5 leading-tight">{para.replace('### ', '')}</h3>;
-            if (para.startsWith('- ')) return <li key={i} className="ml-6 mb-4 list-disc marker:text-indigo-600">{para.replace('- ', '')}</li>;
-            if (para.startsWith('1. ')) return <li key={i} className="ml-6 mb-4 list-decimal marker:text-indigo-600 marker:font-black">{para.replace('1. ', '')}</li>;
-            if (para.trim() === '') return <div key={i} className="h-4" />;
-            return <p key={i} className="mb-8">{para}</p>;
-          })}
+          <Markdown
+            components={{
+              h1: ({ children }) => <h1 className="text-4xl font-black text-gray-900 mt-16 mb-8 leading-tight">{children}</h1>,
+              h2: ({ children }) => <h2 className="text-3xl font-black text-gray-900 mt-14 mb-6 leading-tight">{children}</h2>,
+              h3: ({ children }) => <h3 className="text-2xl font-black text-gray-900 mt-12 mb-5 leading-tight">{children}</h3>,
+              p: ({ children }) => <p className="mb-8">{children}</p>,
+              li: ({ children }) => <li className="ml-6 mb-4 list-disc marker:text-indigo-600">{children}</li>,
+              ul: ({ children }) => <ul className="mb-8 list-disc pl-6 space-y-2">{children}</ul>,
+              ol: ({ children }) => <ol className="list-decimal mb-8 pl-6 space-y-2">{children}</ol>,
+              a: ({ href, children }) => {
+                const isInternal = href?.startsWith('/');
+                if (isInternal) {
+                  return <Link to={href!} className="text-indigo-600 hover:text-indigo-800 underline font-black">{children}</Link>;
+                }
+                return <a href={href} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:text-indigo-800 underline font-black">{children}</a>;
+              },
+              img: ({ src, alt }) => <img src={src} alt={alt} className="w-full rounded-[2.5rem] my-12 shadow-xl object-cover" referrerPolicy="no-referrer" />,
+              table: ({ children }) => <div className="overflow-x-auto my-12 border border-gray-100 rounded-3xl shadow-sm"><table className="w-full text-left border-collapse">{children}</table></div>,
+              thead: ({ children }) => <thead className="bg-gray-50 border-b border-gray-100">{children}</thead>,
+              tbody: ({ children }) => <tbody>{children}</tbody>,
+              tr: ({ children }) => <tr className="border-b border-gray-50 last:border-b-0 hover:bg-gray-50/50 transition-colors">{children}</tr>,
+              th: ({ children }) => <th className="p-4 text-xs font-black text-gray-400 uppercase tracking-wider">{children}</th>,
+              td: ({ children }) => <td className="p-4 text-sm font-bold text-gray-700">{children}</td>,
+              strong: ({ children }) => <strong className="font-black text-gray-900">{children}</strong>
+            }}
+          >
+            {post.content}
+          </Markdown>
         </div>
 
         {/* Try your Life Stats CTA */}
@@ -1234,6 +1823,38 @@ const BlogPostPage = () => {
   );
 };
 
+// --- Native Ad Banner ---
+const NativeAdBanner = () => {
+  useEffect(() => {
+    // Dynamically append the native banner ad script to ensure the DOM element 
+    // container is ready and fully rendered when the ad network script executes.
+    const script = document.createElement('script');
+    script.src = "https://pl30345474.effectivecpmnetwork.com/3b206da7a69046d26ef0c592486bc77f/invoke.js";
+    script.async = true;
+    script.setAttribute('data-cfasync', 'false');
+    document.body.appendChild(script);
+
+    return () => {
+      try {
+        document.body.removeChild(script);
+      } catch (e) {
+        // Safe check
+      }
+    };
+  }, []);
+
+  return (
+    <div id="native-ad-wrapper" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8 text-center flex justify-center items-center">
+      <div 
+        id="container-3b206da7a69046d26ef0c592486bc77f" 
+        className="w-full max-w-4xl bg-white border border-gray-100 rounded-[2.5rem] p-6 shadow-sm overflow-hidden min-h-[120px] flex items-center justify-center text-xs font-bold text-gray-400"
+      >
+        {/* Native Ad Banner Container */}
+      </div>
+    </div>
+  );
+};
+
 // --- Main App ---
 
 export default function App() {
@@ -1253,6 +1874,7 @@ export default function App() {
           <Route path="/blog/:slug" element={<BlogPostPage />} />
         </Routes>
       </main>
+      <NativeAdBanner />
       <Footer />
     </div>
   );
