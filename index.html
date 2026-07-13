@@ -3,36 +3,135 @@
   <head>
     <meta charset="UTF-8" />
     <script>
-      // Suppress third-party ad-network script errors so they don't trigger platform build or runtime failure alerts.
-      window.onerror = function (message, url, line, col, error) {
-        if (
-          message === 'Script error.' ||
-          (url && (url.indexOf('effectivecpmnetwork') !== -1 || url.indexOf('pl3034547') !== -1)) ||
-          (error && error.stack && (error.stack.indexOf('effectivecpmnetwork') !== -1 || error.stack.indexOf('pl3034547') !== -1))
-        ) {
-          console.warn('Suppressed cross-origin or third-party ad script error:', message, url);
-          return true; // Prevents firing the default event handler
-        }
-        return false;
-      };
+      (function() {
+        // Keep references to the original methods
+        const originalAddEventListener = window.addEventListener;
+        const originalRemoveEventListener = window.removeEventListener;
 
-      window.addEventListener('error', function (e) {
-        if (
-          e.message === 'Script error.' ||
-          (e.filename && (e.filename.indexOf('effectivecpmnetwork') !== -1 || e.filename.indexOf('pl3034547') !== -1))
-        ) {
-          e.stopImmediatePropagation();
-          e.preventDefault();
+        // Custom error filter function
+        function isAdError(eventOrMessage, source, lineno, colno, error) {
+          // If it's an Event/ErrorEvent object
+          if (eventOrMessage && typeof eventOrMessage === 'object') {
+            const msg = eventOrMessage.message || '';
+            if (msg === 'Script error.' || msg.indexOf('effectivecpmnetwork') !== -1 || msg.indexOf('pl3034547') !== -1) {
+              return true;
+            }
+            if (eventOrMessage.filename && (eventOrMessage.filename.indexOf('effectivecpmnetwork') !== -1 || eventOrMessage.filename.indexOf('pl3034547') !== -1)) {
+              return true;
+            }
+          }
+          if (eventOrMessage && eventOrMessage.reason) {
+            const reasonMsg = eventOrMessage.reason.message || eventOrMessage.reason.toString() || '';
+            if (reasonMsg.indexOf('Script error') !== -1 || reasonMsg.indexOf('effectivecpmnetwork') !== -1 || reasonMsg.indexOf('pl3034547') !== -1) {
+              return true;
+            }
+          }
+          // If it's a string message
+          if (typeof eventOrMessage === 'string') {
+            if (
+              eventOrMessage === 'Script error.' ||
+              eventOrMessage.indexOf('effectivecpmnetwork') !== -1 ||
+              eventOrMessage.indexOf('pl3034547') !== -1
+            ) {
+              return true;
+            }
+          }
+          if (source && (source.indexOf('effectivecpmnetwork') !== -1 || source.indexOf('pl3034547') !== -1)) {
+            return true;
+          }
+          if (error && error.stack && (error.stack.indexOf('effectivecpmnetwork') !== -1 || error.stack.indexOf('pl3034547') !== -1)) {
+            return true;
+          }
+          return false;
         }
-      }, true);
 
-      window.addEventListener('unhandledrejection', function (e) {
-        const msg = e.reason && (e.reason.message || e.reason.toString());
-        if (msg && (msg.indexOf('Script error') !== -1 || msg.indexOf('effectivecpmnetwork') !== -1 || msg.indexOf('pl3034547') !== -1)) {
-          e.stopImmediatePropagation();
-          e.preventDefault();
-        }
-      }, true);
+        // Register immediate direct capture-phase event listeners before wrapping addEventListener
+        originalAddEventListener.call(window, 'error', function(event) {
+          if (isAdError(event)) {
+            console.warn('Suppressed ad error in capture phase:', event);
+            try {
+              event.stopImmediatePropagation();
+              event.preventDefault();
+            } catch (e) {}
+          }
+        }, true);
+
+        originalAddEventListener.call(window, 'unhandledrejection', function(event) {
+          if (isAdError(event.reason)) {
+            console.warn('Suppressed ad rejection in capture phase:', event);
+            try {
+              event.stopImmediatePropagation();
+              event.preventDefault();
+            } catch (e) {}
+          }
+        }, true);
+
+        // Intercept window.onerror setter
+        let customOnerror = null;
+        Object.defineProperty(window, 'onerror', {
+          get() {
+            return customOnerror;
+          },
+          set(fn) {
+            customOnerror = function(message, source, lineno, colno, error) {
+              if (isAdError(message, source, lineno, colno, error)) {
+                console.warn('Suppressed ad error in custom onerror:', message, source);
+                return true; // prevent default
+              }
+              if (typeof fn === 'function') {
+                return fn.apply(this, arguments);
+              }
+            };
+          },
+          configurable: true,
+          enumerable: true
+        });
+
+        // Assign a default onerror handler using the setter we just created
+        window.onerror = function(message, source, lineno, colno, error) {
+          if (isAdError(message, source, lineno, colno, error)) {
+            console.warn('Suppressed ad error in default onerror:', message, source);
+            return true;
+          }
+        };
+
+        // Intercept window.addEventListener
+        window.addEventListener = function(type, listener, options) {
+          if ((type === 'error' || type === 'unhandledrejection') && typeof listener === 'function') {
+            const wrappedListener = function(event) {
+              if (isAdError(type === 'error' ? event : event.reason)) {
+                console.warn('Suppressed ad error in wrapped listener:', event);
+                try {
+                  event.stopImmediatePropagation();
+                  event.preventDefault();
+                } catch (e) {}
+                return;
+              }
+              return listener.apply(this, arguments);
+            };
+            // Store the mapping so removeEventListener still works
+            if (!listener.__wrappedListeners) {
+              listener.__wrappedListeners = [];
+            }
+            listener.__wrappedListeners.push({ type, wrapped: wrappedListener, options });
+            return originalAddEventListener.call(this, type, wrappedListener, options);
+          }
+          return originalAddEventListener.apply(this, arguments);
+        };
+
+        // Intercept window.removeEventListener
+        window.removeEventListener = function(type, listener, options) {
+          if ((type === 'error' || type === 'unhandledrejection') && listener && listener.__wrappedListeners) {
+            const index = listener.__wrappedListeners.findIndex(item => item.type === type && item.options === options);
+            if (index !== -1) {
+              const wrapped = listener.__wrappedListeners[index].wrapped;
+              listener.__wrappedListeners.splice(index, 1);
+              return originalRemoveEventListener.call(this, type, wrapped, options);
+            }
+          }
+          return originalRemoveEventListener.apply(this, arguments);
+        };
+      })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
