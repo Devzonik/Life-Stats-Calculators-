@@ -587,120 +587,6 @@ const RealTimeClock = () => {
   );
 };
 
-// --- Direct Link Banner (CPM Network) ---
-interface DirectLinkBannerProps {
-  className?: string;
-  variant?: 'compact' | 'wide' | 'editorial';
-}
-
-const DirectLinkBanner = ({ className = '', variant = 'wide' }: DirectLinkBannerProps) => {
-  const directLinkUrl = "https://www.effectivecpmnetwork.com/xcn9mcsv?key=c8d6854286c29137629bc0b68e952fe5";
-
-  if (variant === 'compact') {
-    return (
-      <a 
-        href={directLinkUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={cn(
-          "group block bg-gradient-to-r from-violet-50 to-indigo-50 border border-indigo-100/50 p-6 rounded-3xl hover:border-indigo-200 hover:shadow-md transition-all duration-300 relative overflow-hidden",
-          className
-        )}
-      >
-        <div className="absolute top-0 right-0 -mt-6 -mr-6 w-20 h-20 bg-indigo-500/5 rounded-full blur-xl group-hover:scale-150 transition-transform duration-500" />
-        <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="text-left">
-            <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-100/60 px-2 py-0.5 rounded-full mb-2 inline-block">
-              Sponsored Offer
-            </span>
-            <h5 className="font-black text-gray-900 text-sm mb-1 group-hover:text-indigo-600 transition-colors">
-              Boost Your Daily Potential & Productivity
-            </h5>
-            <p className="text-xs text-gray-500 font-medium">
-              Discover top-rated partner resources and exclusive longevity tools.
-            </p>
-          </div>
-          <div className="inline-flex items-center space-x-1.5 bg-indigo-600 group-hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-full transition-colors shrink-0">
-            <span>Learn More</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </div>
-        </div>
-      </a>
-    );
-  }
-
-  if (variant === 'editorial') {
-    return (
-      <div className={cn("my-12 px-4 max-w-4xl mx-auto", className)}>
-        <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-2.5 block text-center">
-          Sponsored Link
-        </span>
-        <a 
-          href={directLinkUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group block bg-white border border-gray-100 p-8 sm:p-10 rounded-[2.5rem] shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-300 relative overflow-hidden text-center"
-        >
-          <div className="absolute -top-12 -left-12 w-48 h-48 bg-pink-50 rounded-full blur-3xl opacity-60" />
-          <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-indigo-50 rounded-full blur-3xl opacity-60" />
-          
-          <div className="relative z-10">
-            <span className="text-xs font-black text-indigo-600 bg-indigo-50 border border-indigo-100 px-3.5 py-1.5 rounded-full mb-4 inline-block uppercase tracking-wider">
-              Special Recommendation
-            </span>
-            <h3 className="text-xl sm:text-2xl font-black text-gray-900 mb-3 tracking-tight group-hover:text-indigo-600 transition-colors">
-              Looking for Ways to Optimize Your Lifestyle?
-            </h3>
-            <p className="text-sm text-gray-500 font-medium max-w-xl mx-auto mb-6 leading-relaxed">
-              Explore hand-picked offers, smart financial tools, and high-performance habits programs designed to make every second count.
-            </p>
-            <div className="inline-flex items-center space-x-2 bg-indigo-600 group-hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-full transition-all hover:scale-105">
-              <span>Access Exclusive Deals</span>
-              <ExternalLink className="w-4 h-4" />
-            </div>
-          </div>
-        </a>
-      </div>
-    );
-  }
-
-  // default 'wide' banner style
-  return (
-    <div className={cn("w-full mx-auto my-8 px-4", className)}>
-      <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-1.5 block text-center">
-        Sponsored Content
-      </span>
-      <a 
-        href={directLinkUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group block w-full max-w-4xl mx-auto bg-gradient-to-br from-indigo-900 to-slate-900 p-6 sm:p-8 rounded-[2.5rem] text-white shadow-xl hover:shadow-indigo-900/15 hover:scale-[1.01] transition-all duration-300 relative overflow-hidden text-left"
-      >
-        <div className="absolute top-0 right-0 -mt-16 -mr-16 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700" />
-        <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-48 h-48 bg-pink-500/10 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700" />
-        
-        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div className="max-w-2xl">
-            <span className="text-[10px] font-black text-indigo-300 uppercase tracking-widest bg-indigo-800/50 border border-indigo-700 px-3 py-1 rounded-full mb-3 inline-block">
-              Premium Partner offer
-            </span>
-            <h4 className="text-lg sm:text-xl font-black mb-2 tracking-tight group-hover:text-indigo-200 transition-colors">
-              Maximize Your Lifetime Health, Wealth & Happiness
-            </h4>
-            <p className="text-xs sm:text-sm text-indigo-100/80 font-medium leading-relaxed">
-              Unlock our partner's exclusive resource center for cutting-edge productivity, wellness tools, and financial projection templates.
-            </p>
-          </div>
-          <div className="inline-flex items-center space-x-2 bg-white text-indigo-900 font-black px-6 py-3.5 rounded-full text-xs sm:text-sm shadow-lg hover:bg-indigo-50 transition-all shrink-0">
-            <span>Explore Partner Offers</span>
-            <ExternalLink className="w-4 h-4 text-indigo-600" />
-          </div>
-        </div>
-      </a>
-    </div>
-  );
-};
-
 // --- Pages ---
 
 interface GiantsComparisonProps {
@@ -1662,6 +1548,7 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50/50">
+
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden bg-white border-b border-gray-100">
         <div className="absolute inset-0 -z-10">
@@ -1814,12 +1701,6 @@ const HomePage = () => {
                   </div>
                 </div>
               </div>
-
-              {/* Sponsored Offer Dashboard Top Unit */}
-              <DirectLinkBanner 
-                variant="wide" 
-                className="mb-8" 
-              />
 
               {/* Tabs */}
               <div className="flex overflow-x-auto pb-4 mb-8 space-x-4 no-scrollbar">
@@ -2485,11 +2366,6 @@ const BlogListPage = () => {
           ))}
         </div>
 
-        {/* Sponsored Wide Banner at bottom of Blog List */}
-        <DirectLinkBanner 
-          variant="wide" 
-          className="mt-16" 
-        />
       </div>
     </div>
   );
@@ -2590,13 +2466,13 @@ const BlogPostPage = () => {
           <span>Back to all articles</span>
         </Link>
 
-        <header className="mb-16">
-          <div className="flex items-center space-x-4 text-sm text-gray-400 mb-8 font-bold uppercase tracking-widest">
+        <header className="mb-12">
+          <div className="flex items-center space-x-4 text-sm text-gray-400 mb-6 font-bold uppercase tracking-widest">
             <span>{post.date}</span>
             <span className="w-1.5 h-1.5 bg-gray-200 rounded-full" />
             <span className="text-indigo-600">{post.tags.join(', ')}</span>
           </div>
-          <h1 className="text-5xl lg:text-7xl font-black text-gray-900 mb-10 leading-[1.1]">
+          <h1 className="text-4xl lg:text-6xl font-black text-gray-900 mb-8 leading-[1.15]">
             {post.title}
           </h1>
           <div className="flex items-center space-x-5 p-6 bg-gray-50 rounded-3xl border border-gray-100">
@@ -2610,7 +2486,7 @@ const BlogPostPage = () => {
           </div>
         </header>
 
-        <div className="aspect-[16/9] rounded-[3rem] overflow-hidden mb-16 shadow-2xl">
+        <div className="aspect-[16/9] rounded-[3rem] overflow-hidden mb-12 shadow-2xl">
           <img 
             src={`https://picsum.photos/seed/${post.slug}/1200/800`} 
             alt={post.title}
@@ -2650,14 +2526,8 @@ const BlogPostPage = () => {
           </Markdown>
         </div>
 
-        {/* In-Article Contextual Sponsored Unit */}
-        <DirectLinkBanner 
-          variant="editorial" 
-          className="my-12" 
-        />
-
         {/* Try your Life Stats CTA */}
-        <div className="mt-20 p-12 bg-indigo-600 rounded-[3rem] text-white text-center shadow-2xl shadow-indigo-200 relative overflow-hidden group">
+        <div className="mt-16 p-12 bg-indigo-600 rounded-[3rem] text-white text-center shadow-2xl shadow-indigo-200 relative overflow-hidden group">
           <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
           <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-indigo-400/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
           
@@ -2674,7 +2544,7 @@ const BlogPostPage = () => {
           </Link>
         </div>
 
-        <div className="mt-24 pt-12 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-8">
+        <div className="mt-16 pt-12 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-8">
           <div className="flex items-center space-x-6">
             <button className="flex items-center space-x-3 bg-gray-900 text-white px-8 py-4 rounded-full font-black hover:bg-indigo-600 transition-all shadow-xl shadow-gray-200">
               <Share2 className="w-5 h-5" />
@@ -2690,45 +2560,7 @@ const BlogPostPage = () => {
       </div>
     </article>
   );
-};
-
-// --- Native Ad Banner ---
-const NativeAdBanner = () => {
-  useEffect(() => {
-    const scriptSrc = "https://pl30345474.effectivecpmnetwork.com/3b206da7a69046d26ef0c592486bc77f/invoke.js";
-    
-    const script = document.createElement('script');
-    script.src = scriptSrc;
-    script.async = true;
-    script.setAttribute('data-cfasync', 'false');
-    document.body.appendChild(script);
-
-    return () => {
-      try {
-        document.body.removeChild(script);
-      } catch (e) {
-        // ignore
-      }
-    };
-  }, []);
-
-  return (
-    <div id="native-ad-wrapper" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-12 text-center flex flex-col items-center">
-      <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-2.5 select-none">
-        Sponsored Feed
-      </span>
-      <div 
-        id="container-3b206da7a69046d26ef0c592486bc77f" 
-        className="w-full max-w-4xl bg-white border border-gray-100 rounded-[2.5rem] p-6 shadow-sm overflow-hidden min-h-[140px] flex items-center justify-center text-xs font-bold text-gray-400 relative"
-      >
-        {/* Native Ad Banner Container */}
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center text-center p-4 opacity-5 z-0">
-          <span className="text-[10px] font-mono text-gray-500">Sponsored Ads</span>
-        </div>
-      </div>
-    </div>
-  );
-};
+}
 
 // --- Main App ---
 
@@ -2749,7 +2581,6 @@ export default function App() {
           <Route path="/blog/:slug" element={<BlogPostPage />} />
         </Routes>
       </main>
-      <NativeAdBanner />
       <Footer />
     </div>
   );
