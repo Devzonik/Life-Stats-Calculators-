@@ -92,6 +92,131 @@ const AVG_LAUGHS_PER_DAY = 15;
 const AVG_BATHROOM_YEARS = 1.5; // In a lifetime
 const AVG_SCROLL_KM_PER_DAY = 0.3; // Estimated scrolling distance
 
+const PREDEFINED_GIANTS = [
+  {
+    id: 'einstein',
+    name: 'Albert Einstein',
+    type: 'historical',
+    birthDate: '1879-03-14',
+    deathDate: '1955-04-18',
+    description: 'Theoretical physicist who developed the theory of relativity.',
+    iconName: 'Brain',
+    achievements: [
+      { age: 5, title: 'The Compass Wonder', description: 'His father showed him a pocket compass; he realized something in empty space was moving the needle.' },
+      { age: 17, title: 'Zurich Polytechnic', description: 'Admitted to the mathematics and physics teaching diploma program.' },
+      { age: 26, title: 'Miracle Year (Annus Mirabilis)', description: 'Published 4 groundbreaking papers including Special Relativity and E=mc².' },
+      { age: 42, title: 'Nobel Prize in Physics', description: 'Awarded the Nobel Prize for his explanation of the photoelectric effect.' },
+      { age: 76, title: 'Eternal Legacy', description: 'Passed away at age 76, leaving behind an unmatched scientific heritage.' }
+    ]
+  },
+  {
+    id: 'mozart',
+    name: 'Wolfgang Amadeus Mozart',
+    type: 'historical',
+    birthDate: '1756-01-27',
+    deathDate: '1791-12-05',
+    description: 'Prodigious composer of the classical era who created over 800 works.',
+    iconName: 'Music',
+    achievements: [
+      { age: 5, title: 'First Composition', description: 'Wrote his earliest musical compositions, showing incredible prodigy.' },
+      { age: 8, title: 'First Symphony', description: 'Composed his very first symphony (Symphony No. 1 in E-flat major).' },
+      { age: 14, title: 'Papal Knight', description: 'Appointed a papal knight of the Golden Spur by Pope Clement XIV in Rome.' },
+      { age: 25, title: 'Vienna Relocation', description: 'Moved to Vienna as an independent composer, embarking on his mature masterpiece era.' },
+      { age: 35, title: 'The Requiem & Passing', description: 'Composed The Magic Flute and parts of his Requiem before passing away.' }
+    ]
+  },
+  {
+    id: 'lovelace',
+    name: 'Ada Lovelace',
+    type: 'historical',
+    birthDate: '1815-12-10',
+    deathDate: '1852-11-27',
+    description: 'Mathematician widely regarded as the first computer programmer.',
+    iconName: 'Monitor',
+    achievements: [
+      { age: 12, title: 'Designed Flying Machine', description: 'Studied bird anatomy and materials to construct a flight mechanism.' },
+      { age: 17, title: 'Met Charles Babbage', description: 'Introduced to Babbage and his Difference Engine, sparking a lifelong partnership.' },
+      { age: 27, title: 'First Computer Algorithm', description: 'Wrote extensive notes on the Analytical Engine, containing the first computer algorithm.' },
+      { age: 36, title: 'Early Passing', description: 'Passed away at age 36, leaving behind pioneering computation theories.' }
+    ]
+  },
+  {
+    id: 'jobs',
+    name: 'Steve Jobs',
+    type: 'historical',
+    birthDate: '1955-02-24',
+    deathDate: '2011-10-05',
+    description: 'Co-founder of Apple Inc. and visionary pioneer of personal computing.',
+    iconName: 'Smartphone',
+    achievements: [
+      { age: 13, title: 'Hewlett-Packard Call', description: 'Called Bill Hewlett directly to ask for parts, and was offered a summer internship.' },
+      { age: 21, title: 'Co-founded Apple', description: 'Started Apple Computer with Steve Wozniak in his family garage.' },
+      { age: 25, title: 'IPO Success', description: 'Apple went public, putting Jobs\'s net worth at over $250 million.' },
+      { age: 30, title: 'NeXT & Pixar', description: 'Ousted from Apple, he went on to found NeXT and fund Pixar Animation Studios.' },
+      { age: 42, title: 'Returned to Apple', description: 'Returned as CEO, launching the iMac and setting Apple\'s path to tech dominance.' },
+      { age: 52, title: 'The iPhone Debut', description: 'Introduced the revolutionary iPhone, reshaping global telecommunications.' }
+    ]
+  },
+  {
+    id: 'curie',
+    name: 'Marie Curie',
+    type: 'historical',
+    birthDate: '1867-11-07',
+    deathDate: '1934-07-04',
+    description: 'Physicist and chemist who conducted pioneering research on radioactivity.',
+    iconName: 'Sparkles',
+    achievements: [
+      { age: 24, title: 'Moved to Paris', description: 'Enrolled at the Faculty of Sciences at the Sorbonne to study physics and math.' },
+      { age: 31, title: 'Discovered Radioactive Elements', description: 'Isolated Polonium and Radium alongside her husband Pierre.' },
+      { age: 36, title: 'First Nobel Prize', description: 'Received the Nobel Prize in Physics, becoming the first woman to win one.' },
+      { age: 44, title: 'Second Nobel Prize', description: 'Won the Nobel Prize in Chemistry, becoming the first person to win two Nobel Prizes.' }
+    ]
+  },
+  {
+    id: 'harrypotter',
+    name: 'Harry Potter',
+    type: 'fictional',
+    birthDate: '1980-07-31',
+    description: 'The Boy Who Lived, hero of the Wizarding World.',
+    iconName: 'Zap',
+    achievements: [
+      { age: 11, title: 'Discovered Magic', description: 'Received his Hogwarts letter and learned he was a wizard.' },
+      { age: 12, title: 'Slew the Basilisk', description: 'Saved Hogwarts by destroying Tom Riddle\'s diary and slaying the basilisk.' },
+      { age: 14, title: 'Triwizard Tournament', description: 'Competed in and survived the dangerous Triwizard Tournament.' },
+      { age: 17, title: 'Defeated Voldemort', description: 'Destroyed the remaining Horcruxes and defeated the Dark Lord in the Battle of Hogwarts.' },
+      { age: 37, title: 'Head Auror', description: 'Rose to become Head of the Auror Office, protecting the magic world.' }
+    ]
+  },
+  {
+    id: 'batman',
+    name: 'Bruce Wayne (Batman)',
+    type: 'fictional',
+    birthDate: '1939-05-27',
+    description: 'The Dark Knight, billionaire philanthropist turned Gotham’s protector.',
+    iconName: 'Moon',
+    achievements: [
+      { age: 8, title: 'The Oath', description: 'Witnessed his parents\' murder in Crime Alley, swearing an oath of justice.' },
+      { age: 18, title: 'Global Training', description: 'Left Gotham to travel the world, mastering martial arts, criminology, and science.' },
+      { age: 25, title: 'Became Batman', description: 'Returned to Gotham and adopted the bat persona to strike fear in criminals.' },
+      { age: 30, title: 'Founded Justice League', description: 'Co-founded the world\'s premiere team of superheroes to defend the planet.' }
+    ]
+  },
+  {
+    id: 'barbie',
+    name: 'Barbie Roberts',
+    type: 'fictional',
+    birthDate: '1959-03-09',
+    description: 'Global icon with over 200 careers, proving you can be anything.',
+    iconName: 'Smile',
+    achievements: [
+      { age: 1, title: 'Toy Fair Debut', description: 'Made her first official public appearance, instantly taking the world by storm.' },
+      { age: 6, title: 'Astronaut Barbie', description: 'Went to space years before Apollo 11 landed on the moon.' },
+      { age: 30, title: 'UNICEF Ambassador', description: 'Partnered with UNICEF to advocate for children\'s rights and education globally.' },
+      { age: 33, title: 'Ran for President', description: 'Launched her first presidential campaign, encouraging leadership in girls.' }
+    ]
+  }
+];
+
 // --- Types ---
 interface LifeStats {
   // Time
@@ -458,6 +583,725 @@ const RealTimeClock = () => {
       <span className="text-indigo-900 font-mono font-medium">
         {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
       </span>
+    </div>
+  );
+};
+
+// --- Direct Link Banner (CPM Network) ---
+interface DirectLinkBannerProps {
+  className?: string;
+  variant?: 'compact' | 'wide' | 'editorial';
+}
+
+const DirectLinkBanner = ({ className = '', variant = 'wide' }: DirectLinkBannerProps) => {
+  const directLinkUrl = "https://www.effectivecpmnetwork.com/xcn9mcsv?key=c8d6854286c29137629bc0b68e952fe5";
+
+  if (variant === 'compact') {
+    return (
+      <a 
+        href={directLinkUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cn(
+          "group block bg-gradient-to-r from-violet-50 to-indigo-50 border border-indigo-100/50 p-6 rounded-3xl hover:border-indigo-200 hover:shadow-md transition-all duration-300 relative overflow-hidden",
+          className
+        )}
+      >
+        <div className="absolute top-0 right-0 -mt-6 -mr-6 w-20 h-20 bg-indigo-500/5 rounded-full blur-xl group-hover:scale-150 transition-transform duration-500" />
+        <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="text-left">
+            <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-100/60 px-2 py-0.5 rounded-full mb-2 inline-block">
+              Sponsored Offer
+            </span>
+            <h5 className="font-black text-gray-900 text-sm mb-1 group-hover:text-indigo-600 transition-colors">
+              Boost Your Daily Potential & Productivity
+            </h5>
+            <p className="text-xs text-gray-500 font-medium">
+              Discover top-rated partner resources and exclusive longevity tools.
+            </p>
+          </div>
+          <div className="inline-flex items-center space-x-1.5 bg-indigo-600 group-hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-full transition-colors shrink-0">
+            <span>Learn More</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </div>
+        </div>
+      </a>
+    );
+  }
+
+  if (variant === 'editorial') {
+    return (
+      <div className={cn("my-12 px-4 max-w-4xl mx-auto", className)}>
+        <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-2.5 block text-center">
+          Sponsored Link
+        </span>
+        <a 
+          href={directLinkUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group block bg-white border border-gray-100 p-8 sm:p-10 rounded-[2.5rem] shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-300 relative overflow-hidden text-center"
+        >
+          <div className="absolute -top-12 -left-12 w-48 h-48 bg-pink-50 rounded-full blur-3xl opacity-60" />
+          <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-indigo-50 rounded-full blur-3xl opacity-60" />
+          
+          <div className="relative z-10">
+            <span className="text-xs font-black text-indigo-600 bg-indigo-50 border border-indigo-100 px-3.5 py-1.5 rounded-full mb-4 inline-block uppercase tracking-wider">
+              Special Recommendation
+            </span>
+            <h3 className="text-xl sm:text-2xl font-black text-gray-900 mb-3 tracking-tight group-hover:text-indigo-600 transition-colors">
+              Looking for Ways to Optimize Your Lifestyle?
+            </h3>
+            <p className="text-sm text-gray-500 font-medium max-w-xl mx-auto mb-6 leading-relaxed">
+              Explore hand-picked offers, smart financial tools, and high-performance habits programs designed to make every second count.
+            </p>
+            <div className="inline-flex items-center space-x-2 bg-indigo-600 group-hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-full transition-all hover:scale-105">
+              <span>Access Exclusive Deals</span>
+              <ExternalLink className="w-4 h-4" />
+            </div>
+          </div>
+        </a>
+      </div>
+    );
+  }
+
+  // default 'wide' banner style
+  return (
+    <div className={cn("w-full mx-auto my-8 px-4", className)}>
+      <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-1.5 block text-center">
+        Sponsored Content
+      </span>
+      <a 
+        href={directLinkUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group block w-full max-w-4xl mx-auto bg-gradient-to-br from-indigo-900 to-slate-900 p-6 sm:p-8 rounded-[2.5rem] text-white shadow-xl hover:shadow-indigo-900/15 hover:scale-[1.01] transition-all duration-300 relative overflow-hidden text-left"
+      >
+        <div className="absolute top-0 right-0 -mt-16 -mr-16 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700" />
+        <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-48 h-48 bg-pink-500/10 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700" />
+        
+        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="max-w-2xl">
+            <span className="text-[10px] font-black text-indigo-300 uppercase tracking-widest bg-indigo-800/50 border border-indigo-700 px-3 py-1 rounded-full mb-3 inline-block">
+              Premium Partner offer
+            </span>
+            <h4 className="text-lg sm:text-xl font-black mb-2 tracking-tight group-hover:text-indigo-200 transition-colors">
+              Maximize Your Lifetime Health, Wealth & Happiness
+            </h4>
+            <p className="text-xs sm:text-sm text-indigo-100/80 font-medium leading-relaxed">
+              Unlock our partner's exclusive resource center for cutting-edge productivity, wellness tools, and financial projection templates.
+            </p>
+          </div>
+          <div className="inline-flex items-center space-x-2 bg-white text-indigo-900 font-black px-6 py-3.5 rounded-full text-xs sm:text-sm shadow-lg hover:bg-indigo-50 transition-all shrink-0">
+            <span>Explore Partner Offers</span>
+            <ExternalLink className="w-4 h-4 text-indigo-600" />
+          </div>
+        </div>
+      </a>
+    </div>
+  );
+};
+
+// --- Pages ---
+
+interface GiantsComparisonProps {
+  stats: LifeStats;
+  birthDate: string;
+  currentTime: Date;
+}
+
+const GiantsComparison = ({ stats, birthDate, currentTime }: GiantsComparisonProps) => {
+  const [selectedFigureId, setSelectedFigureId] = useState('einstein');
+  const [customFigures, setCustomFigures] = useState<any[]>(() => {
+    const saved = localStorage.getItem('life_stats_custom_giants');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // Toggle state for custom figure form
+  const [isAdding, setIsAdding] = useState(false);
+  const [customName, setCustomName] = useState('');
+  const [customBirth, setCustomBirth] = useState('');
+  const [customDeath, setCustomDeath] = useState('');
+  const [customIsFictional, setCustomIsFictional] = useState(false);
+  const [customDesc, setCustomDesc] = useState('');
+  const [formError, setFormError] = useState<string | null>(null);
+
+  // AI Comparison states
+  const [aiCompareText, setAiCompareText] = useState<string | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
+
+  // Clear AI text when selection changes
+  useEffect(() => {
+    setAiCompareText(null);
+    setAiError(null);
+  }, [selectedFigureId]);
+
+  // Combined list of figures
+  const allFigures = useMemo(() => {
+    return [...PREDEFINED_GIANTS, ...customFigures];
+  }, [customFigures]);
+
+  // Selected figure
+  const figure = useMemo(() => {
+    return allFigures.find(f => f.id === selectedFigureId) || PREDEFINED_GIANTS[0];
+  }, [allFigures, selectedFigureId]);
+
+  // Handle adding custom figure
+  const handleAddCustom = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError(null);
+
+    if (!customName.trim()) {
+      setFormError("Please enter a name.");
+      return;
+    }
+    if (!customBirth) {
+      setFormError("Please select a birth date.");
+      return;
+    }
+
+    const birth = new Date(customBirth);
+    const now = new Date();
+    if (isNaN(birth.getTime())) {
+      setFormError("Please select a valid birth date.");
+      return;
+    }
+    if (birth > now) {
+      setFormError("Birth date cannot be in the future.");
+      return;
+    }
+
+    let deathDate: string | undefined = undefined;
+    if (customDeath) {
+      const death = new Date(customDeath);
+      if (isNaN(death.getTime())) {
+        setFormError("Please enter a valid death date or leave blank.");
+        return;
+      }
+      if (death < birth) {
+        setFormError("Death date cannot be before birth date.");
+        return;
+      }
+      if (death > now) {
+        setFormError("Death date cannot be in the future.");
+        return;
+      }
+      deathDate = customDeath;
+    }
+
+    const newFig = {
+      id: 'custom_' + Date.now(),
+      name: customName,
+      type: customIsFictional ? 'fictional' : 'historical',
+      birthDate: customBirth,
+      deathDate,
+      description: customDesc || (customIsFictional ? 'A captivating fictional character.' : 'A remarkable historical figure.'),
+      iconName: customIsFictional ? 'Smile' : 'Users',
+      achievements: [
+        { age: 1, title: 'Beginnings', description: 'Began their unique and inspiring journey.' },
+        { age: Math.max(2, Math.floor(stats.years / 2)), title: 'Rising Path', description: 'Steadily pursuing goals and gaining experiences.' }
+      ]
+    };
+
+    const updated = [...customFigures, newFig];
+    setCustomFigures(updated);
+    localStorage.setItem('life_stats_custom_giants', JSON.stringify(updated));
+    setSelectedFigureId(newFig.id);
+
+    // Reset form
+    setCustomName('');
+    setCustomBirth('');
+    setCustomDeath('');
+    setCustomIsFictional(false);
+    setCustomDesc('');
+    setIsAdding(false);
+  };
+
+  // Handle removing custom figure
+  const handleRemoveCustom = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const updated = customFigures.filter(f => f.id !== id);
+    setCustomFigures(updated);
+    localStorage.setItem('life_stats_custom_giants', JSON.stringify(updated));
+    if (selectedFigureId === id) {
+      setSelectedFigureId('einstein');
+    }
+  };
+
+  // Chronological Calculations
+  const calculations = useMemo(() => {
+    const userBirth = new Date(birthDate);
+    const figBirth = new Date(figure.birthDate);
+    const figEnd = figure.deathDate ? new Date(figure.deathDate) : currentTime;
+
+    // Total days lived by the figure
+    const figTotalDays = Math.max(1, Math.floor((figEnd.getTime() - figBirth.getTime()) / (1000 * 60 * 60 * 24)));
+    const figTotalYears = (figTotalDays / 365.25);
+
+    // Overlapping Days
+    const overlapStart = Math.max(userBirth.getTime(), figBirth.getTime());
+    const overlapEnd = Math.min(currentTime.getTime(), figEnd.getTime());
+    const overlapMs = overlapEnd - overlapStart;
+    const overlapDays = overlapMs > 0 ? Math.floor(overlapMs / (1000 * 60 * 60 * 24)) : 0;
+
+    // Pct comparison
+    const lifeCompletionPct = Math.min(100, (stats.totalDays / figTotalDays) * 100);
+
+    // Estimated heartbeats for figure (72 bpm average)
+    const figHeartbeats = figTotalDays * 24 * 60 * 72;
+
+    return {
+      figTotalDays,
+      figTotalYears,
+      overlapDays,
+      lifeCompletionPct,
+      figHeartbeats
+    };
+  }, [figure, birthDate, stats.totalDays, currentTime]);
+
+  const generateAiCompare = async () => {
+    setIsGenerating(true);
+    setAiError(null);
+    try {
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env.GEMINI_API_KEY : undefined);
+      if (!apiKey) {
+        throw new Error("GEMINI_API_KEY is not defined. Please set your VITE_GEMINI_API_KEY environment variable.");
+      }
+      const ai = new GoogleGenAI({ apiKey });
+      const prompt = `Based on these metrics:
+      - The user is ${stats.years} years old and has lived ${stats.totalDays.toLocaleString()} days.
+      - The selected figure is ${figure.name} (Type: ${figure.type}, known as: "${figure.description}").
+      - ${figure.name} lived for ${Math.round(calculations.figTotalYears)} years (${calculations.figTotalDays.toLocaleString()} days).
+      - The user shared ${calculations.overlapDays.toLocaleString()} days on Earth with them.
+      Generate a fun, inspirational, and deeply philosophical 2-sentence perspective comparing the user's current progress with this figure. Focus on the concept of time, unique destiny, and encouragement. Keep it friendly and punchy.`;
+
+      const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+        contents: prompt
+      });
+      setAiCompareText(response.text || "Your time is unique. No giant lived your life, and you are destined for your own milestones.");
+    } catch (err: any) {
+      console.error(err);
+      setAiError(err?.message || "Could not generate AI comparison.");
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Helper to render appropriate icon
+  const getIcon = (name: string) => {
+    switch (name) {
+      case 'Brain': return <Brain className="w-5 h-5 text-indigo-600" />;
+      case 'Music': return <Music className="w-5 h-5 text-indigo-600" />;
+      case 'Monitor': return <Monitor className="w-5 h-5 text-indigo-600" />;
+      case 'Smartphone': return <Smartphone className="w-5 h-5 text-indigo-600" />;
+      case 'Sparkles': return <Sparkles className="w-5 h-5 text-indigo-600" />;
+      case 'Zap': return <Zap className="w-5 h-5 text-indigo-600" />;
+      case 'Moon': return <Moon className="w-5 h-5 text-indigo-600" />;
+      case 'Smile': return <Smile className="w-5 h-5 text-indigo-600" />;
+      default: return <Users className="w-5 h-5 text-indigo-600" />;
+    }
+  };
+
+  return (
+    <div className="bg-transparent space-y-8">
+      {/* Upper header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h3 className="text-3xl font-black text-gray-900 mb-2 flex items-center gap-3">
+            <Users className="text-indigo-600 w-8 h-8" />
+            Compare with Giants & Icons
+          </h3>
+          <p className="text-gray-500 font-medium">Compare your timeline and stats side-by-side with historical visionaries or fictional characters.</p>
+        </div>
+        <button
+          onClick={() => setIsAdding(!isAdding)}
+          className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-bold transition-all shadow-lg shadow-indigo-100 text-sm active:scale-95"
+        >
+          <Plus className="w-4 h-4" />
+          <span>{isAdding ? "Cancel Form" : "Create Custom Companion"}</span>
+        </button>
+      </div>
+
+      {/* Form Card */}
+      {isAdding && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-xl max-w-2xl mx-auto"
+        >
+          <h4 className="text-xl font-black text-gray-900 mb-6">Add a Custom Character/Figure</h4>
+          <form onSubmit={handleAddCustom} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-black text-gray-400 uppercase tracking-wider mb-2 block">Name</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Nicola Tesla, Luke Skywalker"
+                  value={customName}
+                  onChange={(e) => setCustomName(e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-bold text-gray-900"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-black text-gray-400 uppercase tracking-wider mb-2 block">Type</label>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setCustomIsFictional(false)}
+                    className={cn(
+                      "flex-1 py-3 px-4 rounded-xl font-bold text-sm border transition-all",
+                      !customIsFictional 
+                        ? "bg-indigo-50 border-indigo-200 text-indigo-700" 
+                        : "bg-gray-50 border-gray-100 text-gray-500 hover:bg-gray-100"
+                    )}
+                  >
+                    Historical Figure
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCustomIsFictional(true)}
+                    className={cn(
+                      "flex-1 py-3 px-4 rounded-xl font-bold text-sm border transition-all",
+                      customIsFictional 
+                        ? "bg-indigo-50 border-indigo-200 text-indigo-700" 
+                        : "bg-gray-50 border-gray-100 text-gray-500 hover:bg-gray-100"
+                    )}
+                  >
+                    Fictional Icon
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-black text-gray-400 uppercase tracking-wider mb-2 block">Birth Date (or Debut)</label>
+                <input
+                  type="date"
+                  value={customBirth}
+                  onChange={(e) => setCustomBirth(e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-bold text-gray-900"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-black text-gray-400 uppercase tracking-wider mb-2 block">Death Date (Leave empty if alive/fictional)</label>
+                <input
+                  type="date"
+                  value={customDeath}
+                  onChange={(e) => setCustomDeath(e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-bold text-gray-900"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-xs font-black text-gray-400 uppercase tracking-wider mb-2 block">Description / Claim to Fame</label>
+              <textarea
+                placeholder="e.g. Brilliant inventor who discovered alternating current power systems."
+                value={customDesc}
+                onChange={(e) => setCustomDesc(e.target.value)}
+                rows={2}
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-bold text-gray-900"
+              />
+            </div>
+
+            {formError && (
+              <p className="text-xs font-bold text-red-500 flex items-center gap-1">
+                <AlertCircle className="w-3.5 h-3.5" />
+                {formError}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3.5 rounded-xl font-bold transition-all text-sm shadow-lg shadow-indigo-100"
+            >
+              Add & Select Character
+            </button>
+          </form>
+        </motion.div>
+      )}
+
+      {/* Main Comparison Layout Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Left column: List of giants */}
+        <div className="lg:col-span-4 bg-white p-6 rounded-[2.5rem] border border-gray-100 shadow-sm flex flex-col justify-between self-start">
+          <div>
+            <h4 className="text-lg font-black text-gray-900 mb-2">Select Companion</h4>
+            <p className="text-xs text-gray-400 font-bold mb-6">Choose a famous figure or fictional character to compare side-by-side with your stats.</p>
+
+            <div className="space-y-2.5 max-h-[480px] overflow-y-auto pr-2 no-scrollbar">
+              {allFigures.map((fig) => {
+                const isSelected = selectedFigureId === fig.id;
+                const isCustom = fig.id.startsWith('custom_');
+                return (
+                  <div
+                    key={fig.id}
+                    onClick={() => setSelectedFigureId(fig.id)}
+                    className={cn(
+                      "p-4 rounded-2xl border transition-all flex justify-between items-center cursor-pointer group",
+                      isSelected
+                        ? "bg-indigo-50/50 border-indigo-200 ring-2 ring-indigo-100"
+                        : "bg-gray-50 border-gray-50 hover:bg-white hover:border-gray-200"
+                    )}
+                  >
+                    <div className="flex items-center space-x-3.5">
+                      <div className={cn(
+                        "w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110",
+                        isSelected ? "bg-white text-indigo-600 shadow-md" : "bg-white border border-gray-100 text-gray-500"
+                      )}>
+                        {getIcon(fig.iconName)}
+                      </div>
+                      <div>
+                        <p className="font-black text-gray-900 text-sm">{fig.name}</p>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span className={cn(
+                            "text-[8px] uppercase font-black px-1.5 py-0.5 rounded",
+                            fig.type === 'fictional' ? "bg-pink-50 text-pink-600" : "bg-emerald-50 text-emerald-600"
+                          )}>
+                            {fig.type}
+                          </span>
+                          <span className="text-[10px] text-gray-400 font-bold">
+                            Born {fig.birthDate.substring(0, 4)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    {isCustom && (
+                      <button
+                        onClick={(e) => handleRemoveCustom(fig.id, e)}
+                        className="p-1.5 text-gray-400 hover:text-red-500 rounded-lg hover:bg-red-50 transition-colors ml-2 opacity-0 group-hover:opacity-100"
+                        title="Delete Custom Companion"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Right column: Comparison details */}
+        <div className="lg:col-span-8 space-y-6">
+          <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm relative overflow-hidden">
+            {/* Background design elements */}
+            <div className="absolute top-0 right-0 -mt-12 -mr-12 w-48 h-48 bg-indigo-50 rounded-full blur-3xl opacity-60" />
+            <div className="absolute bottom-0 left-0 -mb-12 -ml-12 w-48 h-48 bg-pink-50 rounded-full blur-3xl opacity-60" />
+
+            <div className="border-b border-gray-50 pb-6 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative z-10">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className={cn(
+                    "text-[10px] uppercase font-black px-2.5 py-1 rounded-full",
+                    figure.type === 'fictional' ? "bg-pink-50 text-pink-600 border border-pink-100" : "bg-emerald-50 text-emerald-600 border border-emerald-100"
+                  )}>
+                    {figure.type === 'fictional' ? "Fictional Icon" : "Historical Giant"}
+                  </span>
+                  <span className="text-xs text-gray-400 font-black">
+                    {figure.birthDate} {figure.deathDate ? `to ${figure.deathDate}` : "• Still Alive / Ageless"}
+                  </span>
+                </div>
+                <h4 className="text-3xl font-black text-gray-900 tracking-tight leading-none mb-2">
+                  {figure.name}
+                </h4>
+                <p className="text-gray-500 text-sm font-medium">
+                  {figure.description}
+                </p>
+              </div>
+            </div>
+
+            {/* Comparison Metrics Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 relative z-10">
+              {/* Card 1: Lifespan Comparison */}
+              <div className="bg-gray-50/75 border border-gray-100 p-5 rounded-3xl flex flex-col justify-between">
+                <div>
+                  <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Lifespan Compare</span>
+                  <div className="flex justify-between items-baseline mb-3">
+                    <span className="text-2xl font-black text-gray-900 tabular-nums">
+                      {calculations.figTotalDays.toLocaleString()} <span className="text-sm font-medium text-gray-500">days</span>
+                    </span>
+                    <span className="text-xs font-bold text-gray-400">
+                      vs your {stats.totalDays.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-[11px] font-bold text-gray-400 mb-1.5">
+                    <span>Your Progress</span>
+                    <span className="text-indigo-600 tabular-nums">{calculations.lifeCompletionPct.toFixed(2)}%</span>
+                  </div>
+                  <div className="w-full h-2.5 bg-gray-200/60 rounded-full overflow-hidden">
+                    <div
+                      className={cn(
+                        "h-full rounded-full transition-all duration-1000",
+                        calculations.lifeCompletionPct >= 100 ? "bg-emerald-500" : "bg-indigo-600"
+                      )}
+                      style={{ width: `${calculations.lifeCompletionPct}%` }}
+                    />
+                  </div>
+                  <p className="text-[10px] text-gray-400 font-bold mt-2">
+                    {calculations.lifeCompletionPct >= 100 
+                      ? `You have lived ${Math.floor(stats.totalDays - calculations.figTotalDays).toLocaleString()} days longer than ${figure.name}!`
+                      : `You have lived ${calculations.lifeCompletionPct.toFixed(1)}% of their total lifespan.`
+                    }
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 2: Shared Coexistence */}
+              <div className="bg-gray-50/75 border border-gray-100 p-5 rounded-3xl flex flex-col justify-between">
+                <div>
+                  <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Coexistence Overlap</span>
+                  <span className="text-2xl font-black text-gray-900 block mb-1 tabular-nums">
+                    {calculations.overlapDays.toLocaleString()} <span className="text-sm font-medium text-gray-500">days</span>
+                  </span>
+                  <p className="text-xs text-gray-500 font-bold leading-relaxed">
+                    The exact duration that you and {figure.name} walked the Earth at the same time.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-gray-100/50 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-indigo-500 rounded-full animate-ping" />
+                  <span className="text-[10px] font-mono font-bold text-indigo-600">
+                    {calculations.overlapDays > 0 
+                      ? "Shared time in our modern era" 
+                      : "Lived in different chronological eras"
+                    }
+                  </span>
+                </div>
+              </div>
+
+              {/* Card 3: Heartbeat Rhythms */}
+              <div className="bg-gray-50/75 border border-gray-100 p-5 rounded-3xl">
+                <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Lifetime Heartbeats</span>
+                <span className="text-2xl font-black text-gray-900 block mb-1 tabular-nums">
+                  ~{Math.round(calculations.figHeartbeats / 1e6).toLocaleString()}M <span className="text-sm font-medium text-gray-500">beats</span>
+                </span>
+                <p className="text-xs text-gray-500 font-bold mb-3">
+                  Estimated heartbeats during their life, compared to your live <span className="text-indigo-600">{Math.round(stats.heartbeats).toLocaleString()}</span>.
+                </p>
+                <div className="flex justify-between items-center text-[10px] text-gray-400 font-bold">
+                  <span>Their beats: {calculations.figHeartbeats.toLocaleString()}</span>
+                </div>
+              </div>
+
+              {/* Card 4: Earth Orbits */}
+              <div className="bg-gray-50/75 border border-gray-100 p-5 rounded-3xl">
+                <span className="text-xs font-black text-gray-400 uppercase tracking-widest block mb-1">Solar Orbits</span>
+                <span className="text-2xl font-black text-gray-900 block mb-1 tabular-nums">
+                  {calculations.figTotalYears.toFixed(1)} <span className="text-sm font-medium text-gray-500">orbits</span>
+                </span>
+                <p className="text-xs text-gray-500 font-bold mb-3">
+                  Total full cycles around the sun, compared to your current <span className="text-indigo-600">{stats.years.toFixed(1)}</span> orbits.
+                </p>
+                <div className="flex justify-between items-center text-[10px] text-gray-400 font-bold">
+                  <span>Completed orbits since birth</span>
+                </div>
+              </div>
+            </div>
+
+            {/* AI Dynamic Bio section */}
+            <div className="mt-8 pt-8 border-t border-gray-50 relative z-10">
+              <div className="bg-indigo-50/40 border border-indigo-100/50 p-6 rounded-3xl">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                  <div className="flex items-center space-x-2.5">
+                    <Sparkles className="w-5 h-5 text-indigo-600 animate-pulse" />
+                    <div>
+                      <h5 className="font-black text-gray-900 text-sm">Dynamic AI Chrono-Perspective</h5>
+                      <p className="text-[10px] text-gray-400 font-bold">Powered by Gemini AI Studio</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={generateAiCompare}
+                    disabled={isGenerating}
+                    className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-md flex items-center gap-1.5 shrink-0"
+                  >
+                    {isGenerating ? (
+                      <>
+                        <Clock className="w-3.5 h-3.5 animate-spin" />
+                        <span>Analyzing Timeline...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>Generate Comparative Bio</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {aiCompareText ? (
+                  <div className="text-gray-700 text-sm font-medium leading-relaxed bg-white p-4 rounded-2xl border border-indigo-50">
+                    <Markdown>{aiCompareText}</Markdown>
+                  </div>
+                ) : aiError ? (
+                  <div className="text-red-500 text-xs font-bold p-3 bg-red-50 rounded-xl border border-red-100">
+                    {aiError}
+                  </div>
+                ) : (
+                  <p className="text-xs text-indigo-900/60 font-bold italic leading-relaxed">
+                    "At {stats.years} years of age, you are {calculations.lifeCompletionPct.toFixed(1)}% through {figure.name}'s legendary lifetime. Click the button to get a personalized AI perspective mapping your current growth against their path!"
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Achievements Timeline mapping */}
+          <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm relative overflow-hidden">
+            <h4 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-2">
+              <Award className="text-indigo-600 w-5 h-5" />
+              Life Milestones & Achievements
+            </h4>
+
+            <div className="relative pl-6 border-l border-indigo-100 space-y-8 py-2">
+              {/* User Current Age marker inside the timeline */}
+              <div 
+                className="absolute left-0 -translate-x-1/2 flex items-center justify-center h-4.5"
+                style={{ 
+                  top: `${Math.min(95, Math.max(5, (stats.years / Math.max(80, calculations.figTotalYears)) * 100))}%` 
+                }}
+              >
+                <div className="flex items-center ml-4 whitespace-nowrap bg-indigo-600 text-white px-3 py-1.5 rounded-full text-[10px] font-black shadow-lg relative z-20">
+                  <div className="absolute -left-1 w-2.5 h-2.5 bg-indigo-600 rotate-45" />
+                  <span>YOU ARE HERE: Age {stats.years}</span>
+                </div>
+              </div>
+
+              {figure.achievements.map((ach: { age: number; title: string; description: string }, idx: number) => {
+                const passed = stats.years >= ach.age;
+                return (
+                  <div key={idx} className="relative group">
+                    {/* Timeline Node dot */}
+                    <div className={cn(
+                      "absolute -left-[31px] top-1.5 w-4 h-4 rounded-full border-4 flex items-center justify-center transition-all",
+                      passed 
+                        ? "bg-indigo-600 border-white ring-4 ring-indigo-50" 
+                        : "bg-white border-gray-200 group-hover:border-indigo-400"
+                    )} />
+                    <div>
+                      <span className={cn(
+                        "text-[10px] font-black uppercase tracking-wider block mb-0.5",
+                        passed ? "text-indigo-600" : "text-gray-400"
+                      )}>
+                        Age {ach.age}
+                      </span>
+                      <h5 className="font-black text-gray-950 text-base mb-1">
+                        {ach.title}
+                      </h5>
+                      <p className="text-sm text-gray-500 font-medium max-w-xl leading-relaxed">
+                        {ach.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -971,10 +1815,17 @@ const HomePage = () => {
                 </div>
               </div>
 
+              {/* Sponsored Offer Dashboard Top Unit */}
+              <DirectLinkBanner 
+                variant="wide" 
+                className="mb-8" 
+              />
+
               {/* Tabs */}
               <div className="flex overflow-x-auto pb-4 mb-8 space-x-4 no-scrollbar">
                 {[
                   { id: 'overview', label: 'Overview', icon: Globe },
+                  { id: 'giants', label: 'Time Companions', icon: Users },
                   { id: 'health', label: 'Health & Body', icon: Heart },
                   { id: 'digital', label: 'Digital Life', icon: Smartphone },
                   { id: 'lifestyle', label: 'Lifestyle & Fun', icon: Smile },
@@ -1070,6 +1921,12 @@ const HomePage = () => {
                     <StatCard icon={Handshake} label="Hugs Given" value={(stats.totalDays * 2).toLocaleString()} color="bg-pink-400" />
                     <StatCard icon={Music} label="Music Listened" value={`${Math.round(stats.totalHours * 0.15).toLocaleString()}h`} color="bg-purple-600" />
                   </>
+                )}
+
+                {activeTab === 'giants' && (
+                  <div className="col-span-full">
+                    <GiantsComparison stats={stats} birthDate={birthDate} currentTime={currentTime} />
+                  </div>
                 )}
 
                 {activeTab === 'money' && (
@@ -1627,6 +2484,12 @@ const BlogListPage = () => {
             </Link>
           ))}
         </div>
+
+        {/* Sponsored Wide Banner at bottom of Blog List */}
+        <DirectLinkBanner 
+          variant="wide" 
+          className="mt-16" 
+        />
       </div>
     </div>
   );
@@ -1787,6 +2650,12 @@ const BlogPostPage = () => {
           </Markdown>
         </div>
 
+        {/* In-Article Contextual Sponsored Unit */}
+        <DirectLinkBanner 
+          variant="editorial" 
+          className="my-12" 
+        />
+
         {/* Try your Life Stats CTA */}
         <div className="mt-20 p-12 bg-indigo-600 rounded-[3rem] text-white text-center shadow-2xl shadow-indigo-200 relative overflow-hidden group">
           <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
@@ -1826,10 +2695,10 @@ const BlogPostPage = () => {
 // --- Native Ad Banner ---
 const NativeAdBanner = () => {
   useEffect(() => {
-    // Dynamically append the native banner ad script to ensure the DOM element 
-    // container is ready and fully rendered when the ad network script executes.
+    const scriptSrc = "https://pl30345474.effectivecpmnetwork.com/3b206da7a69046d26ef0c592486bc77f/invoke.js";
+    
     const script = document.createElement('script');
-    script.src = "https://pl30345474.effectivecpmnetwork.com/3b206da7a69046d26ef0c592486bc77f/invoke.js";
+    script.src = scriptSrc;
     script.async = true;
     script.setAttribute('data-cfasync', 'false');
     document.body.appendChild(script);
@@ -1838,18 +2707,24 @@ const NativeAdBanner = () => {
       try {
         document.body.removeChild(script);
       } catch (e) {
-        // Safe check
+        // ignore
       }
     };
   }, []);
 
   return (
-    <div id="native-ad-wrapper" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8 text-center flex justify-center items-center">
+    <div id="native-ad-wrapper" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-12 text-center flex flex-col items-center">
+      <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-2.5 select-none">
+        Sponsored Feed
+      </span>
       <div 
         id="container-3b206da7a69046d26ef0c592486bc77f" 
-        className="w-full max-w-4xl bg-white border border-gray-100 rounded-[2.5rem] p-6 shadow-sm overflow-hidden min-h-[120px] flex items-center justify-center text-xs font-bold text-gray-400"
+        className="w-full max-w-4xl bg-white border border-gray-100 rounded-[2.5rem] p-6 shadow-sm overflow-hidden min-h-[140px] flex items-center justify-center text-xs font-bold text-gray-400 relative"
       >
         {/* Native Ad Banner Container */}
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center text-center p-4 opacity-5 z-0">
+          <span className="text-[10px] font-mono text-gray-500">Sponsored Ads</span>
+        </div>
       </div>
     </div>
   );

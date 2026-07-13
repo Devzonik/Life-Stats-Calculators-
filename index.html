@@ -13,16 +13,16 @@
           // If it's an Event/ErrorEvent object
           if (eventOrMessage && typeof eventOrMessage === 'object') {
             const msg = eventOrMessage.message || '';
-            if (msg === 'Script error.' || msg.indexOf('effectivecpmnetwork') !== -1 || msg.indexOf('pl3034547') !== -1) {
+            if (msg === 'Script error.' || msg.indexOf('effectivecpmnetwork') !== -1 || msg.indexOf('pl3034547') !== -1 || msg.indexOf('googlesyndication') !== -1 || msg.indexOf('adsbygoogle') !== -1) {
               return true;
             }
-            if (eventOrMessage.filename && (eventOrMessage.filename.indexOf('effectivecpmnetwork') !== -1 || eventOrMessage.filename.indexOf('pl3034547') !== -1)) {
+            if (eventOrMessage.filename && (eventOrMessage.filename.indexOf('effectivecpmnetwork') !== -1 || eventOrMessage.filename.indexOf('pl3034547') !== -1 || eventOrMessage.filename.indexOf('googlesyndication') !== -1 || eventOrMessage.filename.indexOf('adsbygoogle') !== -1)) {
               return true;
             }
           }
           if (eventOrMessage && eventOrMessage.reason) {
             const reasonMsg = eventOrMessage.reason.message || eventOrMessage.reason.toString() || '';
-            if (reasonMsg.indexOf('Script error') !== -1 || reasonMsg.indexOf('effectivecpmnetwork') !== -1 || reasonMsg.indexOf('pl3034547') !== -1) {
+            if (reasonMsg.indexOf('Script error') !== -1 || reasonMsg.indexOf('effectivecpmnetwork') !== -1 || reasonMsg.indexOf('pl3034547') !== -1 || reasonMsg.indexOf('googlesyndication') !== -1 || reasonMsg.indexOf('adsbygoogle') !== -1) {
               return true;
             }
           }
@@ -31,15 +31,17 @@
             if (
               eventOrMessage === 'Script error.' ||
               eventOrMessage.indexOf('effectivecpmnetwork') !== -1 ||
-              eventOrMessage.indexOf('pl3034547') !== -1
+              eventOrMessage.indexOf('pl3034547') !== -1 ||
+              eventOrMessage.indexOf('googlesyndication') !== -1 ||
+              eventOrMessage.indexOf('adsbygoogle') !== -1
             ) {
               return true;
             }
           }
-          if (source && (source.indexOf('effectivecpmnetwork') !== -1 || source.indexOf('pl3034547') !== -1)) {
+          if (source && (source.indexOf('effectivecpmnetwork') !== -1 || source.indexOf('pl3034547') !== -1 || source.indexOf('googlesyndication') !== -1 || source.indexOf('adsbygoogle') !== -1)) {
             return true;
           }
-          if (error && error.stack && (error.stack.indexOf('effectivecpmnetwork') !== -1 || error.stack.indexOf('pl3034547') !== -1)) {
+          if (error && error.stack && (error.stack.indexOf('effectivecpmnetwork') !== -1 || error.stack.indexOf('pl3034547') !== -1 || error.stack.indexOf('googlesyndication') !== -1 || error.stack.indexOf('adsbygoogle') !== -1)) {
             return true;
           }
           return false;
@@ -229,10 +231,15 @@
       }]
     }
     </script>
+    <!-- Google AdSense Client Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5004423742650556" crossorigin="anonymous"></script>
+    <!-- CPM Network Head Code -->
+    <script src="https://pl30345533.effectivecpmnetwork.com/be/e6/4a/bee64ab5da02d7ba26f0fff4672d495c.js"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- CPM Network Footer Code -->
     <script src="https://pl30345473.effectivecpmnetwork.com/8b/d9/84/8bd9842b6487fbd2de2ffa8cadad7aea.js"></script>
   </body>
 </html>
