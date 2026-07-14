@@ -68,6 +68,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import Markdown from 'react-markdown';
 import { BLOG_POSTS } from './blogData';
+import { CustomEarningsCalculator } from './components/CustomEarningsCalculator';
 
 // --- Utils ---
 function cn(...inputs: ClassValue[]) {
@@ -1811,12 +1812,15 @@ const HomePage = () => {
                 )}
 
                 {activeTab === 'money' && (
-                  <>
-                    <StatCard icon={DollarSign} label="Money Earned" value={`$${stats.moneyEarned.toLocaleString()}`} subValue="Lifetime estimate" color="bg-green-600" />
-                    <StatCard icon={Clock} label="Hourly Life Value" value={`$${stats.hourlyValue}/hr`} color="bg-indigo-600" />
-                    <StatCard icon={Briefcase} label="Work Hours" value={Math.round(stats.totalHours * 0.2).toLocaleString()} color="bg-blue-700" />
-                    <StatCard icon={TrendingUp} label="Earning Projection" value={`$${(stats.moneyEarned * 2.5).toLocaleString()}`} subValue="By age 65" color="bg-emerald-500" />
-                  </>
+                  <div className="col-span-full space-y-8 w-full">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+                      <StatCard icon={DollarSign} label="Money Earned" value={`$${stats.moneyEarned.toLocaleString()}`} subValue="Lifetime estimate" color="bg-green-600" />
+                      <StatCard icon={Clock} label="Hourly Life Value" value={`$${stats.hourlyValue}/hr`} color="bg-indigo-600" />
+                      <StatCard icon={Briefcase} label="Work Hours" value={Math.round(stats.totalHours * 0.2).toLocaleString()} color="bg-blue-700" />
+                      <StatCard icon={TrendingUp} label="Earning Projection" value={`$${(stats.moneyEarned * 2.5).toLocaleString()}`} subValue="By age 65" color="bg-emerald-500" />
+                    </div>
+                    <CustomEarningsCalculator />
+                  </div>
                 )}
               </motion.div>
 
