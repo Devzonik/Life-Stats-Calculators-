@@ -1,3 +1,5 @@
+import { ADDITIONAL_BLOG_POSTS } from './additionalBlogPosts';
+
 export interface BlogPost {
   title: string;
   excerpt: string;
@@ -8,7 +10,7 @@ export interface BlogPost {
   content: string;
 }
 
-export const BLOG_POSTS: BlogPost[] = [
+const BASE_BLOG_POSTS: BlogPost[] = [
   {
     title: "Seconds Alive: Calculate Your Life in Seconds | Life stats",
     excerpt: "How many seconds have you been alive? Use our Life stats calculator to find your exact age in seconds and discover unique time milestones.",
@@ -3306,3 +3308,5 @@ Take control of your personal timeline. Map your milestones, compound your asset
 `
   }
 ];
+
+export const BLOG_POSTS: BlogPost[] = [...BASE_BLOG_POSTS, ...ADDITIONAL_BLOG_POSTS];
