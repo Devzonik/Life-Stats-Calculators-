@@ -1210,6 +1210,8 @@ const HomePage = () => {
   const [personName1, setPersonName1] = useState<string>('Person A');
   const [personName2, setPersonName2] = useState<string>('Person B');
   const [stats2, setStats2] = useState<LifeStats | null>(null);
+  const [aiCompareInsight, setAiCompareInsight] = useState<string | null>(null);
+  const [isGeneratingCompareInsight, setIsGeneratingCompareInsight] = useState(false);
 
   // --- Historical Time Travel States ---
   const [timeTravelDays, setTimeTravelDays] = useState<number | null>(null);
@@ -1652,6 +1654,31 @@ const HomePage = () => {
     }
   };
 
+  const generateComparativeAIInsight = async () => {
+    if (!stats || !stats2) return;
+    setIsGeneratingCompareInsight(true);
+    try {
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env.GEMINI_API_KEY : undefined);
+      if (!apiKey) {
+        throw new Error("GEMINI_API_KEY is not defined. Please set VITE_GEMINI_API_KEY in your environment.");
+      }
+      const ai = new GoogleGenAI({ apiKey });
+      const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+        contents: `Based on these comparative life stats between ${personName1} (${stats.years} years old, ${stats.totalDays} days lived) and ${personName2} (${stats2.years} years old, ${stats2.totalDays} days lived):
+        - ${personName1}'s sleep: ${Math.round(stats.sleepHours)} hrs, screen time: ${Math.round(stats.phoneTimeHours)} hrs, percent completed: ${Math.round(stats.percentCompleted)}%
+        - ${personName2}'s sleep: ${Math.round(stats2.sleepHours)} hrs, screen time: ${Math.round(stats2.phoneTimeHours)} hrs, percent completed: ${Math.round(stats2.percentCompleted)}%
+        Provide 3 short, punchy, slightly humorous or philosophical comparative insights or advice. Keep it under 100 words. Use their names.`,
+      });
+      setAiCompareInsight(response.text || "Both paths are unique and beautiful. Cherish every heartbeat.");
+    } catch (err) {
+      console.error(err);
+      setAiCompareInsight("Both paths are unique and beautiful. Cherish every heartbeat.");
+    } finally {
+      setIsGeneratingCompareInsight(false);
+    }
+  };
+
   const chartData = useMemo(() => {
     if (!stats) return [];
     return [
@@ -1668,6 +1695,18 @@ const HomePage = () => {
       { name: 'Other', hours: stats.totalHours - stats.sleepHours - stats.phoneTimeHours, fill: '#10b981' },
     ];
   }, [stats]);
+
+  const ageDiff = useMemo(() => {
+    if (!stats || !stats2 || !birthDate || !birthDate2) return null;
+    const birth1 = new Date(birthDate);
+    const birth2 = new Date(birthDate2);
+    const diffMs = Math.abs(birth1.getTime() - birth2.getTime());
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const diffYears = +(diffDays / 365.25).toFixed(1);
+    const older = birth1 < birth2 ? personName1 : personName2;
+    const younger = birth1 < birth2 ? personName2 : personName1;
+    return { older, younger, diffYears, diffDays };
+  }, [stats, stats2, birthDate, birthDate2, personName1, personName2]);
 
   return (
     <div className="min-h-screen bg-gray-50/50">
@@ -2597,6 +2636,422 @@ const HomePage = () => {
                       </div>
                     )}
                   </div>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+        )}
+
+        {isCompareMode && stats && stats2 && !error && !error2 && (
+          <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
+            className="py-12 lg:py-20 animate-fade-in"
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Header */}
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-12 gap-8">
+                <div>
+                  <h2 className="text-4xl font-black text-gray-900 mb-2">Life Comparison Dashboard</h2>
+                  <p className="text-gray-500 font-medium">Contrasting two lifetimes in real-time.</p>
+                </div>
+                <div className="flex flex-wrap items-center gap-4">
+                  <RealTimeClock />
+                </div>
+              </div>
+
+              {/* Top Highlights Bento Grid */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                {/* Age & Gap Card */}
+                <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm flex flex-col justify-between">
+                  <div>
+                    <span className="inline-flex items-center space-x-1.5 bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-4">
+                      <Award className="w-3.5 h-3.5" />
+                      <span>Age Difference</span>
+                    </span>
+                    <h3 className="text-2xl font-black text-gray-900 mb-4">Lived Duration</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <p className="text-xs font-bold text-gray-400 uppercase">{personName1}</p>
+                        <p className="text-lg font-black text-indigo-600">{stats.years} yrs, {stats.months} mos, {stats.days} days</p>
+                      </div>
+                      <div className="border-t border-gray-100 pt-3">
+                        <p className="text-xs font-bold text-gray-400 uppercase">{personName2}</p>
+                        <p className="text-lg font-black text-pink-600">{stats2.years} yrs, {stats2.months} mos, {stats2.days} days</p>
+                      </div>
+                    </div>
+                  </div>
+                  {ageDiff && (
+                    <div className="mt-6 bg-gray-50 p-4 rounded-2xl border border-gray-100 text-sm">
+                      <p className="font-bold text-gray-700">
+                        <span className="font-black text-indigo-600">{ageDiff.older}</span> is older than <span className="font-black text-pink-600">{ageDiff.younger}</span> by <span className="font-black">{ageDiff.diffYears} years</span> ({ageDiff.diffDays.toLocaleString()} days).
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Progress Card */}
+                <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm flex flex-col justify-between">
+                  <div>
+                    <span className="inline-flex items-center space-x-1.5 bg-violet-50 text-violet-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-4">
+                      <TrendingUp className="w-3.5 h-3.5" />
+                      <span>Life Path Completed</span>
+                    </span>
+                    <h3 className="text-2xl font-black text-gray-900 mb-4">Path to {LIFE_EXPECTANCY} Years</h3>
+                    <div className="space-y-6">
+                      <div>
+                        <div className="flex justify-between text-sm font-bold text-gray-700 mb-2">
+                          <span>{personName1}</span>
+                          <span>{stats.percentCompleted.toFixed(1)}%</span>
+                        </div>
+                        <div className="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
+                          <div className="bg-indigo-600 h-full rounded-full transition-all duration-1000" style={{ width: `${stats.percentCompleted}%` }} />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-between text-sm font-bold text-gray-700 mb-2">
+                          <span>{personName2}</span>
+                          <span>{stats2.percentCompleted.toFixed(1)}%</span>
+                        </div>
+                        <div className="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
+                          <div className="bg-pink-500 h-full rounded-full transition-all duration-1000" style={{ width: `${stats2.percentCompleted}%` }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-6 text-xs text-gray-400 font-bold">
+                    Based on standard global life expectancy of {LIFE_EXPECTANCY} years.
+                  </div>
+                </div>
+
+                {/* Live Rhythms Card */}
+                <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm flex flex-col justify-between">
+                  <div>
+                    <span className="inline-flex items-center space-x-1.5 bg-rose-50 text-rose-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-4">
+                      <Heart className="w-3.5 h-3.5" />
+                      <span>Biological Pulse</span>
+                    </span>
+                    <h3 className="text-2xl font-black text-gray-900 mb-4">Live Rhythms</h3>
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-gray-50 p-4 rounded-2xl">
+                          <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">{personName1} Heartbeats</p>
+                          <p className="text-sm font-black text-indigo-600 tabular-nums">{Math.floor(stats.heartbeats).toLocaleString()}</p>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-2xl">
+                          <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">{personName2} Heartbeats</p>
+                          <p className="text-sm font-black text-pink-600 tabular-nums">{Math.floor(stats2.heartbeats).toLocaleString()}</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-gray-50 p-4 rounded-2xl">
+                          <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">{personName1} Breaths</p>
+                          <p className="text-sm font-black text-indigo-600 tabular-nums">{Math.floor(stats.breaths).toLocaleString()}</p>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-2xl">
+                          <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">{personName2} Breaths</p>
+                          <p className="text-sm font-black text-pink-600 tabular-nums">{Math.floor(stats2.breaths).toLocaleString()}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 text-xs text-gray-400 font-bold flex items-center space-x-1">
+                    <span className="w-2.5 h-2.5 bg-red-500 rounded-full animate-ping mr-1" />
+                    <span>Real-time calculated values based on daily averages</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Comparative AI Insights */}
+              <div className="bg-indigo-50/50 rounded-[3rem] p-10 border border-indigo-100/60 mb-12">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+                  <div>
+                    <h3 className="text-2xl font-black text-indigo-900 flex items-center gap-2">
+                      <Sparkles className="w-6 h-6 text-indigo-600 animate-pulse" />
+                      Comparative AI Analysis
+                    </h3>
+                    <p className="text-sm text-indigo-600/80 font-bold mt-1">
+                      Let Gemini analyze your comparative paths and generate shared insights.
+                    </p>
+                  </div>
+                  <button
+                    onClick={generateComparativeAIInsight}
+                    disabled={isGeneratingCompareInsight}
+                    className="flex items-center space-x-2 bg-indigo-600 text-white px-6 py-3 rounded-full font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 disabled:opacity-50"
+                  >
+                    <Brain className="w-4 h-4" />
+                    <span>{isGeneratingCompareInsight ? "Analyzing..." : "Generate AI Insight"}</span>
+                  </button>
+                </div>
+
+                {aiCompareInsight ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-white p-8 rounded-3xl border border-indigo-100/40 shadow-sm text-gray-700 font-medium leading-relaxed"
+                  >
+                    <p className="whitespace-pre-line text-lg">{aiCompareInsight}</p>
+                  </motion.div>
+                ) : (
+                  <div className="text-center py-6 text-indigo-400 font-bold text-sm">
+                    Click the button above to receive a personalized AI overview of your combined statistics!
+                  </div>
+                )}
+              </div>
+
+              {/* Deep-Dive Comparative Table */}
+              <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden mb-12">
+                <div className="px-8 py-6 bg-gray-50 border-b border-gray-100">
+                  <h3 className="text-xl font-black text-gray-900">Statistical Breakdown</h3>
+                  <p className="text-xs text-gray-400 font-bold mt-1">A direct side-by-side metric comparison.</p>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="border-b border-gray-100 bg-gray-50/50">
+                        <th className="p-6 text-xs font-black text-gray-400 uppercase tracking-wider">Category & Metric</th>
+                        <th className="p-6 text-xs font-black text-indigo-600 uppercase tracking-wider">{personName1}</th>
+                        <th className="p-6 text-xs font-black text-pink-600 uppercase tracking-wider">{personName2}</th>
+                        <th className="p-6 text-xs font-black text-gray-500 uppercase tracking-wider">Comparison</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* Section: BASIC TIMELINE */}
+                      <tr className="bg-gray-50/20 font-black text-xs text-gray-400 border-b border-gray-100">
+                        <td colSpan={4} className="p-4 pl-6 uppercase tracking-widest">Time & Longevity</td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Calendar className="w-5 h-5 text-indigo-500" />
+                          <span>Age in Years</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800">{stats.years} years</td>
+                        <td className="p-6 font-black text-gray-800">{stats2.years} years</td>
+                        <td className="p-6 text-sm font-bold text-gray-500">
+                          {stats.years === stats2.years ? "Same age" : `${Math.abs(stats.years - stats2.years)} year difference`}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Clock className="w-5 h-5 text-indigo-500" />
+                          <span>Days Lived</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{stats.totalDays.toLocaleString()}</td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{stats2.totalDays.toLocaleString()}</td>
+                        <td className="p-6 text-sm font-bold text-indigo-600">
+                          {stats.totalDays > stats2.totalDays ? `${personName1} +${(stats.totalDays - stats2.totalDays).toLocaleString()} days` : `${personName2} +${(stats2.totalDays - stats.totalDays).toLocaleString()} days`}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Clock className="w-5 h-5 text-indigo-500" />
+                          <span>Weeks Lived</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{stats.totalWeeks.toLocaleString()}</td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{stats2.totalWeeks.toLocaleString()}</td>
+                        <td className="p-6 text-sm font-bold text-indigo-600">
+                          {stats.totalWeeks > stats2.totalWeeks ? `${personName1} +${(stats.totalWeeks - stats2.totalWeeks).toLocaleString()} weeks` : `${personName2} +${(stats2.totalWeeks - stats.totalWeeks).toLocaleString()} weeks`}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Clock className="w-5 h-5 text-indigo-500" />
+                          <span>Seconds Lived</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{stats.totalSeconds.toLocaleString()}</td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{stats2.totalSeconds.toLocaleString()}</td>
+                        <td className="p-6 text-sm font-bold text-indigo-600">
+                          {stats.totalSeconds > stats2.totalSeconds ? `${personName1} +${(stats.totalSeconds - stats2.totalSeconds).toLocaleString()} s` : `${personName2} +${(stats2.totalSeconds - stats.totalSeconds).toLocaleString()} s`}
+                        </td>
+                      </tr>
+
+                      {/* Section: BIOLOGICAL ENGINE */}
+                      <tr className="bg-gray-50/20 font-black text-xs text-gray-400 border-b border-gray-100">
+                        <td colSpan={4} className="p-4 pl-6 uppercase tracking-widest">Biological Pulse</td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Heart className="w-5 h-5 text-rose-500" />
+                          <span>Heartbeats</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.floor(stats.heartbeats).toLocaleString()}</td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.floor(stats2.heartbeats).toLocaleString()}</td>
+                        <td className="p-6 text-sm font-bold text-rose-600">
+                          {stats.heartbeats > stats2.heartbeats ? `${personName1} +${Math.floor(stats.heartbeats - stats2.heartbeats).toLocaleString()} beats` : `${personName2} +${Math.floor(stats2.heartbeats - stats.heartbeats).toLocaleString()} beats`}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Wind className="w-5 h-5 text-blue-500" />
+                          <span>Breaths Taken</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.floor(stats.breaths).toLocaleString()}</td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.floor(stats2.breaths).toLocaleString()}</td>
+                        <td className="p-6 text-sm font-bold text-blue-600">
+                          {stats.breaths > stats2.breaths ? `${personName1} +${Math.floor(stats.breaths - stats2.breaths).toLocaleString()} breaths` : `${personName2} +${Math.floor(stats2.breaths - stats.breaths).toLocaleString()} breaths`}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Eye className="w-5 h-5 text-purple-500" />
+                          <span>Blinks</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.floor(stats.blinks).toLocaleString()}</td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.floor(stats2.blinks).toLocaleString()}</td>
+                        <td className="p-6 text-sm font-bold text-purple-600">
+                          {stats.blinks > stats2.blinks ? `${personName1} +${Math.floor(stats.blinks - stats2.blinks).toLocaleString()} blinks` : `${personName2} +${Math.floor(stats2.blinks - stats.blinks).toLocaleString()} blinks`}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Brain className="w-5 h-5 text-emerald-500" />
+                          <span>Biological Age</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800">{stats.biologicalAge.toFixed(1)} yrs</td>
+                        <td className="p-6 font-black text-gray-800">{stats2.biologicalAge.toFixed(1)} yrs</td>
+                        <td className="p-6 text-sm font-bold text-emerald-600">
+                          {Math.abs(stats.biologicalAge - stats2.biologicalAge).toFixed(1)} years gap
+                        </td>
+                      </tr>
+
+                      {/* Section: DIGITAL FOOTPRINT */}
+                      <tr className="bg-gray-50/20 font-black text-xs text-gray-400 border-b border-gray-100">
+                        <td colSpan={4} className="p-4 pl-6 uppercase tracking-widest">Digital Footprint</td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Smartphone className="w-5 h-5 text-pink-500" />
+                          <span>Screen Time</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.round(stats.phoneTimeHours).toLocaleString()} hours</td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.round(stats2.phoneTimeHours).toLocaleString()} hours</td>
+                        <td className="p-6 text-sm font-bold text-pink-600">
+                          {stats.phoneTimeHours > stats2.phoneTimeHours ? `${personName1} has scrolled ${Math.round(stats.phoneTimeHours - stats2.phoneTimeHours).toLocaleString()} more hours` : `${personName2} has scrolled ${Math.round(stats2.phoneTimeHours - stats.phoneTimeHours).toLocaleString()} more hours`}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Globe className="w-5 h-5 text-cyan-500" />
+                          <span>Scrolled Distance</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{stats.scrolledKm.toFixed(1)} km</td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{stats2.scrolledKm.toFixed(1)} km</td>
+                        <td className="p-6 text-sm font-bold text-cyan-600">
+                          {stats.scrolledKm > stats2.scrolledKm ? `${personName1} +${(stats.scrolledKm - stats2.scrolledKm).toFixed(1)} km` : `${personName2} +${(stats2.scrolledKm - stats.scrolledKm).toFixed(1)} km`}
+                        </td>
+                      </tr>
+
+                      {/* Section: DAILY ROUTINES */}
+                      <tr className="bg-gray-50/20 font-black text-xs text-gray-400 border-b border-gray-100">
+                        <td colSpan={4} className="p-4 pl-6 uppercase tracking-widest">Daily Routines</td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Moon className="w-5 h-5 text-indigo-900" />
+                          <span>Sleep Obtained</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.round(stats.sleepHours).toLocaleString()} hours</td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.round(stats2.sleepHours).toLocaleString()} hours</td>
+                        <td className="p-6 text-sm font-bold text-indigo-900">
+                          {stats.sleepHours > stats2.sleepHours ? `${personName1} +${Math.round(stats.sleepHours - stats2.sleepHours).toLocaleString()} hrs asleep` : `${personName2} +${Math.round(stats2.sleepHours - stats.sleepHours).toLocaleString()} hrs asleep`}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Footprints className="w-5 h-5 text-emerald-600" />
+                          <span>Steps Walked</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.round(stats.stepsWalked).toLocaleString()} steps</td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.round(stats2.stepsWalked).toLocaleString()} steps</td>
+                        <td className="p-6 text-sm font-bold text-emerald-600">
+                          {stats.stepsWalked > stats2.stepsWalked ? `${personName1} +${Math.round(stats.stepsWalked - stats2.stepsWalked).toLocaleString()} steps` : `${personName2} +${Math.round(stats2.stepsWalked - stats.stepsWalked).toLocaleString()} steps`}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Smile className="w-5 h-5 text-amber-500" />
+                          <span>Laughs Shared</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.round(stats.laughs).toLocaleString()} laughs</td>
+                        <td className="p-6 font-black text-gray-800 tabular-nums">{Math.round(stats2.laughs).toLocaleString()} laughs</td>
+                        <td className="p-6 text-sm font-bold text-amber-600">
+                          {stats.laughs > stats2.laughs ? `${personName1} +${Math.round(stats.laughs - stats2.laughs).toLocaleString()}` : `${personName2} +${Math.round(stats2.laughs - stats.laughs).toLocaleString()}`}
+                        </td>
+                      </tr>
+
+                      {/* Section: COSMIC RHYTHMS */}
+                      <tr className="bg-gray-50/20 font-black text-xs text-gray-400 border-b border-gray-100">
+                        <td colSpan={4} className="p-4 pl-6 uppercase tracking-widest">Cosmic & Earth Rhythms</td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Globe className="w-5 h-5 text-blue-600" />
+                          <span>Earth Circuits Around Sun</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800">{stats.earthCircuits.toFixed(3)} laps</td>
+                        <td className="p-6 font-black text-gray-800">{stats2.earthCircuits.toFixed(3)} laps</td>
+                        <td className="p-6 text-sm font-bold text-blue-600">
+                          {stats.earthCircuits > stats2.earthCircuits ? `${personName1} has traveled ${Math.round((stats.earthCircuits - stats2.earthCircuits) * 40075).toLocaleString()} more km` : `${personName2} has traveled ${Math.round((stats2.earthCircuits - stats.earthCircuits) * 40075).toLocaleString()} more km`}
+                        </td>
+                      </tr>
+                      <tr className="border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+                        <td className="p-6 font-bold text-gray-900 flex items-center space-x-3">
+                          <Calendar className="w-5 h-5 text-indigo-600" />
+                          <span>Next Birthday</span>
+                        </td>
+                        <td className="p-6 font-black text-gray-800">{stats.nextBirthdayDays} days away</td>
+                        <td className="p-6 font-black text-gray-800">{stats2.nextBirthdayDays} days away</td>
+                        <td className="p-6 text-sm font-bold text-indigo-600">
+                          {stats.nextBirthdayDays < stats2.nextBirthdayDays ? `${personName1} celebrates first` : `${personName2} celebrates first`}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Side-by-Side Chart */}
+              <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
+                <div className="mb-6">
+                  <h4 className="text-xl font-black text-gray-900">Key Metrics Comparison</h4>
+                  <p className="text-xs text-gray-400 font-bold mt-1">Comparing total accumulated values side-by-side.</p>
+                </div>
+                <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={[
+                        {
+                          name: 'Days Lived',
+                          [personName1]: stats.totalDays,
+                          [personName2]: stats2.totalDays,
+                        },
+                        {
+                          name: 'Heartbeats (M)',
+                          [personName1]: stats.heartbeats / 1000000,
+                          [personName2]: stats2.heartbeats / 1000000,
+                        },
+                        {
+                          name: 'Screen Time (K hrs)',
+                          [personName1]: stats.phoneTimeHours / 1000,
+                          [personName2]: stats2.phoneTimeHours / 1000,
+                        },
+                        {
+                          name: 'Steps Walked (M)',
+                          [personName1]: stats.stepsWalked / 1000000,
+                          [personName2]: stats2.stepsWalked / 1000000,
+                        },
+                      ]}
+                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                      <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 11, fontWeight: 'bold', fill: '#4b5563' }} />
+                      <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#9ca3af' }} />
+                      <Tooltip contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
+                      <Bar dataKey={personName1} fill="#4f46e5" radius={[8, 8, 0, 0]} />
+                      <Bar dataKey={personName2} fill="#ec4899" radius={[8, 8, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </div>
               </div>
             </div>
