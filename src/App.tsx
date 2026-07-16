@@ -1203,6 +1203,24 @@ const HomePage = () => {
   const [aiInsight, setAiInsight] = useState<string | null>(null);
   const [isGeneratingInsight, setIsGeneratingInsight] = useState(false);
 
+  // --- Historical Time Travel States ---
+  const [timeTravelDays, setTimeTravelDays] = useState<number | null>(null);
+
+  const actualDaysLived = useMemo(() => {
+    if (!birthDate || error) return 0;
+    const birth = new Date(birthDate);
+    const now = new Date();
+    const diffMs = now.getTime() - birth.getTime();
+    return Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+  }, [birthDate, error]);
+
+  const selectedTimeTravelDate = useMemo(() => {
+    if (!birthDate) return null;
+    const birth = new Date(birthDate);
+    if (timeTravelDays === null) return new Date();
+    return new Date(birth.getTime() + timeTravelDays * 24 * 60 * 60 * 1000);
+  }, [birthDate, timeTravelDays]);
+
   // --- Personal Milestones & Saved Snapshots States ---
   const [currentTime, setCurrentTime] = useState(new Date());
   const [customMilestones, setCustomMilestones] = useState<any[]>(() => {
@@ -1414,17 +1432,23 @@ const HomePage = () => {
     setBirthDate(val);
     const err = validateDate(val);
     setError(err);
+    setTimeTravelDays(null); // Reset time travel when birthdate changes
   };
 
   useEffect(() => {
     if (!birthDate || error) return;
 
     const calculate = () => {
-      const now = new Date();
       const birth = new Date(birthDate);
+      let now = new Date();
+      
+      if (timeTravelDays !== null) {
+        // Calculate the historical date based on birthdate + timeTravelDays
+        now = new Date(birth.getTime() + timeTravelDays * 24 * 60 * 60 * 1000);
+      }
       
       const diffMs = now.getTime() - birth.getTime();
-      const totalSeconds = Math.floor(diffMs / 1000);
+      const totalSeconds = Math.max(0, Math.floor(diffMs / 1000));
       const totalMinutes = Math.floor(totalSeconds / 60);
       const totalHours = Math.floor(totalMinutes / 60);
       const totalDays = Math.floor(totalHours / 24);
@@ -1446,10 +1470,14 @@ const HomePage = () => {
         months += 12;
       }
 
+      if (years < 0) years = 0;
+      if (months < 0) months = 0;
+      if (days < 0) days = 0;
+
       // Life Expectancy
       const totalLifeDays = LIFE_EXPECTANCY * 365.25;
       const daysLeft = Math.max(0, totalLifeDays - totalDays);
-      const percentCompleted = (totalDays / totalLifeDays) * 100;
+      const percentCompleted = Math.min(100, (totalDays / totalLifeDays) * 100);
       const weekendsLeft = Math.floor(daysLeft / 7);
       
       // Next Birthday
@@ -1465,7 +1493,6 @@ const HomePage = () => {
       if (years < 18) {
         timeWithParentsPercent = (years / 18) * 90;
       } else {
-        // After 18, it's very slow
         timeWithParentsPercent = 90 + Math.min(9, (years - 18) * 0.2);
       }
 
@@ -1482,7 +1509,7 @@ const HomePage = () => {
         caloriesBurned: totalDays * 2200, // Average
         waterConsumed: totalDays * AVG_WATER_LITERS,
         stepsWalked: totalDays * AVG_STEPS_PER_DAY,
-        biologicalAge: years + (Math.random() * 2 - 1), // Mock variance
+        biologicalAge: Math.max(0, years + (Math.random() * 2 - 1)), // Mock variance
         phoneTimeHours: totalDays * AVG_PHONE_USE,
         scrolledKm: totalDays * AVG_SCROLL_KM_PER_DAY,
         notificationsReceived: totalDays * 65, // Average
@@ -1501,7 +1528,7 @@ const HomePage = () => {
     calculate();
     const interval = setInterval(calculate, 1000);
     return () => clearInterval(interval);
-  }, [birthDate, error]);
+  }, [birthDate, error, timeTravelDays]);
 
   const generateAIInsight = async () => {
     if (!stats) return;
@@ -1661,6 +1688,178 @@ const HomePage = () => {
                   </div>
                 </motion.div>
               )}
+
+              {/* Horizontal Timeline Slider */}
+              <div className={cn(
+                "mb-12 p-8 rounded-[2rem] border transition-all duration-300 relative overflow-hidden",
+                timeTravelDays !== null 
+                  ? "bg-gradient-to-br from-amber-50/75 to-orange-50/30 border-amber-200/60 shadow-lg shadow-amber-100/20" 
+                  : "bg-white border-gray-100 shadow-sm hover:shadow-md"
+              )}>
+                {/* Background decorative element */}
+                {timeTravelDays !== null && (
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-amber-200/20 rounded-full blur-2xl pointer-events-none animate-pulse" />
+                )}
+
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 relative z-10">
+                  <div className="flex items-start space-x-4">
+                    <div className={cn(
+                      "w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-sm shrink-0",
+                      timeTravelDays !== null 
+                        ? "bg-amber-500 text-white animate-pulse" 
+                        : "bg-indigo-50 text-indigo-600"
+                    )}>
+                      <History className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-black text-gray-900 text-xl flex flex-wrap items-center gap-2">
+                        <span>Journey Back in Time</span>
+                        {timeTravelDays !== null ? (
+                          <span className="inline-flex items-center bg-amber-100 text-amber-800 text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full tracking-wider border border-amber-200/50">
+                            Viewing Past Stats
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full tracking-wider border border-emerald-100">
+                            Live Present
+                          </span>
+                        )}
+                      </h3>
+                      <p className="text-sm text-gray-500 font-medium mt-1">
+                        {timeTravelDays !== null ? (
+                          <>
+                            Currently viewing stats at age <span className="font-extrabold text-amber-700">{stats.years} years, {stats.months} months, and {stats.days} days</span>.
+                          </>
+                        ) : (
+                          "Drag the slider to rewind time and dynamically see what your stats looked like at any age."
+                        )}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col items-start md:items-end shrink-0">
+                    {timeTravelDays !== null ? (
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-bold text-amber-600 bg-amber-50 border border-amber-100 px-3 py-1.5 rounded-xl">
+                          {selectedTimeTravelDate?.toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' })}
+                        </span>
+                        <button
+                          onClick={() => setTimeTravelDays(null)}
+                          className="flex items-center space-x-1.5 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl font-bold text-xs shadow-md transition-all active:scale-95"
+                        >
+                          <Zap className="w-3.5 h-3.5" />
+                          <span>Return to Present</span>
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center space-x-2 text-xs font-bold text-gray-400 uppercase tracking-widest bg-gray-50 px-3.5 py-2 rounded-xl border border-gray-100">
+                        <div className="w-2 h-2 bg-emerald-500 rounded-full animate-ping mr-1" />
+                        <span>Real-time Ticking</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Slider input & markers */}
+                <div className="space-y-6 relative z-10">
+                  <div className="relative group px-1">
+                    <input
+                      type="range"
+                      min={0}
+                      max={actualDaysLived}
+                      value={timeTravelDays !== null ? timeTravelDays : actualDaysLived}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value, 10);
+                        if (val >= actualDaysLived) {
+                          setTimeTravelDays(null);
+                        } else {
+                          setTimeTravelDays(val);
+                        }
+                      }}
+                      className={cn(
+                        "w-full h-3 rounded-full appearance-none cursor-pointer outline-none transition-all duration-150 focus:ring-4",
+                        timeTravelDays !== null 
+                          ? "bg-amber-100 accent-amber-500 focus:ring-amber-500/20" 
+                          : "bg-indigo-100 accent-indigo-600 focus:ring-indigo-600/20"
+                      )}
+                    />
+                    
+                    {/* Tick markers */}
+                    <div className="flex justify-between text-[10px] font-black text-gray-400 uppercase tracking-wider pt-3">
+                      <div className="flex flex-col items-start">
+                        <span className="text-gray-900 font-extrabold">Born</span>
+                        <span>Day 0</span>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <span>Childhood</span>
+                        <span>~5-10y</span>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <span>Teens</span>
+                        <span>~13-19y</span>
+                      </div>
+                      {actualDaysLived > 25 * 365.25 && (
+                        <div className="flex flex-col items-center">
+                          <span>Twenties</span>
+                          <span>~20-29y</span>
+                        </div>
+                      )}
+                      <div className="flex flex-col items-end">
+                        <span className="text-indigo-600 font-extrabold">Today</span>
+                        <span className="text-indigo-500 font-bold">Age {Math.floor(actualDaysLived / 365.25)}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Preset Buttons */}
+                  <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-dashed border-gray-100">
+                    <span className="text-[11px] font-black text-gray-400 uppercase tracking-wider mr-2">Quick Jumps:</span>
+                    {[
+                      { label: "Birth (0)", age: 0 },
+                      { label: "Age 5", age: 5 },
+                      { label: "Age 10", age: 10 },
+                      { label: "Age 15", age: 15 },
+                      { label: "Age 18", age: 18 },
+                      { label: "Age 21", age: 21 },
+                      { label: "Age 25", age: 25 },
+                      { label: "Age 30", age: 30 },
+                      { label: "Age 40", age: 40 },
+                      { label: "Age 50", age: 50 },
+                      { label: "Age 60", age: 60 },
+                    ].filter(preset => preset.age * 365.25 < actualDaysLived).map((preset) => {
+                      const presetDays = Math.floor(preset.age * 365.25);
+                      const isCurrentPreset = timeTravelDays !== null && Math.abs(timeTravelDays - presetDays) < 180;
+                      return (
+                        <button
+                          key={preset.label}
+                          onClick={() => {
+                            if (preset.age === 0) {
+                              setTimeTravelDays(0);
+                            } else {
+                              setTimeTravelDays(Math.min(actualDaysLived - 1, presetDays));
+                            }
+                          }}
+                          className={cn(
+                            "px-3 py-1.5 rounded-xl text-xs font-bold transition-all border",
+                            isCurrentPreset
+                              ? "bg-amber-500 text-white border-amber-500 shadow-sm shadow-amber-100"
+                              : "bg-gray-50 text-gray-600 border-gray-100 hover:border-indigo-100 hover:text-indigo-600 hover:bg-indigo-50/30"
+                          )}
+                        >
+                          {preset.label}
+                        </button>
+                      );
+                    })}
+                    {timeTravelDays !== null && (
+                      <button
+                        onClick={() => setTimeTravelDays(null)}
+                        className="px-3 py-1.5 rounded-xl text-xs font-bold transition-all border bg-indigo-50 text-indigo-700 border-indigo-100 hover:bg-indigo-100"
+                      >
+                        Present Today
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
 
               {/* Top Level Visuals */}
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-12">
