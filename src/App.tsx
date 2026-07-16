@@ -1203,6 +1203,14 @@ const HomePage = () => {
   const [aiInsight, setAiInsight] = useState<string | null>(null);
   const [isGeneratingInsight, setIsGeneratingInsight] = useState(false);
 
+  // --- Side-by-Side Comparison States ---
+  const [isCompareMode, setIsCompareMode] = useState<boolean>(false);
+  const [birthDate2, setBirthDate2] = useState<string>('');
+  const [error2, setError2] = useState<string | null>(null);
+  const [personName1, setPersonName1] = useState<string>('Person A');
+  const [personName2, setPersonName2] = useState<string>('Person B');
+  const [stats2, setStats2] = useState<LifeStats | null>(null);
+
   // --- Historical Time Travel States ---
   const [timeTravelDays, setTimeTravelDays] = useState<number | null>(null);
 
@@ -1436,99 +1444,186 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    if (!birthDate || error) return;
+    const calculateAll = () => {
+      const now = new Date();
 
-    const calculate = () => {
-      const birth = new Date(birthDate);
-      let now = new Date();
-      
-      if (timeTravelDays !== null) {
-        // Calculate the historical date based on birthdate + timeTravelDays
-        now = new Date(birth.getTime() + timeTravelDays * 24 * 60 * 60 * 1000);
-      }
-      
-      const diffMs = now.getTime() - birth.getTime();
-      const totalSeconds = Math.max(0, Math.floor(diffMs / 1000));
-      const totalMinutes = Math.floor(totalSeconds / 60);
-      const totalHours = Math.floor(totalMinutes / 60);
-      const totalDays = Math.floor(totalHours / 24);
-      const totalWeeks = Math.floor(totalDays / 7);
-      const totalMonths = Math.floor(totalDays / 30.44);
+      // Person 1 Stats
+      if (birthDate && !error) {
+        const birth = new Date(birthDate);
+        let p1Now = new Date();
+        if (timeTravelDays !== null) {
+          p1Now = new Date(birth.getTime() + timeTravelDays * 24 * 60 * 60 * 1000);
+        } else {
+          p1Now = now;
+        }
 
-      // Breakdown
-      let years = now.getFullYear() - birth.getFullYear();
-      let months = now.getMonth() - birth.getMonth();
-      let days = now.getDate() - birth.getDate();
+        const diffMs = p1Now.getTime() - birth.getTime();
+        const totalSeconds = Math.max(0, Math.floor(diffMs / 1000));
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const totalHours = Math.floor(totalMinutes / 60);
+        const totalDays = Math.floor(totalHours / 24);
+        const totalWeeks = Math.floor(totalDays / 7);
+        const totalMonths = Math.floor(totalDays / 30.44);
 
-      if (days < 0) {
-        months--;
-        const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-        days += lastMonth.getDate();
-      }
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
+        let years = p1Now.getFullYear() - birth.getFullYear();
+        let months = p1Now.getMonth() - birth.getMonth();
+        let days = p1Now.getDate() - birth.getDate();
 
-      if (years < 0) years = 0;
-      if (months < 0) months = 0;
-      if (days < 0) days = 0;
+        if (days < 0) {
+          months--;
+          const lastMonth = new Date(p1Now.getFullYear(), p1Now.getMonth(), 0);
+          days += lastMonth.getDate();
+        }
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
 
-      // Life Expectancy
-      const totalLifeDays = LIFE_EXPECTANCY * 365.25;
-      const daysLeft = Math.max(0, totalLifeDays - totalDays);
-      const percentCompleted = Math.min(100, (totalDays / totalLifeDays) * 100);
-      const weekendsLeft = Math.floor(daysLeft / 7);
-      
-      // Next Birthday
-      const nextBday = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
-      if (nextBday < now) nextBday.setFullYear(now.getFullYear() + 1);
-      const nextBirthdayDays = Math.ceil((nextBday.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+        if (years < 0) years = 0;
+        if (months < 0) months = 0;
+        if (days < 0) days = 0;
 
-      // Milestone 10k
-      const milestone10k = 10000 - totalDays;
+        const totalLifeDays = LIFE_EXPECTANCY * 365.25;
+        const daysLeft = Math.max(0, totalLifeDays - totalDays);
+        const percentCompleted = Math.min(100, (totalDays / totalLifeDays) * 100);
+        const weekendsLeft = Math.floor(daysLeft / 7);
 
-      // Time with parents (Viral stat: 90% by 18)
-      let timeWithParentsPercent = 90;
-      if (years < 18) {
-        timeWithParentsPercent = (years / 18) * 90;
+        const nextBday = new Date(p1Now.getFullYear(), birth.getMonth(), birth.getDate());
+        if (nextBday < p1Now) nextBday.setFullYear(p1Now.getFullYear() + 1);
+        const nextBirthdayDays = Math.ceil((nextBday.getTime() - p1Now.getTime()) / (1000 * 60 * 60 * 24));
+
+        const milestone10k = 10000 - totalDays;
+
+        let timeWithParentsPercent = 90;
+        if (years < 18) {
+          timeWithParentsPercent = (years / 18) * 90;
+        } else {
+          timeWithParentsPercent = 90 + Math.min(9, (years - 18) * 0.2);
+        }
+
+        // Use stable deterministic seed variance based on birth timestamp so it does not jitter randomly on every second tick
+        const seedValue = Math.sin(birth.getTime() / 100000) * 0.8;
+        const biologicalAge = Math.max(0, years + seedValue);
+
+        setStats({
+          years, months, days, hours: p1Now.getHours(), minutes: p1Now.getMinutes(), seconds: p1Now.getSeconds(),
+          totalDays, totalHours, totalMinutes, totalSeconds, totalWeeks, totalMonths,
+          daysLeft, percentCompleted, weekendsLeft, nextBirthdayDays,
+          milestone10kDays: milestone10k,
+          timeWithParentsPercent,
+          heartbeats: totalMinutes * AVG_HEART_RATE,
+          breaths: totalMinutes * AVG_BREATH_RATE,
+          blinks: totalMinutes * AVG_BLINK_RATE,
+          sleepHours: totalDays * AVG_SLEEP_HOURS,
+          caloriesBurned: totalDays * 2200,
+          waterConsumed: totalDays * AVG_WATER_LITERS,
+          stepsWalked: totalDays * AVG_STEPS_PER_DAY,
+          biologicalAge,
+          phoneTimeHours: totalDays * AVG_PHONE_USE,
+          scrolledKm: totalDays * AVG_SCROLL_KM_PER_DAY,
+          notificationsReceived: totalDays * 65,
+          wordsTyped: totalDays * 2000,
+          mealsEaten: totalDays * AVG_MEALS_PER_DAY,
+          coffeeCups: totalDays * AVG_COFFEE_CUPS,
+          laughs: totalDays * AVG_LAUGHS_PER_DAY,
+          bathroomDays: totalDays * (AVG_BATHROOM_YEARS / LIFE_EXPECTANCY),
+          earthCircuits: (totalDays * AVG_STEPS_PER_DAY * 0.0007) / 40075,
+          foodTons: (totalDays * 1.5) / 1000,
+          moneyEarned: totalDays * 150,
+          hourlyValue: 25
+        });
       } else {
-        timeWithParentsPercent = 90 + Math.min(9, (years - 18) * 0.2);
+        setStats(null);
       }
 
-      setStats({
-        years, months, days, hours: now.getHours(), minutes: now.getMinutes(), seconds: now.getSeconds(),
-        totalDays, totalHours, totalMinutes, totalSeconds, totalWeeks, totalMonths,
-        daysLeft, percentCompleted, weekendsLeft, nextBirthdayDays,
-        milestone10kDays: milestone10k,
-        timeWithParentsPercent,
-        heartbeats: totalMinutes * AVG_HEART_RATE,
-        breaths: totalMinutes * AVG_BREATH_RATE,
-        blinks: totalMinutes * AVG_BLINK_RATE,
-        sleepHours: totalDays * AVG_SLEEP_HOURS,
-        caloriesBurned: totalDays * 2200, // Average
-        waterConsumed: totalDays * AVG_WATER_LITERS,
-        stepsWalked: totalDays * AVG_STEPS_PER_DAY,
-        biologicalAge: Math.max(0, years + (Math.random() * 2 - 1)), // Mock variance
-        phoneTimeHours: totalDays * AVG_PHONE_USE,
-        scrolledKm: totalDays * AVG_SCROLL_KM_PER_DAY,
-        notificationsReceived: totalDays * 65, // Average
-        wordsTyped: totalDays * 2000,
-        mealsEaten: totalDays * AVG_MEALS_PER_DAY,
-        coffeeCups: totalDays * AVG_COFFEE_CUPS,
-        laughs: totalDays * AVG_LAUGHS_PER_DAY,
-        bathroomDays: totalDays * (AVG_BATHROOM_YEARS / LIFE_EXPECTANCY),
-        earthCircuits: (totalDays * AVG_STEPS_PER_DAY * 0.0007) / 40075, // Steps to km to Earth circumference
-        foodTons: (totalDays * 1.5) / 1000, // 1.5kg per day to tons
-        moneyEarned: totalDays * 150, // Average daily income estimate
-        hourlyValue: 25 // Mock
-      });
+      // Person 2 Stats
+      if (isCompareMode && birthDate2 && !error2) {
+        const birth = new Date(birthDate2);
+        const p2Now = now;
+
+        const diffMs = p2Now.getTime() - birth.getTime();
+        const totalSeconds = Math.max(0, Math.floor(diffMs / 1000));
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const totalHours = Math.floor(totalMinutes / 60);
+        const totalDays = Math.floor(totalHours / 24);
+        const totalWeeks = Math.floor(totalDays / 7);
+        const totalMonths = Math.floor(totalDays / 30.44);
+
+        let years = p2Now.getFullYear() - birth.getFullYear();
+        let months = p2Now.getMonth() - birth.getMonth();
+        let days = p2Now.getDate() - birth.getDate();
+
+        if (days < 0) {
+          months--;
+          const lastMonth = new Date(p2Now.getFullYear(), p2Now.getMonth(), 0);
+          days += lastMonth.getDate();
+        }
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        if (years < 0) years = 0;
+        if (months < 0) months = 0;
+        if (days < 0) days = 0;
+
+        const totalLifeDays = LIFE_EXPECTANCY * 365.25;
+        const daysLeft = Math.max(0, totalLifeDays - totalDays);
+        const percentCompleted = Math.min(100, (totalDays / totalLifeDays) * 100);
+        const weekendsLeft = Math.floor(daysLeft / 7);
+
+        const nextBday = new Date(p2Now.getFullYear(), birth.getMonth(), birth.getDate());
+        if (nextBday < p2Now) nextBday.setFullYear(p2Now.getFullYear() + 1);
+        const nextBirthdayDays = Math.ceil((nextBday.getTime() - p2Now.getTime()) / (1000 * 60 * 60 * 24));
+
+        const milestone10k = 10000 - totalDays;
+
+        let timeWithParentsPercent = 90;
+        if (years < 18) {
+          timeWithParentsPercent = (years / 18) * 90;
+        } else {
+          timeWithParentsPercent = 90 + Math.min(9, (years - 18) * 0.2);
+        }
+
+        const seedValue = Math.sin(birth.getTime() / 100000) * 0.8;
+        const biologicalAge = Math.max(0, years + seedValue);
+
+        setStats2({
+          years, months, days, hours: p2Now.getHours(), minutes: p2Now.getMinutes(), seconds: p2Now.getSeconds(),
+          totalDays, totalHours, totalMinutes, totalSeconds, totalWeeks, totalMonths,
+          daysLeft, percentCompleted, weekendsLeft, nextBirthdayDays,
+          milestone10kDays: milestone10k,
+          timeWithParentsPercent,
+          heartbeats: totalMinutes * AVG_HEART_RATE,
+          breaths: totalMinutes * AVG_BREATH_RATE,
+          blinks: totalMinutes * AVG_BLINK_RATE,
+          sleepHours: totalDays * AVG_SLEEP_HOURS,
+          caloriesBurned: totalDays * 2200,
+          waterConsumed: totalDays * AVG_WATER_LITERS,
+          stepsWalked: totalDays * AVG_STEPS_PER_DAY,
+          biologicalAge,
+          phoneTimeHours: totalDays * AVG_PHONE_USE,
+          scrolledKm: totalDays * AVG_SCROLL_KM_PER_DAY,
+          notificationsReceived: totalDays * 65,
+          wordsTyped: totalDays * 2000,
+          mealsEaten: totalDays * AVG_MEALS_PER_DAY,
+          coffeeCups: totalDays * AVG_COFFEE_CUPS,
+          laughs: totalDays * AVG_LAUGHS_PER_DAY,
+          bathroomDays: totalDays * (AVG_BATHROOM_YEARS / LIFE_EXPECTANCY),
+          earthCircuits: (totalDays * AVG_STEPS_PER_DAY * 0.0007) / 40075,
+          foodTons: (totalDays * 1.5) / 1000,
+          moneyEarned: totalDays * 150,
+          hourlyValue: 25
+        });
+      } else {
+        setStats2(null);
+      }
     };
 
-    calculate();
-    const interval = setInterval(calculate, 1000);
+    calculateAll();
+    const interval = setInterval(calculateAll, 1000);
     return () => clearInterval(interval);
-  }, [birthDate, error, timeTravelDays]);
+  }, [birthDate, error, birthDate2, error2, isCompareMode, timeTravelDays]);
 
   const generateAIInsight = async () => {
     if (!stats) return;
@@ -1601,47 +1696,158 @@ const HomePage = () => {
           >
             Your Life in <span className="text-indigo-600">Numbers</span>
           </motion.h1>
+
+          {/* Mode Switcher */}
+          <div className="flex justify-center mb-10 relative z-20">
+            <div className="bg-gray-100 p-1.5 rounded-[1.5rem] flex items-center gap-1.5 border border-gray-200/60 shadow-inner">
+              <button
+                onClick={() => {
+                  setIsCompareMode(false);
+                  setTimeTravelDays(null);
+                }}
+                className={cn(
+                  "px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-wider transition-all flex items-center space-x-2",
+                  !isCompareMode 
+                    ? "bg-white text-indigo-600 shadow-md shadow-indigo-100/50" 
+                    : "text-gray-500 hover:text-gray-900"
+                )}
+              >
+                <Clock className="w-4 h-4" />
+                <span>Single Life Tracker</span>
+              </button>
+              <button
+                onClick={() => {
+                  setIsCompareMode(true);
+                  setTimeTravelDays(null);
+                }}
+                className={cn(
+                  "px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-wider transition-all flex items-center space-x-2",
+                  isCompareMode 
+                    ? "bg-white text-indigo-600 shadow-md shadow-indigo-100/50" 
+                    : "text-gray-500 hover:text-gray-900"
+                )}
+              >
+                <Users className="w-4 h-4" />
+                <span>Side-by-Side Mode</span>
+              </button>
+            </div>
+          </div>
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="max-w-xl mx-auto bg-white p-8 rounded-[2.5rem] shadow-2xl shadow-indigo-100 border border-gray-100"
+            className={cn(
+              "mx-auto bg-white p-8 rounded-[2.5rem] shadow-2xl shadow-indigo-100 border border-gray-100 transition-all duration-300 relative z-10",
+              isCompareMode ? "max-w-4xl" : "max-w-xl"
+            )}
           >
-            <div className="flex flex-col space-y-4">
-              <div className="flex items-center justify-between">
-                <label className="text-sm font-bold text-gray-700 uppercase tracking-wider">
-                  When were you born?
-                </label>
-                {error && <span className="text-xs font-bold text-red-500 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {error}</span>}
-              </div>
-              <div className="relative group">
-                <Calendar className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors w-6 h-6" />
-                <input
-                  type="date"
-                  value={birthDate}
-                  onChange={handleDateChange}
-                  className={cn(
-                    "w-full pl-14 pr-6 py-5 bg-gray-50 border-2 rounded-2xl focus:ring-4 transition-all outline-none text-lg font-bold text-gray-900",
-                    error ? "border-red-100 focus:ring-red-50" : "border-gray-100 focus:border-indigo-500 focus:ring-indigo-50"
-                  )}
-                />
-              </div>
-              {!birthDate && (
-                <div className="flex items-center justify-center space-x-2 text-gray-400 py-2">
-                  <div className="w-2 h-2 bg-gray-300 rounded-full animate-bounce" />
-                  <div className="w-2 h-2 bg-gray-300 rounded-full animate-bounce [animation-delay:0.2s]" />
-                  <div className="w-2 h-2 bg-gray-300 rounded-full animate-bounce [animation-delay:0.4s]" />
+            {!isCompareMode ? (
+              <div className="flex flex-col space-y-4">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-bold text-gray-700 uppercase tracking-wider">
+                    When were you born?
+                  </label>
+                  {error && <span className="text-xs font-bold text-red-500 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {error}</span>}
                 </div>
-              )}
-            </div>
+                <div className="relative group">
+                  <Calendar className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors w-6 h-6" />
+                  <input
+                    type="date"
+                    value={birthDate}
+                    onChange={handleDateChange}
+                    className={cn(
+                      "w-full pl-14 pr-6 py-5 bg-gray-50 border-2 rounded-2xl focus:ring-4 transition-all outline-none text-lg font-bold text-gray-900",
+                      error ? "border-red-100 focus:ring-red-50" : "border-gray-100 focus:border-indigo-500 focus:ring-indigo-50"
+                    )}
+                  />
+                </div>
+                {!birthDate && (
+                  <div className="flex items-center justify-center space-x-2 text-gray-400 py-2">
+                    <div className="w-2 h-2 bg-gray-300 rounded-full animate-bounce" />
+                    <div className="w-2 h-2 bg-gray-300 rounded-full animate-bounce [animation-delay:0.2s]" />
+                    <div className="w-2 h-2 bg-gray-300 rounded-full animate-bounce [animation-delay:0.4s]" />
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                {/* Person 1 Input */}
+                <div className="flex flex-col space-y-4">
+                  <div className="flex flex-col">
+                    <label className="text-xs font-black text-gray-400 uppercase tracking-wider mb-2">First Person's Name</label>
+                    <input
+                      type="text"
+                      value={personName1}
+                      onChange={(e) => setPersonName1(e.target.value || 'Person A')}
+                      className="w-full px-5 py-3.5 bg-gray-50 border-2 border-gray-100 rounded-xl font-bold text-gray-900 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50 transition-all text-sm"
+                      placeholder="e.g. John"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="text-xs font-black text-gray-400 uppercase tracking-wider">Birthdate</label>
+                      {error && <span className="text-xs font-bold text-red-500 flex items-center gap-1"><AlertCircle className="w-3.5 h-3.5" /> {error}</span>}
+                    </div>
+                    <div className="relative group">
+                      <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors w-5 h-5" />
+                      <input
+                        type="date"
+                        value={birthDate}
+                        onChange={handleDateChange}
+                        className={cn(
+                          "w-full pl-12 pr-4 py-4 bg-gray-50 border-2 rounded-xl focus:ring-4 transition-all outline-none font-bold text-gray-900 text-sm",
+                          error ? "border-red-100 focus:ring-red-50" : "border-gray-100 focus:border-indigo-500 focus:ring-indigo-50"
+                        )}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Person 2 Input */}
+                <div className="flex flex-col space-y-4 border-t md:border-t-0 md:border-l border-gray-100 pt-6 md:pt-0 md:pl-8">
+                  <div className="flex flex-col">
+                    <label className="text-xs font-black text-gray-400 uppercase tracking-wider mb-2">Second Person's Name</label>
+                    <input
+                      type="text"
+                      value={personName2}
+                      onChange={(e) => setPersonName2(e.target.value || 'Person B')}
+                      className="w-full px-5 py-3.5 bg-gray-50 border-2 border-gray-100 rounded-xl font-bold text-gray-900 outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50 transition-all text-sm"
+                      placeholder="e.g. Sarah"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="text-xs font-black text-gray-400 uppercase tracking-wider">Birthdate</label>
+                      {error2 && <span className="text-xs font-bold text-red-500 flex items-center gap-1"><AlertCircle className="w-3.5 h-3.5" /> {error2}</span>}
+                    </div>
+                    <div className="relative group">
+                      <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors w-5 h-5" />
+                      <input
+                        type="date"
+                        value={birthDate2}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setBirthDate2(val);
+                          setError2(validateDate(val));
+                        }}
+                        className={cn(
+                          "w-full pl-12 pr-4 py-4 bg-gray-50 border-2 rounded-xl focus:ring-4 transition-all outline-none font-bold text-gray-900 text-sm",
+                          error2 ? "border-red-100 focus:ring-red-50" : "border-gray-100 focus:border-indigo-500 focus:ring-indigo-50"
+                        )}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </motion.div>
         </div>
       </section>
 
       {/* Dashboard Section */}
       <AnimatePresence>
-        {stats && !error && (
+        {!isCompareMode && stats && !error && (
           <motion.section
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
