@@ -69,6 +69,8 @@ import { twMerge } from 'tailwind-merge';
 import Markdown from 'react-markdown';
 import { BLOG_POSTS } from './blogData';
 import { CustomEarningsCalculator } from './components/CustomEarningsCalculator';
+import PrivacyPage from './components/PrivacyPage';
+import TermsPage from './components/TermsPage';
 
 // --- Utils ---
 function cn(...inputs: ClassValue[]) {
@@ -349,8 +351,8 @@ const Footer = () => (
           <ul className="space-y-4 text-gray-600 text-sm">
             <li><Link to="/" className="hover:text-indigo-600 transition-colors">Life Calculator</Link></li>
             <li><Link to="/blog" className="hover:text-indigo-600 transition-colors">Insights Blog</Link></li>
-            <li><a href="#" className="hover:text-indigo-600 transition-colors">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-indigo-600 transition-colors">Terms of Service</a></li>
+            <li><Link to="/privacy" className="hover:text-indigo-600 transition-colors">Privacy Policy</Link></li>
+            <li><Link to="/terms" className="hover:text-indigo-600 transition-colors">Terms & Conditions</Link></li>
           </ul>
         </div>
         <div>
@@ -3443,6 +3445,8 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<BlogListPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
         </Routes>
       </main>
       <Footer />
