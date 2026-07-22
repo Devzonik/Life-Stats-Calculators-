@@ -3302,7 +3302,7 @@ const BlogPostPage = () => {
 
       const metaKeywords = document.querySelector('meta[name="keywords"]');
       if (metaKeywords) {
-        metaKeywords.setAttribute('content', "life stats calculator, days alive calculator, seconds alive calculator, how long have I been alive, age in seconds calculator, days since birth, biological age calculator, longevity stats, how many days old am I");
+        metaKeywords.setAttribute('content', "Life stats, Life calculator, life stats calculator, my life calculator, human life calculator, human life stats, days alive calculator, seconds alive calculator, how long have I been alive, age in seconds calculator, days since birth, biological age calculator, longevity stats");
       }
 
       const script = document.getElementById('blog-json-ld');
@@ -3435,6 +3435,25 @@ export default function App() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Dynamic canonical tag management matching lifestats.online
+    const cleanPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
+    const canonicalUrl = `https://lifestats.online${cleanPath}`;
+
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', canonicalUrl);
+
+    // Update og:url and twitter:url
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
+    
+    const twitterUrl = document.querySelector('meta[property="twitter:url"]');
+    if (twitterUrl) twitterUrl.setAttribute('content', canonicalUrl);
   }, [pathname]);
 
   return (
