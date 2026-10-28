@@ -336,23 +336,36 @@ const Footer = () => (
   <footer className="bg-white border-t border-gray-100 pt-16 pb-8">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-        <div className="col-span-1 md:col-span-2">
+        <div className="col-span-1 md:col-span-1">
           <div className="flex items-center space-x-2 mb-6">
             <Clock className="text-indigo-600 w-6 h-6" />
             <span className="text-xl font-bold">LifeStats</span>
           </div>
-          <p className="text-gray-500 max-w-sm leading-relaxed">
+          <p className="text-gray-500 text-sm leading-relaxed mb-4">
             Empowering individuals with data-driven insights into their life journey. 
             Track your milestones, understand your biology, and make every second count.
           </p>
+          <p className="text-xs text-indigo-600 font-bold uppercase tracking-wider">
+            Domain: lifestats.online
+          </p>
         </div>
         <div>
-          <h4 className="font-semibold text-gray-900 mb-6">Quick Links</h4>
-          <ul className="space-y-4 text-gray-600 text-sm">
-            <li><Link to="/" className="hover:text-indigo-600 transition-colors">Life Calculator</Link></li>
-            <li><Link to="/blog" className="hover:text-indigo-600 transition-colors">Insights Blog</Link></li>
-            <li><Link to="/privacy" className="hover:text-indigo-600 transition-colors">Privacy Policy</Link></li>
-            <li><Link to="/terms" className="hover:text-indigo-600 transition-colors">Terms & Conditions</Link></li>
+          <h4 className="font-semibold text-gray-900 mb-6">Navigation</h4>
+          <ul className="space-y-3 text-gray-600 text-sm">
+            <li><Link to="/" className="hover:text-indigo-600 transition-colors font-medium">Life Stats Calculator</Link></li>
+            <li><Link to="/blog" className="hover:text-indigo-600 transition-colors font-medium">All Guides & Articles (70)</Link></li>
+            <li><Link to="/privacy" className="hover:text-indigo-600 transition-colors font-medium">Privacy Policy</Link></li>
+            <li><Link to="/terms" className="hover:text-indigo-600 transition-colors font-medium">Terms & Conditions</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="font-semibold text-gray-900 mb-6">Popular Articles</h4>
+          <ul className="space-y-3 text-gray-600 text-sm">
+            <li><Link to="/blog/how-many-days-have-i-lived-life-stats-calculator" className="hover:text-indigo-600 transition-colors">Days Lived Calculator</Link></li>
+            <li><Link to="/blog/heartbeats-lifetime-life-stat" className="hover:text-indigo-600 transition-colors">Lifetime Heartbeats</Link></li>
+            <li><Link to="/blog/biological-vs-chronological-age-life-calculator" className="hover:text-indigo-600 transition-colors">Biological vs Chronological Age</Link></li>
+            <li><Link to="/blog/cuantos-latidos-da-el-corazon-en-una-vida-humana" className="hover:text-indigo-600 transition-colors">Latidos del Corazón Humano</Link></li>
+            <li><Link to="/blog/calcular-edad-en-segundos-minutos-horas-tiempo-vida" className="hover:text-indigo-600 transition-colors">Calcular Edad en Segundos y Horas</Link></li>
           </ul>
         </div>
         <div>
@@ -382,7 +395,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="border-t border-gray-50 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-        <p>© 2026 LifeStats Calculator. All rights reserved.</p>
+        <p>© 2026 LifeStats Calculator (lifestats.online). All rights reserved.</p>
         <p className="mt-4 md:mt-0">Built with precision for the curious mind.</p>
       </div>
     </div>
@@ -3241,6 +3254,13 @@ const BlogPostPage = () => {
   const { slug } = useParams();
   const post = BLOG_POSTS.find(p => p.slug === slug);
 
+  const relatedPosts = useMemo(() => {
+    if (!post) return [];
+    return BLOG_POSTS
+      .filter(p => p.slug !== post.slug)
+      .slice(0, 3);
+  }, [post?.slug]);
+
   useEffect(() => {
     if (post) {
       document.title = `${post.title} | Life Stats Calculator`;
@@ -3260,33 +3280,68 @@ const BlogPostPage = () => {
       }
       metaKeywords.setAttribute('content', post.keywords.join(', '));
 
-      // Add JSON-LD BlogPosting schema
+      // Add JSON-LD BlogPosting & BreadcrumbList schema
       const script = document.createElement('script');
       script.type = 'application/ld+json';
       script.id = 'blog-json-ld';
+      const canonicalArticleUrl = `https://lifestats.online/blog/${post.slug}`;
       const schema = {
         "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": post.title,
-        "description": post.excerpt,
-        "datePublished": new Date(post.date).toISOString(),
-        "author": {
-          "@type": "Organization",
-          "name": "LifeStats Editorial"
-        },
-        "image": `https://picsum.photos/seed/${post.slug}/1200/800`,
-        "publisher": {
-          "@type": "Organization",
-          "name": "Life Stats Calculator",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://picsum.photos/seed/life-stats/200/200"
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "@id": `${canonicalArticleUrl}#article`,
+            "isPartOf": {
+              "@type": "WebPage",
+              "@id": canonicalArticleUrl
+            },
+            "headline": post.title,
+            "description": post.excerpt,
+            "datePublished": new Date(post.date).toISOString(),
+            "dateModified": "2026-10-28T12:00:00.000Z",
+            "mainEntityOfPage": canonicalArticleUrl,
+            "author": {
+              "@type": "Organization",
+              "name": "LifeStats Editorial",
+              "url": "https://lifestats.online"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Life Stats Calculator",
+              "url": "https://lifestats.online",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://picsum.photos/seed/life-stats/200/200"
+              }
+            },
+            "image": `https://picsum.photos/seed/${post.slug}/1200/800`,
+            "keywords": post.keywords.join(', ')
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": `${canonicalArticleUrl}#breadcrumb`,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://lifestats.online/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://lifestats.online/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": post.title,
+                "item": canonicalArticleUrl
+              }
+            ]
           }
-        },
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": window.location.href
-        }
+        ]
       };
       script.text = JSON.stringify(schema);
       document.head.appendChild(script);
@@ -3423,6 +3478,44 @@ const BlogPostPage = () => {
             ))}
           </div>
         </div>
+
+        {/* Related Articles Section for Deep Internal Linking */}
+        {relatedPosts.length > 0 && (
+          <div className="mt-20 pt-16 border-t border-gray-100">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl lg:text-3xl font-black text-gray-900">Explore Related Guides</h2>
+              <Link to="/blog" className="text-sm font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                <span>View all 70 articles</span>
+                <ChevronRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedPosts.map(rel => (
+                <Link
+                  key={rel.slug}
+                  to={`/blog/${rel.slug}`}
+                  className="group bg-gray-50 hover:bg-white p-6 rounded-3xl border border-gray-100 hover:border-indigo-100 hover:shadow-xl transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full mb-3 inline-block">
+                      {rel.tags[0] || 'Guide'}
+                    </span>
+                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-2 mb-2 leading-snug">
+                      {rel.title}
+                    </h3>
+                    <p className="text-xs text-gray-500 line-clamp-3 mb-6 font-medium leading-relaxed">
+                      {rel.excerpt}
+                    </p>
+                  </div>
+                  <span className="text-xs font-black text-indigo-600 inline-flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                    <span>Read Full Guide</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </article>
   );
