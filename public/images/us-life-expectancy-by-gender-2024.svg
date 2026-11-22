@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="900" height="440" role="img" aria-label="US life expectancy by gender comparison bar chart, females 81.4 years vs males 76.5 years in 2024">
+  <!-- Card Background -->
+  <rect width="900" height="440" rx="24" fill="#ffffff"/>
+  <rect x="1" y="1" width="898" height="438" rx="23" fill="none" stroke="#e5e7eb" stroke-width="2"/>
+
+  <!-- Header -->
+  <text x="48" y="48" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="800" fill="#111827">US Life Expectancy by Gender: 2023 vs. 2024</text>
+  <text x="48" y="74" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Women outlive men by 4.9 years in 2024, though men gained 0.7 years vs. 0.3 years for women</text>
+
+  <!-- Legend -->
+  <rect x="48" y="96" width="14" height="14" rx="4" fill="#cbd5e1"/>
+  <text x="70" y="108" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="700" fill="#64748b">2023 Final</text>
+  <rect x="165" y="96" width="14" height="14" rx="4" fill="#4f46e5"/>
+  <text x="187" y="108" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="700" fill="#1e293b">2024 Final (Record)</text>
+
+  <!-- Highlight Pill Callout -->
+  <rect x="615" y="90" width="237" height="32" rx="16" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="733.5" y="111" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="800" fill="#4338ca" text-anchor="middle">2024 Gender Gap: 4.9 Years</text>
+
+  <!-- Horizontal Bars Layout (Scale: 68 to 84 => 16 yrs across 520px => 32.5px per yr, xStart=220) -->
+  <!-- Gridlines: 70, 74, 78, 82 -->
+  <!-- x(70)=285, x(74)=415, x(78)=545, x(82)=675 -->
+  <g stroke="#f1f5f9" stroke-width="1.5">
+    <line x1="285" y1="142" x2="285" y2="365"/>
+    <line x1="415" y1="142" x2="415" y2="365"/>
+    <line x1="545" y1="142" x2="545" y2="365"/>
+    <line x1="675" y1="142" x2="675" y2="365"/>
+  </g>
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#94a3b8" text-anchor="middle">
+    <text x="285" y="384">70 yrs</text>
+    <text x="415" y="384">74 yrs</text>
+    <text x="545" y="384">78 yrs</text>
+    <text x="675" y="384">82 yrs</text>
+  </g>
+
+  <!-- Baseline at 68 yrs (x=220) -->
+  <line x1="220" y1="142" x2="220" y2="365" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Group 1: Females (2023=81.1 -> w=425.75, 2024=81.4 -> w=435.5) -->
+  <text x="204" y="176" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="16" font-weight="800" fill="#111827" text-anchor="end">Females</text>
+  <text x="204" y="196" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#10b981" text-anchor="end">+0.3 yr gain</text>
+  <!-- 2023 Bar -->
+  <rect x="220" y="152" width="425.75" height="22" rx="6" fill="#cbd5e1"/>
+  <text x="656" y="168" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="700" fill="#64748b">81.1</text>
+  <!-- 2024 Bar -->
+  <rect x="220" y="179" width="435.5" height="26" rx="7" fill="#ec4899"/>
+  <text x="666" y="197" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="15" font-weight="800" fill="#be185d">81.4 years</text>
+
+  <!-- Group 2: Total US Population (2023=78.4 -> w=338, 2024=79.0 -> w=357.5) -->
+  <text x="204" y="251" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="16" font-weight="800" fill="#111827" text-anchor="end">Total US</text>
+  <text x="204" y="271" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#10b981" text-anchor="end">+0.6 yr gain</text>
+  <!-- 2023 Bar -->
+  <rect x="220" y="227" width="338" height="22" rx="6" fill="#cbd5e1"/>
+  <text x="568" y="243" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="700" fill="#64748b">78.4</text>
+  <!-- 2024 Bar -->
+  <rect x="220" y="254" width="357.5" height="26" rx="7" fill="#4f46e5"/>
+  <text x="588" y="272" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="15" font-weight="800" fill="#4338ca">79.0 years</text>
+
+  <!-- Group 3: Males (2023=75.8 -> w=253.5, 2024=76.5 -> w=276.25) -->
+  <text x="204" y="326" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="16" font-weight="800" fill="#111827" text-anchor="end">Males</text>
+  <text x="204" y="346" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#10b981" text-anchor="end">+0.7 yr gain</text>
+  <!-- 2023 Bar -->
+  <rect x="220" y="302" width="253.5" height="22" rx="6" fill="#cbd5e1"/>
+  <text x="484" y="318" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="700" fill="#64748b">75.8</text>
+  <!-- 2024 Bar -->
+  <rect x="220" y="329" width="276.25" height="26" rx="7" fill="#0ea5e9"/>
+  <text x="507" y="347" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="15" font-weight="800" fill="#0369a1">76.5 years</text>
+
+  <!-- Source -->
+  <text x="48" y="416" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="600" fill="#9ca3af">Source: CDC / NCHS National Vital Statistics System, 2024 Final Life Expectancy Report · LifeStats.online</text>
+</svg>

@@ -2,11 +2,15 @@ import { ADDITIONAL_BLOG_POSTS } from './additionalBlogPosts';
 
 export interface BlogPost {
   title: string;
+  seoTitle?: string;
   excerpt: string;
+  metaDescription?: string;
   date: string;
   slug: string;
   tags: string[];
   keywords: string[];
+  schemaType?: 'Article' | 'BlogPosting';
+  faqSchema?: { question: string; answer: string }[];
   content: string;
 }
 
@@ -3309,4 +3313,8 @@ Take control of your personal timeline. Map your milestones, compound your asset
   }
 ];
 
-export const BLOG_POSTS: BlogPost[] = [...BASE_BLOG_POSTS, ...ADDITIONAL_BLOG_POSTS];
+export const BLOG_POSTS: BlogPost[] = [
+  ...ADDITIONAL_BLOG_POSTS.filter(p => p.slug === 'us-life-expectancy'),
+  ...BASE_BLOG_POSTS,
+  ...ADDITIONAL_BLOG_POSTS.filter(p => p.slug !== 'us-life-expectancy')
+];

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { Routes, Route, Link, useLocation, useParams } from 'react-router-dom';
+import { Routes, Route, Link, useLocation, useParams, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Clock, 
@@ -67,6 +67,7 @@ import { GoogleGenAI } from "@google/genai";
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { BLOG_POSTS } from './blogData';
 import { CustomEarningsCalculator } from './components/CustomEarningsCalculator';
 import PrivacyPage from './components/PrivacyPage';
@@ -353,7 +354,7 @@ const Footer = () => (
           <h4 className="font-semibold text-gray-900 mb-6">Navigation</h4>
           <ul className="space-y-3 text-gray-600 text-sm">
             <li><Link to="/" className="hover:text-indigo-600 transition-colors font-medium">Life Stats Calculator</Link></li>
-            <li><Link to="/blog" className="hover:text-indigo-600 transition-colors font-medium">All Guides & Articles (70)</Link></li>
+            <li><Link to="/blog" className="hover:text-indigo-600 transition-colors font-medium">All Guides & Articles ({BLOG_POSTS.length})</Link></li>
             <li><Link to="/privacy" className="hover:text-indigo-600 transition-colors font-medium">Privacy Policy</Link></li>
             <li><Link to="/terms" className="hover:text-indigo-600 transition-colors font-medium">Terms & Conditions</Link></li>
           </ul>
@@ -361,11 +362,11 @@ const Footer = () => (
         <div>
           <h4 className="font-semibold text-gray-900 mb-6">Popular Articles</h4>
           <ul className="space-y-3 text-gray-600 text-sm">
+            <li><Link to="/blog/us-life-expectancy" className="hover:text-indigo-600 transition-colors">US Life Expectancy (CDC Data)</Link></li>
             <li><Link to="/blog/how-many-days-have-i-lived-life-stats-calculator" className="hover:text-indigo-600 transition-colors">Days Lived Calculator</Link></li>
-            <li><Link to="/blog/heartbeats-lifetime-life-stat" className="hover:text-indigo-600 transition-colors">Lifetime Heartbeats</Link></li>
-            <li><Link to="/blog/biological-vs-chronological-age-life-calculator" className="hover:text-indigo-600 transition-colors">Biological vs Chronological Age</Link></li>
-            <li><Link to="/blog/cuantos-latidos-da-el-corazon-en-una-vida-humana" className="hover:text-indigo-600 transition-colors">Latidos del Corazón Humano</Link></li>
-            <li><Link to="/blog/calcular-edad-en-segundos-minutos-horas-tiempo-vida" className="hover:text-indigo-600 transition-colors">Calcular Edad en Segundos y Horas</Link></li>
+            <li><Link to="/blog/how-many-heartbeats-in-a-human-lifetime-numbers" className="hover:text-indigo-600 transition-colors">Lifetime Heartbeats Guide</Link></li>
+            <li><Link to="/blog/biological-age-vs-chronological-age-how-to-calculate-longevity" className="hover:text-indigo-600 transition-colors">Biological vs. Chronological Age</Link></li>
+            <li><Link to="/blog/age-in-seconds-minutes-hours-calculator-guide" className="hover:text-indigo-600 transition-colors">Age in Seconds & Hours Guide</Link></li>
           </ul>
         </div>
         <div>
@@ -3250,8 +3251,16 @@ const BlogListPage = () => {
   );
 };
 
+const LEGACY_SLUG_REDIRECTS: Record<string, string> = {
+  'cuantos-dias-he-vivido-calculadora-estadisticas-vida': 'how-many-days-have-i-lived-complete-guide-life-stats',
+  'edad-biologica-vs-cronologica-como-calcularla-salud': 'biological-age-vs-chronological-age-how-to-calculate-longevity',
+  'cuantos-latidos-da-el-corazon-en-una-vida-humana': 'how-many-heartbeats-in-a-human-lifetime-numbers',
+  'calcular-edad-en-segundos-minutos-horas-tiempo-vida': 'age-in-seconds-minutes-hours-calculator-guide'
+};
+
 const BlogPostPage = () => {
   const { slug } = useParams();
+  const redirectSlug = slug ? LEGACY_SLUG_REDIRECTS[slug] : undefined;
   const post = BLOG_POSTS.find(p => p.slug === slug);
 
   const relatedPosts = useMemo(() => {
@@ -3263,13 +3272,26 @@ const BlogPostPage = () => {
 
   useEffect(() => {
     if (post) {
-      document.title = `${post.title} | Life Stats Calculator`;
+      const resolvedTitle = post.seoTitle || `${post.title} | Life Stats Calculator`;
+      const resolvedDescription = post.metaDescription || post.excerpt;
+
+      document.title = resolvedTitle;
       
       // Update meta description
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
-        metaDesc.setAttribute('content', post.excerpt);
+        metaDesc.setAttribute('content', resolvedDescription);
       }
+
+      // Update OpenGraph & Twitter titles/descriptions
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', resolvedTitle);
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute('content', resolvedDescription);
+      const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+      if (twitterTitle) twitterTitle.setAttribute('content', resolvedTitle);
+      const twitterDesc = document.querySelector('meta[property="twitter:description"]');
+      if (twitterDesc) twitterDesc.setAttribute('content', resolvedDescription);
 
       // Update meta keywords
       let metaKeywords = document.querySelector('meta[name="keywords"]');
@@ -3280,80 +3302,109 @@ const BlogPostPage = () => {
       }
       metaKeywords.setAttribute('content', post.keywords.join(', '));
 
-      // Add JSON-LD BlogPosting & BreadcrumbList schema
+      // Add JSON-LD Article / BlogPosting, BreadcrumbList, and optional FAQPage schema
       const script = document.createElement('script');
       script.type = 'application/ld+json';
       script.id = 'blog-json-ld';
       const canonicalArticleUrl = `https://lifestats.online/blog/${post.slug}`;
+      const graphNodes: Record<string, unknown>[] = [
+        {
+          "@type": post.schemaType || "BlogPosting",
+          "@id": `${canonicalArticleUrl}#article`,
+          "isPartOf": {
+            "@type": "WebPage",
+            "@id": canonicalArticleUrl
+          },
+          "headline": post.title,
+          "description": resolvedDescription,
+          "datePublished": new Date(post.date).toISOString(),
+          "dateModified": new Date(post.date).toISOString(),
+          "mainEntityOfPage": canonicalArticleUrl,
+          "author": {
+            "@type": "Organization",
+            "name": "LifeStats Editorial",
+            "url": "https://lifestats.online"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Life Stats Calculator",
+            "url": "https://lifestats.online",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://picsum.photos/seed/life-stats/200/200"
+            }
+          },
+          "image": `https://picsum.photos/seed/${post.slug}/1200/800`,
+          "keywords": post.keywords.join(', ')
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `${canonicalArticleUrl}#breadcrumb`,
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://lifestats.online/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://lifestats.online/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": post.title,
+              "item": canonicalArticleUrl
+            }
+          ]
+        }
+      ];
+
+      if (post.faqSchema && post.faqSchema.length > 0) {
+        graphNodes.push({
+          "@type": "FAQPage",
+          "@id": `${canonicalArticleUrl}#faq`,
+          "mainEntity": post.faqSchema.map(item => ({
+            "@type": "Question",
+            "name": item.question,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": item.answer
+            }
+          }))
+        });
+      }
+
       const schema = {
         "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "BlogPosting",
-            "@id": `${canonicalArticleUrl}#article`,
-            "isPartOf": {
-              "@type": "WebPage",
-              "@id": canonicalArticleUrl
-            },
-            "headline": post.title,
-            "description": post.excerpt,
-            "datePublished": new Date(post.date).toISOString(),
-            "dateModified": "2026-10-28T12:00:00.000Z",
-            "mainEntityOfPage": canonicalArticleUrl,
-            "author": {
-              "@type": "Organization",
-              "name": "LifeStats Editorial",
-              "url": "https://lifestats.online"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Life Stats Calculator",
-              "url": "https://lifestats.online",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://picsum.photos/seed/life-stats/200/200"
-              }
-            },
-            "image": `https://picsum.photos/seed/${post.slug}/1200/800`,
-            "keywords": post.keywords.join(', ')
-          },
-          {
-            "@type": "BreadcrumbList",
-            "@id": `${canonicalArticleUrl}#breadcrumb`,
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://lifestats.online/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Blog",
-                "item": "https://lifestats.online/blog"
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": post.title,
-                "item": canonicalArticleUrl
-              }
-            ]
-          }
-        ]
+        "@graph": graphNodes
       };
       script.text = JSON.stringify(schema);
       document.head.appendChild(script);
     }
 
     return () => {
-      document.title = "Life Stats Calculator: How Long Have I Been Alive? | Days Alive & Biological Age";
+      const defaultTitle = "Life Stats Calculator: How Long Have I Been Alive? | Days Alive & Biological Age";
+      const defaultDesc = "Calculate your life statistics with our Life Stats Calculator. Discover exactly how many days, seconds, and hours you've been alive. Learn about biological age, longevity, and life milestones.";
+
+      document.title = defaultTitle;
       
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
-        metaDesc.setAttribute('content', "Calculate your life statistics with our Life Stats Calculator. Discover exactly how many days, seconds, and hours you've been alive. Learn about biological age, longevity, and life milestones.");
+        metaDesc.setAttribute('content', defaultDesc);
       }
+
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', "Life Stats Calculator: How Long Have I Been Alive?");
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute('content', "Discover your life in numbers: days, seconds, heartbeats, and more with our advanced Life Stats Calculator.");
+      const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+      if (twitterTitle) twitterTitle.setAttribute('content', "Life Stats Calculator: How Long Have I Been Alive?");
+      const twitterDesc = document.querySelector('meta[property="twitter:description"]');
+      if (twitterDesc) twitterDesc.setAttribute('content', "Discover your life in numbers: days, seconds, heartbeats, and more with our advanced Life Stats Calculator.");
 
       const metaKeywords = document.querySelector('meta[name="keywords"]');
       if (metaKeywords) {
@@ -3366,6 +3417,10 @@ const BlogPostPage = () => {
       }
     };
   }, [post]);
+
+  if (redirectSlug) {
+    return <Navigate to={`/blog/${redirectSlug}`} replace />;
+  }
 
   if (!post) {
     return (
@@ -3418,6 +3473,7 @@ const BlogPostPage = () => {
 
         <div className="prose prose-indigo prose-xl max-w-none text-gray-600 leading-relaxed font-medium">
           <Markdown
+            remarkPlugins={[remarkGfm]}
             components={{
               h1: ({ children }) => <h1 className="text-4xl font-black text-gray-900 mt-16 mb-8 leading-tight">{children}</h1>,
               h2: ({ children }) => <h2 className="text-3xl font-black text-gray-900 mt-14 mb-6 leading-tight">{children}</h2>,
@@ -3433,7 +3489,7 @@ const BlogPostPage = () => {
                 }
                 return <a href={href} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:text-indigo-800 underline font-black">{children}</a>;
               },
-              img: ({ src, alt }) => <img src={src} alt={alt} className="w-full rounded-[2.5rem] my-12 shadow-xl object-cover" referrerPolicy="no-referrer" />,
+              img: ({ src, alt }) => <img src={src} alt={alt} className="w-full h-auto rounded-3xl my-10 shadow-lg border border-gray-100 bg-white" referrerPolicy="no-referrer" />,
               table: ({ children }) => <div className="overflow-x-auto my-12 border border-gray-100 rounded-3xl shadow-sm"><table className="w-full text-left border-collapse">{children}</table></div>,
               thead: ({ children }) => <thead className="bg-gray-50 border-b border-gray-100">{children}</thead>,
               tbody: ({ children }) => <tbody>{children}</tbody>,
@@ -3485,7 +3541,7 @@ const BlogPostPage = () => {
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl lg:text-3xl font-black text-gray-900">Explore Related Guides</h2>
               <Link to="/blog" className="text-sm font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
-                <span>View all 70 articles</span>
+                <span>View all {BLOG_POSTS.length} articles</span>
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
@@ -3557,6 +3613,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<BlogListPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/us-life-expectancy" element={<Navigate to="/blog/us-life-expectancy" replace />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
         </Routes>

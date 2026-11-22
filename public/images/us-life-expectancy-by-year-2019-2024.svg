@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="900" height="460" role="img" aria-label="US life expectancy by year, 2019 to 2024">
+  <defs>
+    <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#4f46e5" stop-opacity="0.0"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#4f46e5" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Card Background -->
+  <rect width="900" height="460" rx="24" fill="#ffffff"/>
+  <rect x="1" y="1" width="898" height="458" rx="23" fill="none" stroke="#e5e7eb" stroke-width="2"/>
+
+  <!-- Header -->
+  <text x="48" y="48" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="800" fill="#111827">US Life Expectancy at Birth by Year (2019–2024)</text>
+  <text x="48" y="74" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Total US population in years · Full pandemic recovery to an all-time record high of 79.0 years</text>
+
+  <!-- Y-Axis Gridlines (75.0 to 80.0 -> plot y: 360 to 120, 48px per 1.0 yr) -->
+  <!-- 80.0 -> y=120, 79.0 -> y=168, 78.0 -> y=216, 77.0 -> y=264, 76.0 -> y=312, 75.0 -> y=360 -->
+  <g stroke="#f3f4f6" stroke-width="1.5">
+    <line x1="88" y1="120" x2="844" y2="120"/>
+    <line x1="88" y1="168" x2="844" y2="168"/>
+    <line x1="88" y1="216" x2="844" y2="216"/>
+    <line x1="88" y1="264" x2="844" y2="264"/>
+    <line x1="88" y1="312" x2="844" y2="312"/>
+    <line x1="88" y1="360" x2="844" y2="360"/>
+  </g>
+
+  <!-- Y-Axis Labels -->
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#9ca3af" text-anchor="end">
+    <text x="76" y="124">80.0</text>
+    <text x="76" y="172">79.0</text>
+    <text x="76" y="220">78.0</text>
+    <text x="76" y="268">77.0</text>
+    <text x="76" y="316">76.0</text>
+    <text x="76" y="364">75.0</text>
+  </g>
+
+  <!-- Previous 2014 Record Reference Line (78.9 -> y=172.8) -->
+  <line x1="88" y1="172.8" x2="844" y2="172.8" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="840" y="164" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700" fill="#059669" text-anchor="end">Previous 2014 record: 78.9 yrs</text>
+
+  <!-- Area Fill -->
+  <!-- X positions: 2019=140, 2020=270, 2021=400, 2022=530, 2023=660, 2024=790 -->
+  <!-- Y positions: 78.8->177.6, 77.0->264.0, 76.4->292.8, 77.5->240.0, 78.4->196.8, 79.0->168.0 -->
+  <path d="M 140 177.6 L 270 264.0 L 400 292.8 L 530 240.0 L 660 196.8 L 790 168.0 L 790 360 L 140 360 Z" fill="url(#areaGrad)"/>
+
+  <!-- Line Path -->
+  <path d="M 140 177.6 L 270 264.0 L 400 292.8 L 530 240.0 L 660 196.8 L 790 168.0" fill="none" stroke="#4f46e5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow)"/>
+
+  <!-- Data Points & Labels -->
+  <!-- 2019: 78.8 -->
+  <circle cx="140" cy="177.6" r="6.5" fill="#ffffff" stroke="#4f46e5" stroke-width="3.5"/>
+  <text x="140" y="159" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#1f2937" text-anchor="middle">78.8</text>
+
+  <!-- 2020: 77.0 -->
+  <circle cx="270" cy="264.0" r="6.5" fill="#ffffff" stroke="#4f46e5" stroke-width="3.5"/>
+  <text x="270" y="248" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#1f2937" text-anchor="middle">77.0</text>
+
+  <!-- 2021: 76.4 (Pandemic Low) -->
+  <circle cx="400" cy="292.8" r="7.5" fill="#ef4444" stroke="#ffffff" stroke-width="3"/>
+  <text x="400" y="324" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#dc2626" text-anchor="middle">76.4</text>
+  <text x="400" y="340" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700" fill="#dc2626" text-anchor="middle">Pandemic low</text>
+
+  <!-- 2022: 77.5 -->
+  <circle cx="530" cy="240.0" r="6.5" fill="#ffffff" stroke="#4f46e5" stroke-width="3.5"/>
+  <text x="530" y="224" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#1f2937" text-anchor="middle">77.5</text>
+
+  <!-- 2023: 78.4 -->
+  <circle cx="660" cy="196.8" r="6.5" fill="#ffffff" stroke="#4f46e5" stroke-width="3.5"/>
+  <text x="660" y="222" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#1f2937" text-anchor="middle">78.4</text>
+
+  <!-- 2024: 79.0 (Record High) -->
+  <circle cx="790" cy="168.0" r="8.5" fill="#4f46e5" stroke="#ffffff" stroke-width="3"/>
+  <rect x="742" y="114" width="96" height="38" rx="10" fill="#4f46e5"/>
+  <text x="790" y="132" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">79.0 yrs</text>
+  <text x="790" y="145" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="10" font-weight="700" fill="#e0e7ff" text-anchor="middle">RECORD HIGH</text>
+
+  <!-- X-Axis Labels -->
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="700" fill="#374151" text-anchor="middle">
+    <text x="140" y="392">2019</text>
+    <text x="270" y="392">2020</text>
+    <text x="400" y="392">2021</text>
+    <text x="530" y="392">2022</text>
+    <text x="660" y="392">2023</text>
+    <text x="790" y="392" fill="#4f46e5">2024</text>
+  </g>
+
+  <!-- Footer Source -->
+  <text x="48" y="434" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="600" fill="#9ca3af">Source: CDC / National Center for Health Statistics (NCHS), Final Mortality Data · LifeStats.online</text>
+</svg>
