@@ -1636,6 +1636,486 @@ Bookmark this page: we update it whenever the CDC publishes new life expectancy 
 * NPR, *U.S. life expectancy hits a new high, as deaths from overdoses and COVID fall*, January 29, 2026: [https://www.npr.org/2026/01/29/nx-s1-5689902/us-life-expectancy-rises](https://www.npr.org/2026/01/29/nx-s1-5689902/us-life-expectancy-rises)
 * Healio, *US death rate hits record low*: [https://www.healio.com/news/infectious-disease/20260917/us-death-rate-hits-record-low](https://www.healio.com/news/infectious-disease/20260917/us-death-rate-hits-record-low)
 `
+  },
+  {
+    title: "Life Stats: Life Expectancy & Lifetime Statistics (2026)",
+    seoTitle: "Life Stats: Life Expectancy & Lifetime Statistics (2026)",
+    excerpt: "Explore the latest life stats: US and global life expectancy, how many days you get, how Americans spend their time, plus a simple way to track your own.",
+    metaDescription: "Explore the latest life stats: US and global life expectancy, how many days you get, how Americans spend their time, plus a simple way to track your own.",
+    date: "November 22, 2026",
+    slug: "life-stats",
+    tags: ["Life Stats", "Life Expectancy", "Lifetime Statistics", "Time Use"],
+    keywords: [
+      "life stats",
+      "life statistics",
+      "life expectancy statistics",
+      "lifetime statistics",
+      "average life expectancy",
+      "life expectancy by country",
+      "how many days in a lifetime",
+      "how Americans spend their time",
+      "how to track life stats"
+    ],
+    schemaType: "Article",
+    faqSchema: [
+      {
+        question: "What does \"life stats\" mean?",
+        answer: "Life stats are statistics about human life, such as life expectancy, death rates, and how people spend their time. The phrase is also used for personal metrics you track yourself, like sleep, fitness and savings."
+      },
+      {
+        question: "What is the average life expectancy in the US?",
+        answer: "According to final CDC data, US life expectancy at birth was 79.0 years in 2024: 81.4 for women and 76.5 for men."
+      },
+      {
+        question: "What is the average life expectancy in the world?",
+        answer: "The UN projects a global average of 73.8 years for 2026, with 76.4 years for women and 71.2 years for men."
+      },
+      {
+        question: "Which country has the highest life expectancy?",
+        answer: "Monaco ranks first at 86.7 years in the UN's 2026 projections, followed by San Marino at 86.0. Among larger countries, Japan leads at 85.1 years."
+      },
+      {
+        question: "Do women really live longer than men?",
+        answer: "Yes. Women outlive men in every country. In the US the gap was 4.9 years in 2024."
+      },
+      {
+        question: "How many days does the average person live?",
+        answer: "At the current US life expectancy of 79 years, the average lifetime is about 28,900 days, or roughly 4,100 weeks."
+      },
+      {
+        question: "How can I track my life stats?",
+        answer: "Choose three to five metrics across health, time, money, relationships and learning, record a baseline for two weeks, then review weekly and adjust one habit at a time."
+      }
+    ],
+    content: `
+# Life Stats: Life Expectancy & Lifetime Statistics (2026)
+
+*Last updated: November 2026*
+
+**Life stats** are the numbers that describe a human life: how long people live, how we spend our days, and how we measure our own progress along the way. Whether you searched for life stats out of curiosity, for a school project, or to make sense of your own time, this guide gathers the most reliable and current figures in one place.
+
+The short version: based on 2024 death rates, a baby born in the United States can expect to live about **79 years**, the highest figure ever recorded, while the global average sits close to **74 years**. Below you’ll find the data, what it actually means, and a simple system for tracking your own life stats.
+
+---
+
+## Key Life Stats at a Glance
+
+* **US life expectancy (2024):** 79.0 years, a record high and up 0.6 year from 2023
+* **US women vs men:** 81.4 years vs 76.5 years, a gap of 4.9 years
+* **US life expectancy at age 65:** 19.7 more years on average
+* **World life expectancy (2026 UN projection):** 73.8 years (76.4 for women, 71.2 for men)
+* **Highest and lowest countries (2026 projection):** Monaco at 86.7 years and Nigeria at 55.0 years
+* **Days in an average US lifetime:** roughly 28,855 days, or about 4,100 weeks
+* **Time spent watching TV:** about 2.6 hours per day for the average American
+
+---
+
+## What Are Life Stats?
+
+“Life stats” is a broad term, and people use it in three main ways:
+
+1. **Vital statistics:** life expectancy, death rates and causes of death, tracked by agencies such as the CDC and the United Nations.
+2. **Time-use statistics:** how people divide their 24 hours between sleep, work, leisure and chores, measured in the American Time Use Survey.
+3. **Personal life stats:** the habits and numbers you track yourself, such as sleep, fitness, savings and learning. Some people even turn these into a gamified “RPG character card” with scores for strength, intelligence and charisma.
+
+This article covers all three, starting with the numbers everyone searches for first: life expectancy. Want to compute your own personal numbers right away? Try our interactive [life expectancy calculator](/).
+
+---
+
+## Life Expectancy Stats in the United States
+
+Life expectancy is the average number of years a newborn would live if the death rates of a given year stayed the same throughout their life. It is an estimate based on a population, not a prediction for any one person. (For deeper regional and demographic breakdowns, see our full [US life expectancy CDC report](/blog/us-life-expectancy) and our guide on [understanding life expectancy](/blog/understand-life-expectancy-life-calculator).)
+
+### US life expectancy at birth hit a record high
+
+The CDC’s final 2024 data puts US life expectancy at birth at **79.0 years**, up from 78.4 in 2023. That is the highest figure on record. Before this, the previous peak was in 2014, just under 79 years. The pandemic then pulled it down to just under 76.5 years in 2021, and it has been climbing back since 2022.
+
+The 2024 improvement came mainly from fewer deaths. The age-adjusted death rate fell 3.8%, from 750.5 to 722.1 deaths per 100,000 people, and deaths from COVID-19 and drug overdoses both dropped.
+
+### Life expectancy by sex
+
+| Group | 2023 | 2024 | Change |
+| :--- | :--- | :--- | :--- |
+| **Total population** | 78.4 | 79.0 | +0.6 |
+| **Women** | 81.1 | 81.4 | +0.3 |
+| **Men** | 75.8 | 76.5 | +0.7 |
+
+Women still live longer than men, but the gap narrowed to 4.9 years in 2024, down 0.4 year from the year before.
+
+### Life expectancy at age 65
+
+Once you reach 65, the picture improves, because you have already avoided the risks of earlier life. In 2024 the average 65-year-old could expect another **19.7 years**: 20.8 for women and 18.4 for men.
+
+### Deaths and leading causes
+
+* **Total deaths in 2024:** 3,072,666, which is 18,298 fewer than in 2023
+* **Top three causes of death:** heart disease, cancer and unintentional injuries, with heart disease and cancer each causing more than 600,000 deaths
+* **Drug overdose deaths:** 79,384 in 2024, with the death rate down 26.2% from 2023
+* **Infant mortality:** about 5.5 deaths per 1,000 live births, with 20,050 infant deaths, essentially unchanged from 2023
+
+---
+
+## Global Life Stats: How Long Does the World Live?
+
+Life expectancy has risen dramatically over the past century. Around 1900 the global average was roughly 32 years. By 2023 it had more than doubled to about 73 years.
+
+![Life stats infographic: US and world life expectancy 2026](/images/life-stats-us-world-expectancy-2026.svg)
+
+| Year | Global life expectancy |
+| :--- | :--- |
+| **1900** | about 32 years |
+| **1950** | 46.5 years |
+| **2022** | 71.7 years |
+| **2026 (UN projection)** | 73.8 years |
+| **2050 (UN projection)** | 77.3 years |
+
+### Life expectancy by country (2026 UN projections)
+
+| Country | Life expectancy | Men | Women |
+| :--- | :--- | :--- | :--- |
+| **Monaco** | 86.7 | 84.8 | 88.8 |
+| **San Marino** | 86.0 | 84.5 | 87.4 |
+| **Japan** | 85.1 | 82.1 | 88.2 |
+| **South Korea** | 84.6 | 81.6 | 87.5 |
+| **Chad** | 55.6 | 53.7 | 57.6 |
+| **Nigeria** | 55.0 | 54.6 | 55.3 |
+
+The spread between the top and bottom of the table is about 32 years, which shows how much access to healthcare, clean water, nutrition and safety shapes life stats. Women outlive men in every country in the world.
+
+A related measure is **healthy life expectancy**, the number of years a person can expect to live in good health. Globally it is around 62 years, meaning many people spend the last decade or so of life with health limitations.
+
+---
+
+## Your Life in Numbers: Days, Weeks and Hours
+
+Most people find lifetime statistics more striking when converted into units they use every day. Using the US figure of 79 years:
+
+| Unit | Approximate total in a 79-year life |
+| :--- | :--- |
+| **Years** | 79 |
+| **Months** | 948 |
+| **Weeks** | about 4,100 |
+| **Days** | about 28,900 |
+| **Hours** | about 692,500 |
+| **Minutes** | about 41.6 million |
+
+![Life in weeks chart showing about 4,100 weeks in a 79-year life](/images/life-in-weeks-chart-4100-weeks.svg)
+
+That is why the “life in weeks” chart is so popular: a whole average life fits on a single sheet of paper, with roughly 4,100 small squares. It is a useful reminder that time is finite, but also that 4,100 weeks is a lot of weeks to use well.
+
+---
+
+## How Americans Spend Their Time (Time-Use Life Stats)
+
+The Bureau of Labor Statistics’ American Time Use Survey shows where an average day actually goes. These are 2025 averages for people aged 15 and over:
+
+| Activity | Average hours per day |
+| :--- | :--- |
+| **Sleeping** | 9.03 |
+| **Leisure and sports** | 5.16 |
+| **Working and work-related activities (all people)** | 3.32 |
+| **Household activities** | 1.99 |
+| **Eating and drinking** | 1.21 |
+
+A few details worth knowing:
+
+* **Work:** full-time employed people worked 8.1 hours on the days they worked, and 35% of employed people did some or all of their work at home on those days.
+* **TV:** watching television is the biggest leisure activity at 2.6 hours a day, about half of all leisure time.
+* **Leisure gap:** men averaged 5.6 hours of leisure per day and women 4.8 hours.
+* **Exercise:** only about 23% of people took part in sports, exercise or recreation on an average day.
+
+Here is a quick lifetime calculation. If an adult watched 2.6 hours of TV a day from age 18 to 79, that adds up to about 58,000 hours, or roughly 6.6 years of nonstop viewing. This is an illustration, not an exact figure, but it shows why small daily habits become large life stats.
+
+*Note: BLS paused the survey from October 1 to November 12, 2025 during the federal government shutdown, so the 2025 estimates may be slightly affected.*
+
+---
+
+## How to Track Your Own Life Stats
+
+National averages are interesting, but the life stats that change your life are your own. A simple personal scorecard might look like this:
+
+| Area | What to track | Easy metric |
+| :--- | :--- | :--- |
+| **Health** | Sleep, movement, energy | Hours slept, workouts per week, steps |
+| **Time** | Where your hours go | Hours on work, leisure, screens |
+| **Money** | Financial progress | Savings rate, debt balance, net worth |
+| **Relationships** | Time with people you value | Calls and meetups per week |
+| **Learning** | Skills and growth | Hours studied, books read |
+| **Mood** | Daily wellbeing | A 1 to 10 rating each evening |
+
+### A simple 4-step system
+
+1. **Pick three to five metrics.** Tracking everything leads to quitting. Start small.
+2. **Set a baseline.** Record two weeks of honest numbers before trying to change anything.
+3. **Review weekly.** Five minutes every Sunday is enough to spot trends.
+4. **Change one thing at a time.** For example, add a 20-minute walk or cut one hour of screen time, then see what moves.
+
+You can use a notebook, a spreadsheet or a [habit tracker](/blog/habit-tracker-my-life-stats). The tool matters far less than checking in consistently.
+
+---
+
+## What Life Stats Can and Can’t Tell You
+
+* **Averages hide variation.** A life expectancy of 79 does not mean most people die at 79. Many live well beyond it, and the figure is pulled down by early deaths.
+* **Period vs cohort.** Reported life expectancy assumes today’s death rates never change. If medicine keeps improving, people born today may live longer than the number suggests.
+* **Your habits matter.** Sleep, physical activity, diet, not smoking and social connection all influence individual outcomes far more than a national average can.
+* **Different sources, different numbers.** The CDC measures actual US deaths, while the UN publishes projections for every country, so figures for the same country can differ slightly.
+
+---
+
+## Frequently Asked Questions About Life Stats
+
+### What does “life stats” mean?
+Life stats are statistics about human life, such as life expectancy, death rates, and how people spend their time. The phrase is also used for personal metrics you track yourself, like sleep, fitness and savings.
+
+### What is the average life expectancy in the US?
+According to final CDC data, US life expectancy at birth was 79.0 years in 2024: 81.4 for women and 76.5 for men.
+
+### What is the average life expectancy in the world?
+The UN projects a global average of 73.8 years for 2026, with 76.4 years for women and 71.2 years for men.
+
+### Which country has the highest life expectancy?
+Monaco ranks first at 86.7 years in the UN’s 2026 projections, followed by San Marino at 86.0. Among larger countries, Japan leads at 85.1 years.
+
+### Do women really live longer than men?
+Yes. Women outlive men in every country. In the US the gap was 4.9 years in 2024.
+
+### How many days does the average person live?
+At the current US life expectancy of 79 years, the average lifetime is about 28,900 days, or roughly 4,100 weeks.
+
+### How can I track my life stats?
+Choose three to five metrics across health, time, money, relationships and learning, record a baseline for two weeks, then review weekly and adjust one habit at a time.
+
+---
+
+## Final Thoughts on Life Stats
+
+Life stats tell a hopeful story: people are living longer than at any point in history, with US life expectancy reaching a record 79 years and the global average more than doubling since 1900. But the most useful numbers are the ones you can influence. Understand the averages, then start measuring your own time and habits with our [life expectancy calculator](/), because 4,100 weeks goes quickly and every one of them counts.
+
+---
+
+## Sources
+
+* CDC NCHS, *Mortality in the United States, 2024* (Data Brief 548): [https://cdc.gov/nchs/products/databriefs/db548.htm](https://cdc.gov/nchs/products/databriefs/db548.htm)
+* CDC press release, January 29, 2026: [https://www.cdc.gov/nchs/pressroom/releases/20260129.html](https://www.cdc.gov/nchs/pressroom/releases/20260129.html)
+* CBS News, *record high US life expectancy*: [https://www.cbsnews.com/news/life-expectancy-us-record-high-79-2024-cdc](https://www.cbsnews.com/news/life-expectancy-us-record-high-79-2024-cdc)
+* CNN via AOL, *drivers of the 2024 improvement*: [https://www.aol.com/articles/us-life-expectancy-reached-record-050146876.html](https://www.aol.com/articles/us-life-expectancy-reached-record-050146876.html)
+* Our World in Data, *life expectancy*: [https://ourworldindata.org/grapher/life-expectancy](https://ourworldindata.org/grapher/life-expectancy)
+* World Economic Forum, *global life expectancy trends*: [https://www.weforum.org/stories/emerging-technologies/charted-how-life-expectancy-is-changing-around-the-world/](https://www.weforum.org/stories/emerging-technologies/charted-how-life-expectancy-is-changing-around-the-world/)
+* *Life expectancy by country, 2026* (UN World Population Prospects 2024): [https://www.populationpyramids.org/life-expectancy-by-country](https://www.populationpyramids.org/life-expectancy-by-country)
+* BLS, *American Time Use Survey 2025 results*: [https://www.bls.gov/news.release/atus.nr0.htm](https://www.bls.gov/news.release/atus.nr0.htm)
+* BLS, *time spent in personal care activities in 2025*: [https://www.bls.gov/opub/ted/2026/time-spent-in-personal-care-activities-averaged-9-8-hours-per-day-in-2025.htm](https://www.bls.gov/opub/ted/2026/time-spent-in-personal-care-activities-averaged-9-8-hours-per-day-in-2025.htm)
+`
+  },
+  {
+    title: "Average Lifespan of an American Male (2026 Data, by Age, Race & Year)",
+    seoTitle: "Average Lifespan of an American Male: 76.5 Years (2024)",
+    excerpt: "The average lifespan of an American male is 76.5 years. See the latest CDC data by year, age, and race, why men die younger, and how to add years.",
+    metaDescription: "The average lifespan of an American male is 76.5 years. See the latest CDC data by year, age, and race, why men die younger, and how to add years.",
+    date: "November 22, 2026",
+    slug: "average-lifespan-of-american-male",
+    tags: ["Male Life Expectancy", "CDC Data", "US Demographics", "Men's Health"],
+    keywords: [
+      "average lifespan of american male",
+      "average life expectancy for men in the US",
+      "male life expectancy USA",
+      "how long do American men live",
+      "life expectancy of men by age",
+      "men vs women life expectancy"
+    ],
+    schemaType: "Article",
+    faqSchema: [
+      {
+        question: "What is the average lifespan of an American male?",
+        answer: "The average lifespan (life expectancy at birth) of an American male is 76.5 years, based on final 2024 CDC data."
+      },
+      {
+        question: "What is the average age a man dies in the US?",
+        answer: "Life expectancy is not the same as the typical age of death, but it is the standard measure. For men, it is 76.5 years at birth. Men who reach 65 live to about 83 on average."
+      },
+      {
+        question: "How long do men live compared to women in the US?",
+        answer: "Women live about 4.9 years longer: 81.4 years versus 76.5 years for men."
+      },
+      {
+        question: "Is male life expectancy in the US going up or down?",
+        answer: "It is rising. It increased from 74.8 in 2022 to 75.8 in 2023 and 76.5 in 2024, recovering from the COVID-19 pandemic."
+      },
+      {
+        question: "What is the life expectancy of a 65-year-old man?",
+        answer: "About 18.4 more years, meaning an average of roughly 83 years old."
+      },
+      {
+        question: "Which US men live the longest?",
+        answer: "In CDC data, Asian American men have the highest life expectancy, followed by Hispanic men."
+      },
+      {
+        question: "What is the maximum human lifespan?",
+        answer: "That is different from average lifespan. Very few people reach 100, and the oldest verified person lived to 122."
+      }
+    ],
+    content: `
+# Average Lifespan of an American Male (2026 Data, by Age, Race & Year)
+
+## The Average Lifespan of an American Male Is 76.5 Years
+
+The **average lifespan of an American male** is **76.5 years**, according to the latest final data from the CDC’s National Center for Health Statistics (NCHS) for 2024. That is up 0.7 years from 75.8 in 2023, and it sits 4.9 years below the average for American women (81.4 years).
+
+But that single number hides a lot. A 65-year-old man today can expect to live about **18.4 more years**, and life expectancy shifts noticeably by race, ethnicity, and where a man lives. In this guide, we break down the most recent life expectancy for men in the US, how it has changed, why men tend to die younger than women, and what actually moves the needle.
+
+---
+
+## Key Takeaways
+
+* **Average male life expectancy at birth (US, 2024):** 76.5 years
+* **Average female life expectancy at birth (US, 2024):** 81.4 years
+* **Gender gap:** 4.9 years, down 0.4 years from 2023
+* **Male life expectancy at age 65:** 18.4 more years (about age 83)
+* **Overall US life expectancy (2024):** 79.0 years, a record high
+
+---
+
+## What Is the Average Lifespan of a Man in the United States?
+
+According to NCHS Data Brief No. 548 (published January 2026), **male life expectancy in the USA** was **76.5 years** in 2024. The full 2024 life tables, released in August 2026, confirm the same figure.
+
+A quick clarification, because it matters for how you read these numbers: life expectancy is a statistical average of how long a newborn would live if today’s death rates stayed the same throughout his life. It is not a cap, and it is not a prediction for any one person. “Lifespan” in everyday searches almost always means this average, which is how we use it here. (Maximum human lifespan, the oldest age a person can reach, is a different question entirely.)
+
+---
+
+## American Male Life Expectancy by Year
+
+Life expectancy for American men dropped during the COVID-19 pandemic and has been recovering since. Here are the final CDC figures for the last three years:
+
+| Year | Male | Female | Gap (years) |
+| :--- | :--- | :--- | :--- |
+| **2022** | 74.8 | 80.2 | 5.4 |
+| **2023** | 75.8 | 81.1 | 5.3 |
+| **2024** | **76.5** | **81.4** | **4.9** |
+
+![Average lifespan of an American male vs female by year (2022 to 2024) and male life expectancy by race (2022)](/images/american-male-life-expectancy-2022-2024.svg)
+
+The gains since 2022 came largely from falling COVID-19 deaths and, more recently, a sharp drop in drug overdose deaths. The CDC reported that the overdose death rate fell 26.2% between 2023 and 2024. Men are disproportionately affected by overdose deaths, so that decline helps explain why male life expectancy rose faster (0.7 years) than female life expectancy (0.3 years) in 2024.
+
+For context, American men a century ago could expect to live well under 50 years. Today’s figure reflects huge long-term gains in infant survival, infectious disease control, and treatment of heart disease.
+
+---
+
+## Average Lifespan of American Men vs. Women
+
+Women in the US outlive men by **4.9 years** on average (81.4 vs. 76.5 in 2024). The good news is that the gap is shrinking. It was 5.4 years in 2022 and has narrowed each year since.
+
+The gap persists later in life, too. At age 65, women can expect about 2.4 more years than men (roughly 20.8 vs. 18.4 additional years).
+
+---
+
+## How Long Do American Men Live After 65?
+
+This is the number most people actually need for retirement planning. In 2024, a 65-year-old American man could expect to live **18.4 more years**, which puts the average at about **83.4 years**. That figure was 18.2 years in 2023.
+
+Because life expectancy at birth includes men who die young (from accidents, overdoses, and illness), men who reach 65 tend to live well beyond the headline 76.5 figure. Likewise, a man who reaches 75 or 85 has a longer expected remaining life than his age-0 number would suggest. That is one reason financial planners often plan for retirements into a man’s late 80s or 90s.
+
+---
+
+## Life Expectancy for Men by Race and Ethnicity
+
+There are large differences across groups. These are the most recent male-specific figures from CDC’s provisional 2022 estimates (the 2024 sex-by-race breakdown is published in the NCHS *United States Life Tables, 2024* report):
+
+| Group (males, 2022) | Life expectancy at birth |
+| :--- | :--- |
+| **Asian, non-Hispanic** | 82.4 |
+| **Hispanic** | 77.0 |
+| **White, non-Hispanic** | 75.1 |
+| **Black, non-Hispanic** | 69.1 |
+| **American Indian / Alaska Native, non-Hispanic** | 64.6 |
+
+For all sexes combined in 2024, the CDC reports 85.8 years for Asian, 81.8 for Hispanic, and 78.9 for White non-Hispanic Americans. These gaps reflect differences in access to health care, income, neighborhood conditions, occupational exposure, and rates of chronic disease and violence. They have narrowed somewhat as COVID-19 deaths, which hit Black, Hispanic, and Native American communities hardest, have declined.
+
+---
+
+## Why Do American Men Die Younger Than Women?
+
+Researchers point to a mix of biology, behavior, and health-care use:
+
+* **Heart disease and cancer.** Heart disease is the leading cause of death in the US, followed by cancer and unintentional injuries (2024). Men develop heart disease earlier in life on average.
+* **Injuries and overdoses.** Men account for a larger share of accidents, workplace deaths, and drug overdose deaths.
+* **Violence and suicide.** Men die from homicide and suicide at much higher rates than women.
+* **Risk behaviors.** Higher historical rates of smoking, heavier alcohol use, and riskier driving all take a toll.
+* **Less preventive care.** Men are, on average, less likely to see a doctor regularly or get screenings on time.
+* **Dangerous occupations.** Men are overrepresented in construction, trucking, mining, and other high-risk jobs.
+
+---
+
+## How the US Compares to Other Countries
+
+The US reached a record overall life expectancy of 79.0 years in 2024, but it still lags peer high-income countries such as Japan and South Korea, where life expectancy is above 84 years. Higher rates of obesity, overdose, firearm deaths, and gaps in health-care access are commonly cited reasons.
+
+---
+
+## How Can an American Man Increase His Lifespan?
+
+No habit guarantees a long life, but the evidence is strong that these steps shift the odds:
+
+1. **Don’t smoke, or quit.** Quitting at any age improves life expectancy.
+2. **Stay physically active.** The CDC recommends at least 150 minutes of moderate activity per week plus muscle-strengthening twice a week.
+3. **Know your numbers.** Blood pressure, cholesterol, and blood sugar are the big levers for heart disease and stroke.
+4. **Get recommended screenings.** Colon, prostate (after talking to your doctor), lung (if eligible), and skin checks catch problems earlier.
+5. **Limit alcohol and avoid drugs.** Overdoses and alcohol-related deaths are major drivers of premature male death.
+6. **Maintain a healthy weight and eat mostly whole foods.**
+7. **Prioritize sleep and mental health.** Depression and isolation are linked to worse outcomes. If you are struggling, reaching out to a doctor or a trusted person is a sign of strength.
+8. **Stay connected.** Strong social ties are consistently associated with longer life.
+
+*This article is for general information only and is not medical advice. Talk to your doctor about your personal risks.*
+
+---
+
+## Frequently Asked Questions
+
+### What is the average lifespan of an American male?
+The average lifespan (life expectancy at birth) of an American male is 76.5 years, based on final 2024 CDC data.
+
+### What is the average age a man dies in the US?
+Life expectancy is not the same as the typical age of death, but it is the standard measure. For men, it is 76.5 years at birth. Men who reach 65 live to about 83 on average.
+
+### How long do men live compared to women in the US?
+Women live about 4.9 years longer: 81.4 years versus 76.5 years for men.
+
+### Is male life expectancy in the US going up or down?
+It is rising. It increased from 74.8 in 2022 to 75.8 in 2023 and 76.5 in 2024, recovering from the COVID-19 pandemic.
+
+### What is the life expectancy of a 65-year-old man?
+About 18.4 more years, meaning an average of roughly 83 years old.
+
+### Which US men live the longest?
+In CDC data, Asian American men have the highest life expectancy, followed by Hispanic men.
+
+### What is the maximum human lifespan?
+That is different from average lifespan. Very few people reach 100, and the oldest verified person lived to 122.
+
+---
+
+## Final Thoughts
+
+The **average lifespan of an American male** is **76.5 years**, the highest in years and still rising. But averages are just a starting point. Your own outlook depends on your health, habits, family history, and access to care, and the steps above are the practical way to stack the odds in your favor.
+
+Want a personalized estimate? [Try our Life Stats life expectancy calculator](/) to see how your age, lifestyle, and health factors change your expected lifespan.
+
+### Related Reading
+* [US Life Expectancy by State, Gender & Year (CDC Data)](/blog/us-life-expectancy)
+* [Life Stats: US & Global Life Expectancy Statistics (2026)](/blog/life-stats)
+* [The Lifespan Calculator: How Science Predicts Your Life Expectancy](/blog/lifespan-calculator-science-data-life-expectancy)
+* [Understanding Life Expectancy & Biological Age Guide](/blog/understand-life-expectancy-life-calculator)
+
+---
+
+## Sources
+
+* CDC / NCHS, *Mortality in the United States, 2024*, NCHS Data Brief No. 548 (January 2026)
+* CDC / NCHS, *United States Life Tables, 2024*, National Vital Statistics Reports, Vol. 75, No. 5 (August 2026)
+* CDC / NCHS, *Mortality in the United States, 2023*, NCHS Data Brief No. 521 (December 2024)
+* CDC / NCHS, provisional life expectancy estimates for 2022 (by Hispanic origin, race, and sex)
+* CDC FastStats: Life Expectancy
+`
   }
 ];
 

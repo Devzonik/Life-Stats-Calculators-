@@ -72,6 +72,11 @@ import { BLOG_POSTS } from './blogData';
 import { CustomEarningsCalculator } from './components/CustomEarningsCalculator';
 import PrivacyPage from './components/PrivacyPage';
 import TermsPage from './components/TermsPage';
+import CookiesPage from './components/CookiesPage';
+import AboutPage from './components/AboutPage';
+import ContactPage from './components/ContactPage';
+import DisclaimerPage from './components/DisclaimerPage';
+import CookieConsentBanner, { openCookieSettingsModal } from './components/CookieConsentBanner';
 
 // --- Utils ---
 function cn(...inputs: ClassValue[]) {
@@ -300,13 +305,16 @@ const Navbar = () => {
             <Link to="/blog" className={cn("text-sm font-medium transition-colors", location.pathname.startsWith('/blog') ? 'text-indigo-600' : 'text-gray-600 hover:text-indigo-600')}>
               Blog
             </Link>
-            <a href="#about" className="text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors">
+            <Link to="/about" className={cn("text-sm font-medium transition-colors", location.pathname === '/about' ? 'text-indigo-600' : 'text-gray-600 hover:text-indigo-600')}>
               About
-            </a>
+            </Link>
+            <Link to="/contact" className={cn("text-sm font-medium transition-colors", location.pathname === '/contact' ? 'text-indigo-600' : 'text-gray-600 hover:text-indigo-600')}>
+              Contact
+            </Link>
           </div>
 
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-gray-600">
+            <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu" className="p-2 text-gray-600">
               {isOpen ? <X /> : <Menu />}
             </button>
           </div>
@@ -324,7 +332,8 @@ const Navbar = () => {
             <div className="px-4 pt-2 pb-6 space-y-2">
               <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-50">Calculator</Link>
               <Link to="/blog" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-50">Blog</Link>
-              <a href="#about" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-50">About</a>
+              <Link to="/about" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-50">About</Link>
+              <Link to="/contact" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-50">Contact</Link>
             </div>
           </motion.div>
         )}
@@ -336,8 +345,8 @@ const Navbar = () => {
 const Footer = () => (
   <footer className="bg-white border-t border-gray-100 pt-16 pb-8">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-        <div className="col-span-1 md:col-span-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+        <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center space-x-2 mb-6">
             <Clock className="text-indigo-600 w-6 h-6" />
             <span className="text-xl font-bold">LifeStats</span>
@@ -351,26 +360,44 @@ const Footer = () => (
           </p>
         </div>
         <div>
-          <h4 className="font-semibold text-gray-900 mb-6">Navigation</h4>
+          <h4 className="font-semibold text-gray-900 mb-6">Explore</h4>
           <ul className="space-y-3 text-gray-600 text-sm">
             <li><Link to="/" className="hover:text-indigo-600 transition-colors font-medium">Life Stats Calculator</Link></li>
-            <li><Link to="/blog" className="hover:text-indigo-600 transition-colors font-medium">All Guides & Articles ({BLOG_POSTS.length})</Link></li>
+            <li><Link to="/blog" className="hover:text-indigo-600 transition-colors font-medium">All Guides &amp; Articles ({BLOG_POSTS.length})</Link></li>
+            <li><Link to="/about" className="hover:text-indigo-600 transition-colors font-medium">About Us &amp; Methodology</Link></li>
+            <li><Link to="/contact" className="hover:text-indigo-600 transition-colors font-medium">Contact Us</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="font-semibold text-gray-900 mb-6">Legal &amp; Compliance</h4>
+          <ul className="space-y-3 text-gray-600 text-sm">
             <li><Link to="/privacy" className="hover:text-indigo-600 transition-colors font-medium">Privacy Policy</Link></li>
-            <li><Link to="/terms" className="hover:text-indigo-600 transition-colors font-medium">Terms & Conditions</Link></li>
+            <li><Link to="/cookies" className="hover:text-indigo-600 transition-colors font-medium">Cookie Policy</Link></li>
+            <li><Link to="/terms" className="hover:text-indigo-600 transition-colors font-medium">Terms &amp; Conditions</Link></li>
+            <li><Link to="/disclaimer" className="hover:text-indigo-600 transition-colors font-medium">Medical &amp; Data Disclaimer</Link></li>
+            <li>
+              <button
+                type="button"
+                onClick={openCookieSettingsModal}
+                className="hover:text-indigo-600 transition-colors font-medium text-left"
+              >
+                Cookie Settings
+              </button>
+            </li>
           </ul>
         </div>
         <div>
           <h4 className="font-semibold text-gray-900 mb-6">Popular Articles</h4>
           <ul className="space-y-3 text-gray-600 text-sm">
+            <li><Link to="/blog/average-lifespan-of-american-male" className="hover:text-indigo-600 transition-colors">Average American Male Lifespan</Link></li>
+            <li><Link to="/blog/life-stats" className="hover:text-indigo-600 transition-colors">Life Stats &amp; Expectancy (2026)</Link></li>
             <li><Link to="/blog/us-life-expectancy" className="hover:text-indigo-600 transition-colors">US Life Expectancy (CDC Data)</Link></li>
             <li><Link to="/blog/how-many-days-have-i-lived-life-stats-calculator" className="hover:text-indigo-600 transition-colors">Days Lived Calculator</Link></li>
-            <li><Link to="/blog/how-many-heartbeats-in-a-human-lifetime-numbers" className="hover:text-indigo-600 transition-colors">Lifetime Heartbeats Guide</Link></li>
             <li><Link to="/blog/biological-age-vs-chronological-age-how-to-calculate-longevity" className="hover:text-indigo-600 transition-colors">Biological vs. Chronological Age</Link></li>
-            <li><Link to="/blog/age-in-seconds-minutes-hours-calculator-guide" className="hover:text-indigo-600 transition-colors">Age in Seconds & Hours Guide</Link></li>
           </ul>
         </div>
         <div>
-          <h4 className="font-semibold text-gray-900 mb-6">Contact & Social</h4>
+          <h4 className="font-semibold text-gray-900 mb-6">Contact &amp; Social</h4>
           <div className="flex flex-col space-y-4">
             <a 
               href="mailto:devzonik@gmail.com" 
@@ -397,7 +424,7 @@ const Footer = () => (
       </div>
       <div className="border-t border-gray-50 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
         <p>© 2026 LifeStats Calculator (lifestats.online). All rights reserved.</p>
-        <p className="mt-4 md:mt-0">Built with precision for the curious mind.</p>
+        <p className="mt-4 md:mt-0">Educational &amp; statistical utility. Not medical advice.</p>
       </div>
     </div>
   </footer>
@@ -3613,12 +3640,22 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<BlogListPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/average-lifespan-of-american-male" element={<Navigate to="/blog/average-lifespan-of-american-male" replace />} />
+          <Route path="/life-stats" element={<Navigate to="/blog/life-stats" replace />} />
           <Route path="/us-life-expectancy" element={<Navigate to="/blog/us-life-expectancy" replace />} />
           <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/cookies" element={<CookiesPage />} />
+          <Route path="/cookie-policy" element={<Navigate to="/cookies" replace />} />
           <Route path="/terms" element={<TermsPage />} />
+          <Route path="/disclaimer" element={<DisclaimerPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/about-us" element={<Navigate to="/about" replace />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/contact-us" element={<Navigate to="/contact" replace />} />
         </Routes>
       </main>
       <Footer />
+      <CookieConsentBanner />
     </div>
   );
 }

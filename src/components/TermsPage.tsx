@@ -6,7 +6,24 @@ import { Link } from 'react-router-dom';
 export default function TermsPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Terms & Conditions - LifeStats Calculator";
+    const prevTitle = document.title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const prevDesc = metaDesc?.getAttribute('content') || '';
+
+    document.title = "Terms & Conditions - LifeStats Calculator (lifestats.online)";
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        'content',
+        "Read the Terms and Conditions for LifeStats Calculator (lifestats.online). Understand acceptable use, intellectual property, and simulation disclaimers."
+      );
+    }
+
+    return () => {
+      document.title = prevTitle;
+      if (metaDesc && prevDesc) {
+        metaDesc.setAttribute('content', prevDesc);
+      }
+    };
   }, []);
 
   const sections = [
@@ -49,13 +66,13 @@ export default function TermsPage() {
             Terms & Conditions
           </h1>
           <p className="text-gray-500 font-medium max-w-2xl leading-relaxed">
-            Please read these Terms and Conditions carefully before using the LifeStats Calculator. 
+            Please read these Terms and Conditions carefully before using the LifeStats Calculator (<strong className="text-gray-800">https://lifestats.online</strong>). 
             By accessing or using our interactive services, you agree to be bound by these standard legal terms.
           </p>
           <div className="mt-6 flex flex-wrap gap-4 text-xs font-bold text-gray-400">
-            <span>Last Updated: July 2026</span>
+            <span>Last Updated: November 27, 2026</span>
             <span>•</span>
-            <span>Standard Interactive Utility Licensing & SEO Schema compliant</span>
+            <span>Standard Interactive Utility Licensing &amp; Publisher Compliance</span>
           </div>
         </motion.div>
 
@@ -159,7 +176,7 @@ export default function TermsPage() {
                 <ul className="list-disc pl-6 space-y-2 text-sm text-gray-600">
                   <li><strong>Not Medical Advice:</strong> Biological age indicators, respiratory calculations, and biological cycles are informational simulations and do not represent a clinical diagnosis or medical guidance.</li>
                   <li><strong>Informational Purposes Only:</strong> Comparisons and predictions on timelines are to be used strictly for visual entertainment, perspective-shifting, and educational awareness.</li>
-                  <li><strong>No Reliance:</strong> Users should not make health, medical, or life planning choices solely on calculations provided by our application. Always consult a qualified medical or scientific professional.</li>
+                  <li><strong>No Reliance:</strong> Users should not make health, medical, or life planning choices solely on calculations provided by our application. Always consult a qualified medical or scientific professional. See our full <Link to="/disclaimer" className="text-indigo-600 font-bold underline">Medical &amp; Statistical Disclaimer</Link>.</li>
                 </ul>
               </section>
 
@@ -167,10 +184,10 @@ export default function TermsPage() {
               <section id="third-party-links" className="scroll-mt-24 space-y-4">
                 <h2 className="text-2xl font-black text-gray-900 flex items-center gap-2">
                   <span className="w-2.5 h-2.5 bg-indigo-600 rounded-full" />
-                  5. Third-Party Links & Google AdSense
+                  5. Third-Party Links &amp; Google AdSense
                 </h2>
                 <p>
-                  Our web application exhibits integrated third-party advertisements hosted by Google AdSense and other advertising services. We do not inspect, endorse, or verify the validity or products of the third-party ads shown on our portal.
+                  Our web application displays integrated third-party advertisements hosted by Google AdSense and other advertising services. We do not inspect, endorse, or verify the validity or products of the third-party ads shown on our portal. Review our <Link to="/cookies" className="text-indigo-600 font-bold underline">Cookie Policy</Link> and <Link to="/privacy" className="text-indigo-600 font-bold underline">Privacy Policy</Link> for details on how ad technologies operate.
                 </p>
                 <p>
                   Your interaction with any external website or advertisement linked through our portal is subject to that external vendor's respective terms of service and privacy practices. We hold no liability for transactions or consequences arising from visiting these third-party links.
@@ -207,15 +224,23 @@ export default function TermsPage() {
             {/* Bottom Contact card */}
             <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
-                <h4 className="font-black text-gray-900 text-lg mb-1">Acceptance and Compliance</h4>
-                <p className="text-sm text-gray-500 font-medium">By using our services, you signify your compliance with these terms of service.</p>
+                <h4 className="font-black text-gray-900 text-lg mb-1">Questions or Legal Inquiries?</h4>
+                <p className="text-sm text-gray-500 font-medium">Reach out via our Contact page or return to the LifeStats Calculator.</p>
               </div>
-              <Link 
-                to="/"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-black px-6 py-3.5 rounded-full text-sm transition-all shadow-lg shadow-indigo-100 text-center shrink-0 w-full md:w-auto"
-              >
-                Accept and Open Calculator
-              </Link>
+              <div className="flex flex-wrap gap-3 shrink-0 w-full md:w-auto">
+                <Link
+                  to="/contact"
+                  className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-black px-6 py-3.5 rounded-full text-sm transition-all text-center w-full sm:w-auto"
+                >
+                  Contact Us
+                </Link>
+                <Link 
+                  to="/"
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-black px-6 py-3.5 rounded-full text-sm transition-all shadow-lg shadow-indigo-100 text-center w-full sm:w-auto"
+                >
+                  Open Calculator
+                </Link>
+              </div>
             </div>
 
           </div>

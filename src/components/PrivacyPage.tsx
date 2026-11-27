@@ -3,10 +3,29 @@ import { motion } from 'motion/react';
 import { Shield, Eye, Lock, FileText, ArrowLeft, CheckCircle2, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import { openCookieSettingsModal } from './CookieConsentBanner';
+
 export default function PrivacyPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Privacy Policy - LifeStats Calculator | AdSense Compliant";
+    const prevTitle = document.title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const prevDesc = metaDesc?.getAttribute('content') || '';
+
+    document.title = "Privacy Policy - LifeStats Calculator (lifestats.online)";
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        'content',
+        "Read the Privacy Policy for LifeStats Calculator (lifestats.online). Learn about client-side processing, Google AdSense cookies, and your GDPR and CCPA rights."
+      );
+    }
+
+    return () => {
+      document.title = prevTitle;
+      if (metaDesc && prevDesc) {
+        metaDesc.setAttribute('content', prevDesc);
+      }
+    };
   }, []);
 
   const sections = [
@@ -49,11 +68,11 @@ export default function PrivacyPage() {
             Privacy Policy
           </h1>
           <p className="text-gray-500 font-medium max-w-2xl leading-relaxed">
-            At LifeStats, accessible from our main web application, one of our main priorities is the privacy of our visitors. 
+            At LifeStats, accessible at <strong className="text-gray-800">https://lifestats.online</strong>, one of our main priorities is the privacy of our visitors. 
             This Privacy Policy document outlines the types of information collected and recorded by LifeStats and how we protect it.
           </p>
           <div className="mt-6 flex flex-wrap gap-4 text-xs font-bold text-gray-400">
-            <span>Last Updated: July 2026</span>
+            <span>Last Updated: November 27, 2026</span>
             <span>•</span>
             <span>Fully Compliant with GDPR, CCPA, and Google AdSense Policies</span>
           </div>
@@ -151,10 +170,21 @@ export default function PrivacyPage() {
                   4. Cookies and Web Beacons
                 </h2>
                 <p>
-                  Like any other website, LifeStats uses "cookies". These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.
+                  Like any other website, LifeStats uses "cookies" and browser storage. These technologies store information including visitors' consent preferences and optional saved snapshots. For a complete list of cookies and third-party ad technologies used on this site, please read our dedicated{' '}
+                  <Link to="/cookies" className="text-indigo-600 hover:underline font-bold">
+                    Cookie Policy
+                  </Link>.
                 </p>
                 <p>
-                  You can choose to disable cookies through your individual browser options. To get more detailed information about cookie management with specific web browsers, it can be found at the browsers' respective websites.
+                  You can manage your advertising and analytics consent preferences directly using our{' '}
+                  <button
+                    type="button"
+                    onClick={openCookieSettingsModal}
+                    className="text-indigo-600 hover:underline font-bold"
+                  >
+                    Cookie Settings
+                  </button>{' '}
+                  control or disable cookies through your individual browser options.
                 </p>
               </section>
 
@@ -165,7 +195,7 @@ export default function PrivacyPage() {
                   5. Google AdSense & Third-Party Cookies
                 </h2>
                 <p className="text-indigo-950/80 font-medium">
-                  We use third-party advertising companies to serve advertisements when you visit our website. These companies may use information (not including your name, address, email address, or telephone number) about your visits to this and other websites in order to provide advertisements about goods and services of interest to you.
+                  We partner with Google AdSense (Publisher ID: <code className="bg-white px-2 py-0.5 rounded text-xs font-bold border border-indigo-100">pub-9044775476156807</code>) to serve advertisements when you visit <strong>lifestats.online</strong>. These companies may use information (not including your name, address, email address, or telephone number) about your visits to this and other websites in order to provide advertisements about goods and services of interest to you.
                 </p>
                 <div className="space-y-4 mt-4 text-sm text-indigo-900">
                   <p>
@@ -173,8 +203,8 @@ export default function PrivacyPage() {
                   </p>
                   <ul className="list-disc pl-6 space-y-2">
                     <li>Google, as a third-party vendor, uses cookies to serve ads on LifeStats.</li>
-                    <li>Google's use of the DoubleClick DART cookie enables it to serve ads to our users based on their visit to LifeStats and other sites on the Internet.</li>
-                    <li>Users may opt-out of the use of the DART cookie by visiting the Google Ad and Content Network privacy policy at <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-indigo-600 underline font-bold">Google Ads Policy</a>.</li>
+                    <li>Google's use of advertising cookies (including the DoubleClick DART cookie) enables it and its partners to serve ads to our users based on their visit to LifeStats and other sites on the Internet.</li>
+                    <li>Users may opt out of personalized advertising by visiting <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-indigo-600 underline font-bold">Google Ads Settings</a> or reviewing <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-indigo-600 underline font-bold">Google Ads Policy</a> and <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" className="text-indigo-600 underline font-bold">How Google Uses Data</a>.</li>
                   </ul>
                   <p className="bg-white/80 p-4 rounded-2xl border border-indigo-100/50 mt-2">
                     <Info className="w-4 h-4 inline mr-2 text-indigo-600" />
@@ -236,14 +266,22 @@ export default function PrivacyPage() {
             <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
                 <h4 className="font-black text-gray-900 text-lg mb-1">Have questions about our policies?</h4>
-                <p className="text-sm text-gray-500 font-medium">Get in touch with our team for clarification on data protection.</p>
+                <p className="text-sm text-gray-500 font-medium">Get in touch with our team for clarification on data protection or privacy rights.</p>
               </div>
-              <a 
-                href="mailto:devzonik@gmail.com"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-black px-6 py-3.5 rounded-full text-sm transition-all shadow-lg shadow-indigo-100 text-center shrink-0 w-full md:w-auto"
-              >
-                Contact Data Protection Officer
-              </a>
+              <div className="flex flex-wrap gap-3 shrink-0 w-full md:w-auto">
+                <Link
+                  to="/contact"
+                  className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-black px-6 py-3.5 rounded-full text-sm transition-all text-center w-full sm:w-auto"
+                >
+                  Contact Page
+                </Link>
+                <a 
+                  href="mailto:devzonik@gmail.com"
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-black px-6 py-3.5 rounded-full text-sm transition-all shadow-lg shadow-indigo-100 text-center w-full sm:w-auto"
+                >
+                  Email Privacy Desk
+                </a>
+              </div>
             </div>
 
           </div>

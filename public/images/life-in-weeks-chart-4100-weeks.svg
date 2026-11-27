@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560" role="img" aria-label="Life in weeks chart showing about 4,100 weeks in a 79-year life">
+  <defs>
+    <!-- Pattern for 52 weeks per row (10px cell step = 520px total width, 5px row height) -->
+    <pattern id="weekGridYouth" width="10" height="5.2" patternUnits="userSpaceOnUse">
+      <rect x="1" y="0.8" width="7.5" height="3.6" rx="1" fill="#38bdf8"/>
+    </pattern>
+    <pattern id="weekGridPrime" width="10" height="5.2" patternUnits="userSpaceOnUse">
+      <rect x="1" y="0.8" width="7.5" height="3.6" rx="1" fill="#4f46e5"/>
+    </pattern>
+    <pattern id="weekGridRetire" width="10" height="5.2" patternUnits="userSpaceOnUse">
+      <rect x="1" y="0.8" width="7.5" height="3.6" rx="1" fill="#10b981"/>
+    </pattern>
+  </defs>
+
+  <!-- Card Background -->
+  <rect width="920" height="560" rx="24" fill="#ffffff"/>
+  <rect x="1" y="1" width="918" height="558" rx="23" fill="none" stroke="#e5e7eb" stroke-width="2"/>
+
+  <!-- Header -->
+  <text x="48" y="48" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="800" fill="#111827">Your Life in Weeks: ~4,100 Weeks Across a 79-Year US Lifespan</text>
+  <text x="48" y="74" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Each tiny square represents 1 week · 52 weeks across per row × 79 rows top to bottom</text>
+
+  <!-- Left Grid Frame (x=90..610 => 52 cols * 10px, y=104..514.8 => 79 rows * 5.2px) -->
+  <!-- Column Axis Labels -->
+  <text x="90" y="96" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700" fill="#9ca3af">Week 1</text>
+  <text x="350" y="96" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700" fill="#9ca3af" text-anchor="middle">Week 26 (Mid-Year)</text>
+  <text x="610" y="96" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700" fill="#9ca3af" text-anchor="end">Week 52</text>
+
+  <!-- Age Labels (Left Side) -->
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700" fill="#6b7280" text-anchor="end">
+    <text x="78" y="112">Age 0</text>
+    <text x="78" y="212">Age 20</text>
+    <text x="78" y="316">Age 40</text>
+    <text x="78" y="446">Age 65</text>
+    <text x="78" y="516">Age 79</text>
+  </g>
+
+  <!-- Phase 1: Years 0-19 (20 rows = 104px, y=104 to 208) -->
+  <rect x="90" y="104" width="520" height="104" fill="url(#weekGridYouth)"/>
+
+  <!-- Phase 2: Years 20-64 (45 rows = 234px, y=208 to 442) -->
+  <rect x="90" y="208" width="520" height="234" fill="url(#weekGridPrime)"/>
+
+  <!-- Phase 3: Years 65-78 (14 rows = 72.8px, y=442 to 514.8) -->
+  <rect x="90" y="442" width="520" height="72.8" fill="url(#weekGridRetire)"/>
+
+  <!-- Right Side Summary Panel -->
+  <rect x="640" y="104" width="232" height="410" rx="18" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="662" y="138" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="15" font-weight="800" fill="#111827">79-Year Life Totals</text>
+
+  <!-- Stat Row 1 -->
+  <text x="662" y="172" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#6b7280">TOTAL WEEKS</text>
+  <text x="662" y="198" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="24" font-weight="900" fill="#4f46e5">~4,100 weeks</text>
+
+  <!-- Stat Row 2 -->
+  <text x="662" y="232" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#6b7280">TOTAL DAYS</text>
+  <text x="662" y="258" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="24" font-weight="900" fill="#111827">~28,900 days</text>
+
+  <!-- Stat Row 3 -->
+  <text x="662" y="292" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#6b7280">TOTAL HOURS</text>
+  <text x="662" y="318" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="24" font-weight="900" fill="#111827">~692,500 hrs</text>
+
+  <!-- Stat Row 4 -->
+  <text x="662" y="352" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#6b7280">TOTAL MINUTES</text>
+  <text x="662" y="378" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="900" fill="#111827">~41.6 million</text>
+
+  <!-- Legend inside Right Panel -->
+  <line x1="662" y1="398" x2="850" y2="398" stroke="#e5e7eb" stroke-width="1.5"/>
+  <rect x="662" y="416" width="12" height="12" rx="3" fill="#38bdf8"/>
+  <text x="682" y="427" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#374151">Ages 0–19 (~1,040 wks)</text>
+
+  <rect x="662" y="444" width="12" height="12" rx="3" fill="#4f46e5"/>
+  <text x="682" y="455" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#374151">Ages 20–64 (~2,340 wks)</text>
+
+  <rect x="662" y="472" width="12" height="12" rx="3" fill="#10b981"/>
+  <text x="682" y="483" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#374151">Ages 65–79 (~728 wks)</text>
+
+  <!-- Footer -->
+  <text x="48" y="542" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="600" fill="#9ca3af">Based on 2024 US life expectancy at birth (79.0 years, CDC/NCHS) · LifeStats.online</text>
+</svg>
