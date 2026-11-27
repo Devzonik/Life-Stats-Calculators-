@@ -2116,8 +2116,314 @@ Want a personalized estimate? [Try our Life Stats life expectancy calculator](/)
 * CDC / NCHS, provisional life expectancy estimates for 2022 (by Hispanic origin, race, and sex)
 * CDC FastStats: Life Expectancy
 `
+  },
+  {
+    title: "Life Stats 2026: Life Expectancy, Lifespan and Key Life Statistics Explained",
+    seoTitle: "Life Stats & Life Statistics 2026: Life Expectancy Data",
+    excerpt: "Explore the latest life stats: US and global life expectancy, leading causes of death, gender and state gaps, plus ways to improve your odds.",
+    metaDescription: "Explore the latest life stats: US and global life expectancy, leading causes of death, gender and state gaps, plus ways to improve your odds.",
+    date: "November 27, 2026",
+    slug: "life-stats-life-statistics",
+    tags: ["Life Stats", "Life Expectancy", "CDC Data", "Global Health"],
+    keywords: [
+      "life stats",
+      "life statistics",
+      "life expectancy",
+      "average lifespan",
+      "life expectancy by country",
+      "life expectancy by gender",
+      "leading causes of death",
+      "healthy life expectancy"
+    ],
+    schemaType: "Article",
+    faqSchema: [
+      {
+        question: "What is the average life expectancy in the US?",
+        answer: "According to final CDC data, it was 79.0 years in 2024: 81.4 years for women and 76.5 years for men."
+      },
+      {
+        question: "What is the average life expectancy in the world?",
+        answer: "The WHO puts global life expectancy at 73.3 years in 2023, with a healthy life expectancy of 62.8 years."
+      },
+      {
+        question: "Which country has the highest life expectancy?",
+        answer: "Tiny states like Monaco often rank first. Among larger places, Hong Kong, Japan, South Korea and Switzerland are consistently near the top, at roughly 84 to 86 years."
+      },
+      {
+        question: "What are the leading causes of death in the US?",
+        answer: "Heart disease, cancer and unintentional injuries (including accidents and overdoses) were the top three in 2024, followed by stroke."
+      },
+      {
+        question: "Do women really live longer than men?",
+        answer: "Yes. In the US, women outlive men by about 4.9 years on average, though the gap has been shrinking."
+      },
+      {
+        question: "Is life expectancy going up or down?",
+        answer: "In the US it has risen since 2022 and hit a record in 2024. Provisional data suggests 2025 may be higher still. Globally it has recovered to about its pre-pandemic level."
+      },
+      {
+        question: "What is the maximum human lifespan?",
+        answer: "The longest verified human life was 122 years. Reaching 100 remains rare."
+      },
+      {
+        question: "What is the difference between life expectancy and healthy life expectancy?",
+        answer: "Life expectancy counts all years lived. Healthy life expectancy counts only the years lived in good health, so it is always shorter."
+      }
+    ],
+    content: `
+How long will the average person live? What are people most likely to die from? And how much do your country, your sex and your habits change the answer? These are the questions behind **life stats**, the numbers that describe how long we live and what shapes our time on Earth.
+
+In this guide to **life statistics**, we break down the latest official data on life expectancy in the United States and around the world, the leading causes of death, the gap between men and women, differences between states, and what the research says you can do to improve your own odds. Every figure comes from a named public source, so you can check it yourself.
+
+**In this guide:** [What are life stats](#what-are-life-stats-life-statistics) · [Life stats at a glance](#life-stats-at-a-glance-latest-data) · [US life expectancy](#life-expectancy-in-the-united-states) · [Leading causes of death](#leading-causes-of-death-in-the-united-states) · [Life stats by state](#life-stats-by-us-state) · [Global life expectancy](#global-life-expectancy-statistics) · [Life expectancy vs. lifespan](#life-expectancy-vs-lifespan-whats-the-difference) · [What affects life stats](#what-affects-your-life-stats) · [How to improve your life stats](#how-to-improve-your-life-stats) · [FAQs](#frequently-asked-questions-about-life-stats)
+
+---
+
+## Key Takeaways: Life Statistics at a Glance
+
+* **US life expectancy** hit a record **79.0 years** in 2024, up from 78.4 in 2023 (CDC).
+* **Women live about 4.9 years longer than men** in the US: 81.4 years versus 76.5 years.
+* **Global life expectancy** was **73.3 years** in 2023, almost back to the pre-pandemic level of 73.4 (WHO).
+* **Heart disease and cancer** together caused roughly **42% of US deaths** in 2024.
+* **Healthy life expectancy** is shorter than total life expectancy: **62.8 years** worldwide in 2023.
+* **Where you live matters.** In the US, the gap between the longest-lived and shortest-lived states has been around nine years.
+
+---
+
+## What Are Life Stats (Life Statistics)?
+
+**Life stats**, also called **life statistics** or **vital statistics**, are measurements that describe the length and quality of human life across a population. The most common ones are:
+
+* **Life expectancy at birth:** the average number of years a newborn would live if today’s death rates stayed the same for their whole life.
+* **Life expectancy at a given age:** the average number of years remaining for someone who has already reached that age, such as 65.
+* **Death rates:** how many people die per 100,000 residents, often adjusted for age so different populations can be compared fairly.
+* **Leading causes of death:** the conditions that kill the most people.
+* **Infant mortality:** deaths in the first year of life per 1,000 live births.
+* **Healthy life expectancy:** the number of years a person can expect to live in good health.
+
+Governments, insurers, researchers and health planners all rely on these numbers. They also help ordinary people put their own health decisions in context. Want to see your personal numbers right now? Try our interactive [life stats and longevity calculator](/).
+
+---
+
+## Life Stats at a Glance (Latest Data)
+
+| Life statistic | Latest figure | Source and year |
+| :--- | :--- | :--- |
+| **US life expectancy at birth** | 79.0 years | CDC, 2024 final data |
+| **US life expectancy, women** | 81.4 years | CDC, 2024 |
+| **US life expectancy, men** | 76.5 years | CDC, 2024 |
+| **Gap between women and men** | 4.9 years | CDC, 2024 |
+| **Remaining years at age 65** | 19.7 years | CDC, 2024 |
+| **Chance a newborn reaches age 80** | 59.0% | CDC life table, 2024 |
+| **US deaths in a year** | about 3.07 million | CDC, 2024 |
+| **US age-adjusted death rate** | 722.1 per 100,000 | CDC, 2024 |
+| **US infant mortality** | about 5.5 per 1,000 live births | CDC, 2024 |
+| **World life expectancy** | 73.3 years | WHO, 2023 |
+| **World healthy life expectancy** | 62.8 years | WHO, 2023 |
+
+---
+
+## Life Expectancy in the United States
+
+The latest final data from the CDC’s National Center for Health Statistics shows that US life expectancy at birth reached **79.0 years** in 2024, the highest ever recorded. That is an increase of 0.6 years from 78.4 in 2023. The CDC links the improvement mainly to fewer deaths from unintentional injuries (including drug overdoses), COVID-19, heart disease, cancer and homicide.
+
+![Life stats chart showing US life expectancy trend from 2019 to 2024 and gender comparison](/images/life-stats-us-expectancy-trend-2026.svg)
+
+The record follows a rough stretch. US life expectancy had been rising for decades, peaked in 2014 just under 79 years, and then dropped by almost a year and a half between 2019 and 2021 during the pandemic. It has been recovering since 2022.
+
+It is worth knowing that Americans still trail many other wealthy countries on this measure, a point researchers frequently raise when comparing health systems. You can explore the full multi-year breakdown in our [US life expectancy CDC report](/blog/us-life-expectancy).
+
+### Life Expectancy by Gender
+
+Women continue to outlive men, but the gap is narrowing.
+
+* **Women:** 81.4 years in 2024 (up 0.3 years)
+* **Men:** 76.5 years in 2024 (up 0.7 years)
+* **Gap:** 4.9 years, down 0.4 years from 2023
+
+Men’s faster improvement in 2024 was helped by sharp drops in overdose deaths and other injury-related deaths, which affect men more than women. For a deeper look at male age, race and state figures, read our report on the [average lifespan of an American male](/blog/average-lifespan-of-american-male).
+
+### Life Expectancy at Age 65
+
+Life expectancy at birth is pulled down by deaths in infancy, childhood and young adulthood. Once you reach older ages, the outlook looks different. In 2024, a 65-year-old in the US could expect to live **19.7 more years** on average, which is **20.8 more years for women** and **18.4 for men**.
+
+### What Are the Chances of Reaching 80?
+
+The CDC’s 2024 life table estimates that **59.0%** of newborns would survive to age 80 if 2024 death rates held steady throughout their lives. In other words, a majority of Americans can expect to reach their 80s, but a large minority will not.
+
+### Early Signs for 2025
+
+Provisional CDC data for 2025 points to another improvement. An estimated **3,094,593 deaths** occurred in 2025, and the age-adjusted death rate fell to **689.2 per 100,000**, which would be the lowest ever recorded. Health officials say this suggests life expectancy probably reached another record, but final 2025 life tables are not out yet. Some analysts also caution that a change in how Census population estimates are used makes the size of the decline uncertain, so treat the 2025 numbers as preliminary.
+
+---
+
+## Leading Causes of Death in the United States
+
+When people search for **life statistics**, they often want to know what is most likely to shorten life. The CDC’s final 2024 data shows the following top causes:
+
+| Rank | Cause of death | Deaths in 2024 |
+| :--- | :--- | :--- |
+| **1** | Heart disease | 683,491 |
+| **2** | Cancer | 619,876 |
+| **3** | Accidents (unintentional injuries) | 197,449 |
+| **4** | Stroke | 166,852 |
+
+![Life stats chart showing the leading causes of death in the United States in 2024](/images/life-stats-leading-causes-of-death-2024.svg)
+
+A few points stand out:
+
+* Heart disease and cancer account for roughly **22%** and **20%** of all deaths respectively. Together they have led the list since 1950.
+* The top 10 causes made up **70.9%** of all US deaths in 2024.
+* COVID-19 fell out of the top 10. Deaths with COVID-19 as the underlying cause dropped from 49,932 in 2023 to 31,426 in 2024, and it fell to the 15th leading cause. Suicide took the 10th spot.
+* Drug overdoses remain a major part of the accidents category, with roughly 80,000 deaths in 2024. Provisional data shows a drop of about 14% in 2025.
+* Death rates fell for every one of the 10 leading causes between 2023 and 2024.
+
+The pattern changes by age. Unintentional injuries are the top killer of people from childhood through their mid-40s, cancer leads in middle age, and heart disease becomes the top cause from the late 50s onward.
+
+Provisional 2025 data shows heart disease deaths rising slightly to about 694,700 and cancer to about 622,800, even as the overall death rate fell. That is largely because the population is aging.
+
+---
+
+## Life Stats by US State
+
+Life expectancy is not the same everywhere in the country. The CDC’s most recent state life tables (for 2022) list these states at the top:
+
+1. **Hawaii:** 80.0 years
+2. **Massachusetts:** 79.8 years
+3. **New Jersey:** 79.6 years
+4. **New York:** 79.5 years
+5. **Connecticut:** 79.4 years
+
+In recent years the lowest life expectancy has been concentrated in Southern states, with Mississippi at the bottom. In 2020, for example, Hawaii’s life expectancy was 80.7 years and Mississippi’s was 71.9 years, a gap of nearly nine years inside one country. Differences in income, education, access to care, smoking rates, obesity and chronic disease all play a role.
+
+---
+
+## Global Life Expectancy Statistics
+
+### How Long Do People Live Worldwide?
+
+The World Health Organization reports that **global life expectancy was 73.3 years in 2023**, nearly back to the 73.4 years recorded in 2019. The pandemic had pushed it down to 71.5 years in 2021.
+
+The long-term trend is one of the great success stories of modern public health. Around 1900, the world average was roughly 32 years. By 2023 it had more than doubled to about 73. Part of that came from fewer child deaths, but people also began living longer at every age. The Global Burden of Disease Study estimates 2023 life expectancy at **76.3 years for women** and **71.5 for men** worldwide.
+
+![Global life stats infographic comparing top countries, US life expectancy, global average, healthy life expectancy, and lowest countries](/images/life-stats-global-countries-comparison-2026.svg)
+
+### Countries With the Highest and Lowest Life Expectancy
+
+Rankings vary slightly depending on the source and year, and tiny states such as Monaco often top the list. Based on UN-derived estimates, the leaders are generally in East Asia and Europe:
+
+* **Hong Kong:** about 85 to 86 years
+* **Japan:** about 85 years
+* **South Korea:** about 84 to 85 years
+* **Switzerland, Singapore, Italy, Spain and Australia:** around 84 years
+
+At the other end, countries such as **Chad and Nigeria** sit around **54 to 55 years**, a gap of more than 30 years compared with the top of the table. The UN estimates that the life expectancy gap between high-income and low-income countries shrank from about 31 years in 1950 to about 16 years in 2025, which shows steady progress even though large inequalities remain.
+
+### Healthy Life Expectancy
+
+Living longer is not the same as living well. WHO estimates **global healthy life expectancy at 62.8 years in 2023**, still 0.4 years below its 2019 level. That means the average person spends roughly a decade of life with some level of illness or disability. Closing the gap between lifespan and “healthspan” is now a major focus of public health.
+
+---
+
+## Life Expectancy vs. Lifespan: What’s the Difference?
+
+These two terms are often confused, and the difference matters when you read **life statistics**:
+
+* **Life expectancy** is a statistical average for a group. It is not a prediction for any one person.
+* **Lifespan** is how long an individual actually lives. The longest verified human lifespan is **122 years**, set by Jeanne Calment of France.
+* **Averages hide big variation.** Deaths in infancy pull life expectancy down. A person who survives childhood and reaches adulthood can usually expect to live well beyond the headline number.
+* **Period figures assume no change.** Most published numbers assume today’s death rates stay constant. If medicine improves, today’s young people may live longer than their stated life expectancy.
+
+If you also want to see how an average 79-year lifespan breaks down into days, weeks and time-use habits, read our companion [life stats and lifetime statistics guide](/blog/life-stats).
+
+---
+
+## What Affects Your Life Stats?
+
+Research consistently points to a mix of factors:
+
+* **Biology and genetics:** family history and inherited conditions
+* **Lifestyle:** smoking, alcohol, diet, physical activity and sleep
+* **Medical care:** access to screening, vaccines, blood pressure and diabetes management
+* **Social and economic conditions:** income, education, housing and neighborhood safety
+* **Environment:** air quality, water safety and workplace hazards
+* **Mental health and social connection:** loneliness and chronic stress are linked to worse health outcomes
+
+---
+
+## How to Improve Your Life Stats
+
+You cannot change your age or genes, but several habits are strongly linked to longer, healthier lives:
+
+1. **Do not smoke, or quit.** It is the most preventable cause of early death.
+2. **Move regularly.** Aim for a mix of cardio and strength work most days of the week.
+3. **Eat mostly whole foods:** vegetables, fruit, legumes, whole grains and healthy fats, with less ultra-processed food.
+4. **Sleep enough.** Consistent, good-quality sleep supports heart and brain health.
+5. **Keep alcohol low.** Less is better for long-term health.
+6. **Get screened.** Blood pressure, cholesterol, blood sugar and age-appropriate cancer screenings catch problems early.
+7. **Stay socially connected** and look after your mental health.
+8. **Stay up to date on vaccinations.**
+
+*This article is for general information only and is not medical advice. Talk with a doctor about your own risks and screening schedule. See our full [Medical &amp; Data Disclaimer](/disclaimer).*
+
+---
+
+## Frequently Asked Questions About Life Stats
+
+### What is the average life expectancy in the US?
+According to final CDC data, it was 79.0 years in 2024: 81.4 years for women and 76.5 years for men.
+
+### What is the average life expectancy in the world?
+The WHO puts global life expectancy at 73.3 years in 2023, with a healthy life expectancy of 62.8 years.
+
+### Which country has the highest life expectancy?
+Tiny states like Monaco often rank first. Among larger places, Hong Kong, Japan, South Korea and Switzerland are consistently near the top, at roughly 84 to 86 years.
+
+### What are the leading causes of death in the US?
+Heart disease, cancer and unintentional injuries (including accidents and overdoses) were the top three in 2024, followed by stroke.
+
+### Do women really live longer than men?
+Yes. In the US, women outlive men by about 4.9 years on average, though the gap has been shrinking.
+
+### Is life expectancy going up or down?
+In the US it has risen since 2022 and hit a record in 2024. Provisional data suggests 2025 may be higher still. Globally it has recovered to about its pre-pandemic level.
+
+### What is the maximum human lifespan?
+The longest verified human life was 122 years. Reaching 100 remains rare.
+
+### What is the difference between life expectancy and healthy life expectancy?
+Life expectancy counts all years lived. Healthy life expectancy counts only the years lived in good health, so it is always shorter.
+
+---
+
+## Conclusion
+
+**Life stats** tell a story of remarkable progress, with global life expectancy more than doubling since 1900 and US life expectancy reaching a record 79 years in 2024. They also show real gaps between men and women, between states and between nations. Use life statistics as context, not as a countdown: they describe populations, and your own health choices can move your personal odds.
+
+Bookmark this page, because we refresh these numbers whenever new official data is released. Ready to explore your personal numbers? Try our interactive [Life Stats Calculator](/).
+
+### Related Reading
+* [Average Lifespan of an American Male (2026 Data, by Age, Race &amp; Year)](/blog/average-lifespan-of-american-male)
+* [US Life Expectancy: Latest CDC Data, Trends by Gender, Race &amp; State](/blog/us-life-expectancy)
+* [Life Stats: Life Expectancy &amp; Lifetime Statistics (2026)](/blog/life-stats)
+* [Biological Age vs. Chronological Age: How to Calculate Longevity](/blog/biological-age-vs-chronological-age-how-to-calculate-longevity)
+
+---
+
+## Sources
+
+* CDC NCHS, *Mortality in the United States, 2024*
+* CDC NCHS, *United States Life Tables, 2024*
+* CDC NCHS, *Mortality in the United States: Provisional Data, 2025*
+* CDC NCHS, *Life Expectancy Increased in Most States in 2022*
+* CDC FastStats, *Leading Causes of Death*
+* World Health Organization, *Global Health Estimates* (October 2026 release)
+* Our World in Data, *Life Expectancy*
+* The Lancet, *GBD 2023 Demographics Collaborators* (2025)
+`
   }
 ];
+
 
 
 

@@ -389,11 +389,11 @@ const Footer = () => (
         <div>
           <h4 className="font-semibold text-gray-900 mb-6">Popular Articles</h4>
           <ul className="space-y-3 text-gray-600 text-sm">
+            <li><Link to="/blog/life-stats-life-statistics" className="hover:text-indigo-600 transition-colors">Life Stats 2026: Key Statistics</Link></li>
             <li><Link to="/blog/average-lifespan-of-american-male" className="hover:text-indigo-600 transition-colors">Average American Male Lifespan</Link></li>
             <li><Link to="/blog/life-stats" className="hover:text-indigo-600 transition-colors">Life Stats &amp; Expectancy (2026)</Link></li>
             <li><Link to="/blog/us-life-expectancy" className="hover:text-indigo-600 transition-colors">US Life Expectancy (CDC Data)</Link></li>
             <li><Link to="/blog/how-many-days-have-i-lived-life-stats-calculator" className="hover:text-indigo-600 transition-colors">Days Lived Calculator</Link></li>
-            <li><Link to="/blog/biological-age-vs-chronological-age-how-to-calculate-longevity" className="hover:text-indigo-600 transition-colors">Biological vs. Chronological Age</Link></li>
           </ul>
         </div>
         <div>
@@ -3640,6 +3640,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<BlogListPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/life-stats-life-statistics" element={<Navigate to="/blog/life-stats-life-statistics" replace />} />
           <Route path="/average-lifespan-of-american-male" element={<Navigate to="/blog/average-lifespan-of-american-male" replace />} />
           <Route path="/life-stats" element={<Navigate to="/blog/life-stats" replace />} />
           <Route path="/us-life-expectancy" element={<Navigate to="/blog/us-life-expectancy" replace />} />

@@ -3314,7 +3314,7 @@ Take control of your personal timeline. Map your milestones, compound your asset
 ];
 
 export const BLOG_POSTS: BlogPost[] = [
-  ...ADDITIONAL_BLOG_POSTS.filter(p => p.slug === 'average-lifespan-of-american-male' || p.slug === 'life-stats' || p.slug === 'us-life-expectancy').reverse(),
+  ...ADDITIONAL_BLOG_POSTS.filter(p => p.slug === 'life-stats-life-statistics' || p.slug === 'average-lifespan-of-american-male' || p.slug === 'life-stats' || p.slug === 'us-life-expectancy').reverse(),
   ...BASE_BLOG_POSTS,
-  ...ADDITIONAL_BLOG_POSTS.filter(p => p.slug !== 'average-lifespan-of-american-male' && p.slug !== 'life-stats' && p.slug !== 'us-life-expectancy')
+  ...ADDITIONAL_BLOG_POSTS.filter(p => p.slug !== 'life-stats-life-statistics' && p.slug !== 'average-lifespan-of-american-male' && p.slug !== 'life-stats' && p.slug !== 'us-life-expectancy')
 ];

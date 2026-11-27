@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="900" height="440" role="img" aria-label="Life stats chart showing the leading causes of death in the United States in 2024">
+  <rect width="900" height="440" rx="24" fill="#ffffff"/>
+  <rect x="1" y="1" width="898" height="438" rx="23" fill="none" stroke="#e5e7eb" stroke-width="2"/>
+
+  <!-- Header -->
+  <text x="48" y="48" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="800" fill="#111827">Leading Causes of Death in the United States (2024)</text>
+  <text x="48" y="74" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="500" fill="#6b7280">Total US deaths: ~3.07 million · Heart disease &amp; cancer accounted for ~42% of all deaths</text>
+
+  <!-- Horizontal Bar Chart (max scale 750,000 -> width 480px, x start = 260) -->
+  <!-- Gridlines -->
+  <g stroke="#f3f4f6" stroke-width="1.5">
+    <line x1="260" y1="115" x2="260" y2="335"/>
+    <line x1="388" y1="115" x2="388" y2="335"/>
+    <line x1="516" y1="115" x2="516" y2="335"/>
+    <line x1="644" y1="115" x2="644" y2="335"/>
+    <line x1="772" y1="115" x2="772" y2="335"/>
+  </g>
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700" fill="#9ca3af" text-anchor="middle">
+    <text x="260" y="356">0</text>
+    <text x="388" y="356">200k</text>
+    <text x="516" y="356">400k</text>
+    <text x="644" y="356">600k</text>
+    <text x="772" y="356">800k</text>
+  </g>
+
+  <!-- 1. Heart disease: 683,491 -> (683491/800000)*512 = 437.4px -->
+  <text x="244" y="147" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#111827" text-anchor="end">1. Heart Disease</text>
+  <rect x="260" y="126" width="437.4" height="32" rx="10" fill="#e11d48"/>
+  <text x="708" y="147" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#be123c">683,491 (~22%)</text>
+
+  <!-- 2. Cancer: 619,876 -> (619876/800000)*512 = 396.7px -->
+  <text x="244" y="202" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#111827" text-anchor="end">2. Cancer</text>
+  <rect x="260" y="181" width="396.7" height="32" rx="10" fill="#4f46e5"/>
+  <text x="668" y="202" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#4338ca">619,876 (~20%)</text>
+
+  <!-- 3. Accidents: 197,449 -> (197449/800000)*512 = 126.4px -->
+  <text x="244" y="257" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#111827" text-anchor="end">3. Accidents (Injuries)</text>
+  <rect x="260" y="236" width="126.4" height="32" rx="10" fill="#f59e0b"/>
+  <text x="398" y="257" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#b45309">197,449</text>
+
+  <!-- 4. Stroke: 166,852 -> (166852/800000)*512 = 106.8px -->
+  <text x="244" y="312" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#111827" text-anchor="end">4. Stroke</text>
+  <rect x="260" y="291" width="106.8" height="32" rx="10" fill="#0ea5e9"/>
+  <text x="378" y="312" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="14" font-weight="800" fill="#0369a1">166,852</text>
+
+  <!-- Callout Box -->
+  <rect x="48" y="372" width="804" height="36" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="64" y="395" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" fill="#334155">Key 2024 shift: Top 10 causes made up 70.9% of US deaths · COVID-19 dropped out of the top 10 to #15 (31,426 deaths).</text>
+
+  <!-- Footer -->
+  <text x="48" y="426" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="600" fill="#9ca3af">Source: CDC / National Center for Health Statistics (NCHS), Final 2024 Mortality Data · LifeStats.online</text>
+</svg>
